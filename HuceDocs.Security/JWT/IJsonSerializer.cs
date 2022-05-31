@@ -1,4 +1,4 @@
-﻿namespace HuceDocsDemo.Security.JWT
+﻿namespace HuceDocs.Security.JWT
 {
     /// <summary>
     /// Provides JSON Serialize and Deserialize.  Allows custom serializers used.

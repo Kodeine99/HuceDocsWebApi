@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HuceDocsDemo.Security.Common
+namespace HuceDocs.Security.Common
 {
     public class RandomNumber
     {

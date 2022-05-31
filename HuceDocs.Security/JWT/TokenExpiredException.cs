@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HuceDocsDemo.Security.JWT
+namespace HuceDocs.Security.JWT
 {
     public class TokenExpiredException : SignatureVerificationException
     {

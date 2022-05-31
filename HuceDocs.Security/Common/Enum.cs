@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HuceDocsDemo.Security.Common
+namespace HuceDocs.Security.Common
 {
     public enum UserTypeEnum
     {

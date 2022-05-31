@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Principal;
 using System.Text;
 
-namespace HuceDocsDemo.Security.SecurityModel
+namespace HuceDocs.Security.SecurityModel
 {
     public class current_user_access
     {

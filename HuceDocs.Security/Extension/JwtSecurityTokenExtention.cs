@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
-namespace HuceDocsDemo.Security.Extension
+namespace HuceDocs.Security.Extension
 {
     public static class JwtSecurityTokenExtention
     {

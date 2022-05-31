@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HuceDocsDemo.Security.JWT
+namespace HuceDocs.Security.JWT
 {
     public class SignatureVerificationException : Exception
     {

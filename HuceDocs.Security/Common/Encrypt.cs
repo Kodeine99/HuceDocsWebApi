@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace HuceDocsDemo.Security.Common
+namespace HuceDocs.Security.Common
 {
     public class Encrypt
     {

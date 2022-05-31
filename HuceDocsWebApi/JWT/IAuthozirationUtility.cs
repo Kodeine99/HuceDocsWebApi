@@ -1,8 +1,8 @@
-﻿using HuceDocsDemo.Security.SecurityModel;
+﻿using HuceDocs.Security.SecurityModel;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace HuceDocsDemo.JWT.Utility
+namespace HuceDocsWebApi.JWT.Utility
 {
     public interface IAuthozirationUtility
     {

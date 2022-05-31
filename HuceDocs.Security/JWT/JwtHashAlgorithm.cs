@@ -1,4 +1,4 @@
-﻿namespace HuceDocsDemo.Security.JWT
+﻿namespace HuceDocs.Security.JWT
 {
     public enum JwtHashAlgorithm
     {

@@ -1,12 +1,12 @@
-﻿using HuceDocsDemo.Security.Common;
-using HuceDocsDemo.Security.Extension;
-using HuceDocsDemo.Security.SecurityModel;
+﻿using HuceDocs.Security.Common;
+using HuceDocs.Security.Extension;
+using HuceDocs.Security.SecurityModel;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace HuceDocsDemo.JWT.Utility
+namespace HuceDocsWebApi.JWT.Utility
 {
     public class AuthozirationUtility : IAuthozirationUtility
     {

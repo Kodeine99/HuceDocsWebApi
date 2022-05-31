@@ -1,10 +1,10 @@
-﻿using HuceDocsDemo.Security.JWT;
+﻿using HuceDocs.Security.JWT;
 using Newtonsoft.Json;
 using System.Text;
 using System;
 using System.Reflection;
 
-namespace HuceDocsDemo.Security.Common
+namespace HuceDocs.Security.Common
 {
     public class RequestData
     {

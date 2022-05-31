@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using HuceDocsDemo.Security.JWT;
+using HuceDocs.Security.JWT;
 
-namespace HuceDocsDemo.Security.Common
+namespace HuceDocs.Security.Common
 {
     public class ApiSecurity
     {
