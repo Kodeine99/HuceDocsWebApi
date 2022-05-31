@@ -1,0 +1,235 @@
+﻿++Solution 'HuceDocsWebApi' ‎(4 of 4 projects)
+i:{00000000-0000-0000-0000-000000000000}:HuceDocsWebApi.sln
+++HuceDocs.Data
+i:{00000000-0000-0000-0000-000000000000}:HuceDocs.Data
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\hucedocs.data.csproj
+++Dependencies
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:>442
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:>441
+i:{4da75e84-5826-4d5e-9311-35d30b295895}:>440
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:>567
+++Analyzers
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:analyzers
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:analyzers
+i:{4da75e84-5826-4d5e-9311-35d30b295895}:analyzers
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:analyzers
+++Frameworks
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:frameworks
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:frameworks
+i:{4da75e84-5826-4d5e-9311-35d30b295895}:frameworks
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:frameworks
+++Packages
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:packages
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:packages
+i:{4da75e84-5826-4d5e-9311-35d30b295895}:packages
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:packages
+++Configurations
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\configurations\
+++DocOutputExtensionConfiguration.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\configurations\docoutputextensionconfiguration.cs
+++DocumentConfiguration.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\configurations\documentconfiguration.cs
+++DocumentTypeConfiguration.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\configurations\documenttypeconfiguration.cs
+++OCR_RequestConfiguration.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\configurations\ocr_requestconfiguration.cs
+++UserConfiguration.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\configurations\userconfiguration.cs
+++UserRoleConfiguration.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\configurations\userroleconfiguration.cs
+++DbContext
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\dbcontext\
+++HuceDocsContext.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\dbcontext\hucedocscontext.cs
+++HuceDocsContextFactory.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\dbcontext\hucedocscontextfactory.cs
+++Migrations
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\migrations\
+++20220530101557_AddToDb1.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\migrations\20220530101557_addtodb1.cs
+++20220530105409_AddToDb2.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\migrations\20220530105409_addtodb2.cs
+++HuceDocsContextModelSnapshot.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\migrations\hucedocscontextmodelsnapshot.cs
+++Models
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\models\
+++DocOutputExtension.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\models\docoutputextension.cs
+++Document.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\models\document.cs
+++DocumentType.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\models\documenttype.cs
+++IEntity.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\models\ientity.cs
+++OCR_Request.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\models\ocr_request.cs
+++User.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\models\user.cs
+++Verify.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\models\verify.cs
+++Repository
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\repository\
+++IRepository.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\repository\irepository.cs
+++UnitOfWork.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\repository\unitofwork.cs
+++appsettings.json
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\appsettings.json
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:e:\workspace\hucedocs\hucedocswebapi\hucedocswebapi\appsettings.json
+++Class1.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\class1.cs
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\class1.cs
+i:{4da75e84-5826-4d5e-9311-35d30b295895}:e:\workspace\hucedocs\hucedocswebapi\classlibrary1\class1.cs
+++Microsoft.CodeAnalysis.CSharp.NetAnalyzers
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{4da75e84-5826-4d5e-9311-35d30b295895}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+++Microsoft.CodeAnalysis.NetAnalyzers
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{4da75e84-5826-4d5e-9311-35d30b295895}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+++Microsoft.EntityFrameworkCore.Analyzers
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:c:\users\tungn\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.5\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:c:\users\tungn\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.5\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+++Microsoft.Extensions.Logging.Generators
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:c:\users\tungn\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+++System.Text.Json.SourceGeneration
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{4da75e84-5826-4d5e-9311-35d30b295895}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+++Microsoft.NETCore.App
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\microsoft.netcore.app
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\microsoft.netcore.app
+i:{4da75e84-5826-4d5e-9311-35d30b295895}:e:\workspace\hucedocs\hucedocswebapi\classlibrary1\microsoft.netcore.app
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:e:\workspace\hucedocs\hucedocswebapi\hucedocswebapi\microsoft.netcore.app
+++Microsoft.AspNetCore.Identity.EntityFrameworkCore (6.0.5)
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:>590
+++Microsoft.EntityFrameworkCore.SqlServer (6.0.5)
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:>589
+++Microsoft.EntityFrameworkCore.Tools (6.0.5)
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:>593
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:>606
+++Microsoft.Extensions.Configuration (6.0.1)
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:>592
+++Microsoft.Extensions.Configuration.Json (6.0.0)
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:>591
+++20220530101557_AddToDb1.Designer.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\migrations\20220530101557_addtodb1.designer.cs
+++20220530105409_AddToDb2.Designer.cs
+i:{ad57d2d3-7330-4a13-9014-2df84520f532}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.data\migrations\20220530105409_addtodb2.designer.cs
+++HuceDocs.Security
+i:{00000000-0000-0000-0000-000000000000}:HuceDocs.Security
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\hucedocs.security.csproj
+++Common
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\common\
+i:{4da75e84-5826-4d5e-9311-35d30b295895}:e:\workspace\hucedocs\hucedocswebapi\classlibrary1\common\
+++ApiSecurity.cs
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\common\apisecurity.cs
+++Constant.cs
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\common\constant.cs
+++Encrypt.cs
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\common\encrypt.cs
+++Enum.cs
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\common\enum.cs
+++RandomNumber.cs
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\common\randomnumber.cs
+++RequestData.cs
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\common\requestdata.cs
+++Extension
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\extension\
+++JwtSecurityTokenExtention.cs
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\extension\jwtsecuritytokenextention.cs
+++PolicyExtension.cs
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\extension\policyextension.cs
+++JWT
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\jwt\
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:e:\workspace\hucedocs\hucedocswebapi\hucedocswebapi\jwt\
+++DefaultJsonSerializer.cs
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\jwt\defaultjsonserializer.cs
+++IJsonSerializer.cs
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\jwt\ijsonserializer.cs
+++JWT.cs
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\jwt\jwt.cs
+++JwtHashAlgorithm.cs
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\jwt\jwthashalgorithm.cs
+++SignatureVerificationException.cs
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\jwt\signatureverificationexception.cs
+++TokenExpiredException.cs
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\jwt\tokenexpiredexception.cs
+++SecurityModel
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\securitymodel\
+++current_user_access.cs
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:e:\workspace\hucedocs\hucedocswebapi\hucedocs.security\securitymodel\current_user_access.cs
+++Newtonsoft.Json (13.0.1)
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:>585
+++System.IdentityModel.Tokens.Jwt (6.18.0)
+i:{f861ea10-6872-424d-954e-358dd862e1c3}:>584
+++HuceDocs.Services
+i:{00000000-0000-0000-0000-000000000000}:HuceDocs.Services
+++Aspose.Imaging (22.5.0)
+i:{4da75e84-5826-4d5e-9311-35d30b295895}:>646
+++Aspose.PDF (22.5.0)
+i:{4da75e84-5826-4d5e-9311-35d30b295895}:>645
+++Microsoft.AspNetCore.Http (2.2.2)
+i:{4da75e84-5826-4d5e-9311-35d30b295895}:>644
+++AutoMapperProfile.cs
+i:{4da75e84-5826-4d5e-9311-35d30b295895}:e:\workspace\hucedocs\hucedocswebapi\classlibrary1\common\automapperprofile.cs
+++DALHelper.cs
+i:{4da75e84-5826-4d5e-9311-35d30b295895}:e:\workspace\hucedocs\hucedocswebapi\classlibrary1\common\dalhelper.cs
+++DocumentHelper.cs
+i:{4da75e84-5826-4d5e-9311-35d30b295895}:e:\workspace\hucedocs\hucedocswebapi\classlibrary1\common\documenthelper.cs
+++XmlHelper.cs
+i:{4da75e84-5826-4d5e-9311-35d30b295895}:e:\workspace\hucedocs\hucedocswebapi\classlibrary1\common\xmlhelper.cs
+++NewFolder
+++HuceDocsWebApi
+i:{00000000-0000-0000-0000-000000000000}:HuceDocsWebApi
+++Connected Services 
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:>568
+++Properties
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:e:\workspace\hucedocs\hucedocswebapi\hucedocswebapi\properties\
+++launchSettings.json
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:e:\workspace\hucedocs\hucedocswebapi\hucedocswebapi\properties\launchsettings.json
+++Controllers
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:e:\workspace\hucedocs\hucedocswebapi\hucedocswebapi\controllers\
+++WeatherForecastController.cs
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:e:\workspace\hucedocs\hucedocswebapi\hucedocswebapi\controllers\weatherforecastcontroller.cs
+++AuthozirationUtility.cs
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:e:\workspace\hucedocs\hucedocswebapi\hucedocswebapi\jwt\authozirationutility.cs
+++IAuthozirationUtility.cs
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:e:\workspace\hucedocs\hucedocswebapi\hucedocswebapi\jwt\iauthozirationutility.cs
+++Program.cs
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:e:\workspace\hucedocs\hucedocswebapi\hucedocswebapi\program.cs
+++WeatherForecast.cs
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:e:\workspace\hucedocs\hucedocswebapi\hucedocswebapi\weatherforecast.cs
+++No service dependencies discovered
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:>569
+++Projects
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:projects
+++appsettings.Development.json
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:e:\workspace\hucedocs\hucedocswebapi\hucedocswebapi\appsettings.development.json
+++Microsoft.AspNetCore.Analyzers
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.analyzers.dll
+++Microsoft.AspNetCore.App.Analyzers
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.0\analyzers\dotnet\cs\microsoft.aspnetcore.app.analyzers.dll
+++Microsoft.AspNetCore.App.CodeFixes
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.0\analyzers\dotnet\cs\microsoft.aspnetcore.app.codefixes.dll
+++Microsoft.AspNetCore.Components.Analyzers
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.components.analyzers.dll
+++Microsoft.AspNetCore.Mvc.Analyzers
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.mvc.analyzers.dll
+++Microsoft.AspNetCore.Razor.Internal.SourceGenerator.Transport
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk.razor\source-generators\microsoft.aspnetcore.razor.internal.sourcegenerator.transport.dll
+++Microsoft.NET.Sdk.Razor.SourceGenerators
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk.razor\source-generators\microsoft.net.sdk.razor.sourcegenerators.dll
+++Microsoft.AspNetCore.App
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:e:\workspace\hucedocs\hucedocswebapi\hucedocswebapi\microsoft.aspnetcore.app
+++Microsoft.EntityFrameworkCore.Design (6.0.5)
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:>604
+++Swashbuckle.AspNetCore (6.2.3)
+i:{a9cea48d-aef5-46ea-8cdc-43081db82109}:>605
+++ViewModelss
+i:{4da75e84-5826-4d5e-9311-35d30b295895}:e:\workspace\hucedocs\hucedocswebapi\classlibrary1\viewmodelss\
