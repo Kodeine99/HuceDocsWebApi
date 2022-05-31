@@ -22,3 +22,6 @@ E:\WorkSpace\HuceDocs\HuceDocsWebApi\ClassLibrary1\obj\Debug\net6.0\HuceDocs.Ser
 E:\WorkSpace\HuceDocs\HuceDocsWebApi\ClassLibrary1\obj\Debug\net6.0\HuceDocs.Services.dll
 E:\WorkSpace\HuceDocs\HuceDocsWebApi\ClassLibrary1\obj\Debug\net6.0\ref\HuceDocs.Services.dll
 E:\WorkSpace\HuceDocs\HuceDocsWebApi\ClassLibrary1\obj\Debug\net6.0\HuceDocs.Services.pdb
+E:\WorkSpace\HuceDocs\HuceDocsWebApi\ClassLibrary1\bin\Debug\net6.0\HuceDocs.Data.dll
+E:\WorkSpace\HuceDocs\HuceDocsWebApi\ClassLibrary1\bin\Debug\net6.0\HuceDocs.Data.pdb
+E:\WorkSpace\HuceDocs\HuceDocsWebApi\ClassLibrary1\obj\Debug\net6.0\HuceDocs.Services.csproj.CopyComplete

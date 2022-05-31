@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BanHang.Data.Repository
+namespace HuceDocs.Data.Repository
 {
     public class UnitOfWork : IDisposable
     {

@@ -144,3 +144,7 @@ E:\WorkSpace\HuceDocs\HuceDocsWebApi\HuceDocsWebApi\obj\Debug\net6.0\HuceDocsWeb
 E:\WorkSpace\HuceDocs\HuceDocsWebApi\HuceDocsWebApi\obj\Debug\net6.0\ref\HuceDocsWebApi.dll
 E:\WorkSpace\HuceDocs\HuceDocsWebApi\HuceDocsWebApi\obj\Debug\net6.0\HuceDocsWebApi.pdb
 E:\WorkSpace\HuceDocs\HuceDocsWebApi\HuceDocsWebApi\obj\Debug\net6.0\HuceDocsWebApi.genruntimeconfig.cache
+E:\WorkSpace\HuceDocs\HuceDocsWebApi\HuceDocsWebApi\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\WorkSpace\HuceDocs\HuceDocsWebApi\HuceDocsWebApi\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+E:\WorkSpace\HuceDocs\HuceDocsWebApi\HuceDocsWebApi\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+E:\WorkSpace\HuceDocs\HuceDocsWebApi\HuceDocsWebApi\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

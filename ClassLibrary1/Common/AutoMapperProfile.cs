@@ -1,37 +1,35 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Text;
-//using AutoMapper;
-//using HuceDocs.Data.Models;
-//using HuceDocs.Services.ViewModels.Document;
-//using HuceDocs.Services.ViewModels.User;
-//using Newtonsoft.Json.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using AutoMapper;
+using HuceDocs.Data.Models;
+using HuceDocs.Services.ViewModels.Document;
+using HuceDocs.Services.ViewModels.User;
+using Newtonsoft.Json.Linq;
 
-//namespace HuceDocs.Services.Common
-//{
-//    public class AutoMapperProfile : Profile
-//    {
-//        public AutoMapperProfile()
-//        {
-//            CreateMap<AppUser, UserViewModel>()
-//                //.ForMember(destination => destination.FullName,
-//                //    options => options.MapFrom(source => source.DisplayName))
-//                ;
-//            CreateMap<UserViewModel, AppUser>();
-//            CreateMap<UserUpdateRequest, UserInfo>();
-//            CreateMap<UserInfo, UserUpdateRequest>();
-//            CreateMap<List<AppUser>, List<UserViewModel>>();
+namespace HuceDocs.Services.Common
+{
+    public class AutoMapperProfile : Profile
+    {
+        public AutoMapperProfile()
+        {
+            CreateMap<User, UserViewModel>()
+                //.ForMember(destination => destination.FullName,
+                //    options => options.MapFrom(source => source.DisplayName))
+                ;
+            CreateMap<UserViewModel, User>();
+            CreateMap<List<User>, List<UserViewModel>>();
 
-//            CreateMap<Document, DocumentViewModel>();
-//            CreateMap<DocumentViewModel, Document>();
-//            //CreateMap<JObject, UserConfigViewModel>()
-//            //    .ForMember(x => x.EmailNotification, y => y.MapFrom(j => j.SelectToken("EmailNotification")))
-//            //    .ForMember(x => x.AppNotification, y => y.MapFrom(j => j.SelectToken("AppNotification")))
-//            //    .ForAllOtherMembers(x => x.Ignore());
-//            //CreateMap<UserConfigViewModel, JObject>()
-//            //    .ForMember(dest => dest["EmailNotification"], cfg => { cfg.MapFrom(src => src.EmailNotification); })
-//            //    .ForMember(dest => dest["AppNotification"], cfg => { cfg.MapFrom(src => src.AppNotification); })
-//            //    .ForAllOtherMembers(x => x.Ignore());
-//        }
-//    }
-//}
+            CreateMap<Document, DocumentViewModel>();
+            CreateMap<DocumentViewModel, Document>();
+            //CreateMap<JObject, UserConfigViewModel>()
+            //    .ForMember(x => x.EmailNotification, y => y.MapFrom(j => j.SelectToken("EmailNotification")))
+            //    .ForMember(x => x.AppNotification, y => y.MapFrom(j => j.SelectToken("AppNotification")))
+            //    .ForAllOtherMembers(x => x.Ignore());
+            //CreateMap<UserConfigViewModel, JObject>()
+            //    .ForMember(dest => dest["EmailNotification"], cfg => { cfg.MapFrom(src => src.EmailNotification); })
+            //    .ForMember(dest => dest["AppNotification"], cfg => { cfg.MapFrom(src => src.AppNotification); })
+            //    .ForAllOtherMembers(x => x.Ignore());
+        }
+    }
+}
