@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HuceDocsWebApi", "HuceDocsWebApi\HuceDocsWebApi.csproj", "{A9CEA48D-AEF5-46EA-8CDC-43081DB82109}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HuceDocs.Data", "HuceDocs.Data\HuceDocs.Data.csproj", "{AD57D2D3-7330-4A13-9014-2DF84520F532}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuceDocs.Security", "HuceDocs.Security\HuceDocs.Security.csproj", "{F861EA10-6872-424D-954E-358DD862E1C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuceDocs.Services", "ClassLibrary1\HuceDocs.Services.csproj", "{4DA75E84-5826-4D5E-9311-35D30B295895}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9CEA48D-AEF5-46EA-8CDC-43081DB82109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9CEA48D-AEF5-46EA-8CDC-43081DB82109}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9CEA48D-AEF5-46EA-8CDC-43081DB82109}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9CEA48D-AEF5-46EA-8CDC-43081DB82109}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD57D2D3-7330-4A13-9014-2DF84520F532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD57D2D3-7330-4A13-9014-2DF84520F532}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD57D2D3-7330-4A13-9014-2DF84520F532}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD57D2D3-7330-4A13-9014-2DF84520F532}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F861EA10-6872-424D-954E-358DD862E1C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F861EA10-6872-424D-954E-358DD862E1C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F861EA10-6872-424D-954E-358DD862E1C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F861EA10-6872-424D-954E-358DD862E1C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DA75E84-5826-4D5E-9311-35D30B295895}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DA75E84-5826-4D5E-9311-35D30B295895}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DA75E84-5826-4D5E-9311-35D30B295895}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DA75E84-5826-4D5E-9311-35D30B295895}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2052719A-1C62-42D4-8D7F-DAA0843AE1BC}
+	EndGlobalSection
+EndGlobal

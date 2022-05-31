@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "a9cea48d-aef5-46ea-8cdc-43081db82109": {
+      "ProjectGuid": "a9cea48d-aef5-46ea-8cdc-43081db82109",
+      "DisplayName": "HuceDocsWebApi",
+      "ColorIndex": 0
+    },
+    "ad57d2d3-7330-4a13-9014-2df84520f532": {
+      "ProjectGuid": "ad57d2d3-7330-4a13-9014-2df84520f532",
+      "DisplayName": "HuceDocs.Data",
+      "ColorIndex": 1
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 2
+}
