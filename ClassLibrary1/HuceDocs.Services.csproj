@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HuceDocs.Data\HuceDocs.Data.csproj" />
+    <ProjectReference Include="..\HuceDocs.Notification\HuceDocs.Notification.csproj" />
   </ItemGroup>
 
 </Project>

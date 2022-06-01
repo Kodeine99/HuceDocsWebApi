@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using AutoMapper;
 using HuceDocs.Data.Models;
+using HuceDocs.Services.ViewModel;
 using HuceDocs.Services.ViewModels.Document;
 using HuceDocs.Services.ViewModels.User;
 using Newtonsoft.Json.Linq;
