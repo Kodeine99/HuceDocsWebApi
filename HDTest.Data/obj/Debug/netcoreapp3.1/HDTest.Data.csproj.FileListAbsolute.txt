@@ -1,0 +1,13 @@
+E:\WorkSpace\HDTest\HDTest\HDTest.Data\obj\Debug\netcoreapp3.1\HDTest.Data.csproj.AssemblyReference.cache
+E:\WorkSpace\HDTest\HDTest\HDTest.Data\obj\Debug\netcoreapp3.1\HDTest.Data.GeneratedMSBuildEditorConfig.editorconfig
+E:\WorkSpace\HDTest\HDTest\HDTest.Data\obj\Debug\netcoreapp3.1\HDTest.Data.AssemblyInfoInputs.cache
+E:\WorkSpace\HDTest\HDTest\HDTest.Data\obj\Debug\netcoreapp3.1\HDTest.Data.AssemblyInfo.cs
+E:\WorkSpace\HDTest\HDTest\HDTest.Data\obj\Debug\netcoreapp3.1\HDTest.Data.csproj.CoreCompileInputs.cache
+E:\WorkSpace\HDTest\HDTest\HDTest.Data\bin\Debug\netcoreapp3.1\HDTest.Data.deps.json
+E:\WorkSpace\HDTest\HDTest\HDTest.Data\bin\Debug\netcoreapp3.1\HDTest.Data.runtimeconfig.json
+E:\WorkSpace\HDTest\HDTest\HDTest.Data\bin\Debug\netcoreapp3.1\HDTest.Data.runtimeconfig.dev.json
+E:\WorkSpace\HDTest\HDTest\HDTest.Data\bin\Debug\netcoreapp3.1\HDTest.Data.dll
+E:\WorkSpace\HDTest\HDTest\HDTest.Data\bin\Debug\netcoreapp3.1\HDTest.Data.pdb
+E:\WorkSpace\HDTest\HDTest\HDTest.Data\obj\Debug\netcoreapp3.1\HDTest.Data.dll
+E:\WorkSpace\HDTest\HDTest\HDTest.Data\obj\Debug\netcoreapp3.1\HDTest.Data.pdb
+E:\WorkSpace\HDTest\HDTest\HDTest.Data\obj\Debug\netcoreapp3.1\HDTest.Data.genruntimeconfig.cache

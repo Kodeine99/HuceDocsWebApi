@@ -1,0 +1,10 @@
+E:\WorkSpace\HDTest\HDTest\HDTest.Security\bin\Debug\netcoreapp3.1\HDTest.Security.deps.json
+E:\WorkSpace\HDTest\HDTest\HDTest.Security\bin\Debug\netcoreapp3.1\HDTest.Security.dll
+E:\WorkSpace\HDTest\HDTest\HDTest.Security\bin\Debug\netcoreapp3.1\HDTest.Security.pdb
+E:\WorkSpace\HDTest\HDTest\HDTest.Security\obj\Debug\netcoreapp3.1\HDTest.Security.csproj.AssemblyReference.cache
+E:\WorkSpace\HDTest\HDTest\HDTest.Security\obj\Debug\netcoreapp3.1\HDTest.Security.GeneratedMSBuildEditorConfig.editorconfig
+E:\WorkSpace\HDTest\HDTest\HDTest.Security\obj\Debug\netcoreapp3.1\HDTest.Security.AssemblyInfoInputs.cache
+E:\WorkSpace\HDTest\HDTest\HDTest.Security\obj\Debug\netcoreapp3.1\HDTest.Security.AssemblyInfo.cs
+E:\WorkSpace\HDTest\HDTest\HDTest.Security\obj\Debug\netcoreapp3.1\HDTest.Security.csproj.CoreCompileInputs.cache
+E:\WorkSpace\HDTest\HDTest\HDTest.Security\obj\Debug\netcoreapp3.1\HDTest.Security.dll
+E:\WorkSpace\HDTest\HDTest\HDTest.Security\obj\Debug\netcoreapp3.1\HDTest.Security.pdb

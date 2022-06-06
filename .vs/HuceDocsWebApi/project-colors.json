@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "71e9aae6-2d8a-4836-8053-1e80c3560ebc": {
+      "ProjectGuid": "71e9aae6-2d8a-4836-8053-1e80c3560ebc",
+      "DisplayName": "HuceDocsWebApi",
+      "ColorIndex": 0
+    },
+    "e925703f-5180-40da-ba3d-00cb80d2e678": {
+      "ProjectGuid": "e925703f-5180-40da-ba3d-00cb80d2e678",
+      "DisplayName": "HuceDocs.Data",
+      "ColorIndex": 1
+    },
+    "95194089-f267-4feb-b38e-5be8f52a86df": {
+      "ProjectGuid": "95194089-f267-4feb-b38e-5be8f52a86df",
+      "DisplayName": "HuceDocs.Notification",
+      "ColorIndex": 2
+    },
+    "531c76db-7058-48f8-a459-ea20cf18eb35": {
+      "ProjectGuid": "531c76db-7058-48f8-a459-ea20cf18eb35",
+      "DisplayName": "HuceDocs.Security",
+      "ColorIndex": 3
+    },
+    "4c26fbd3-4e5a-4f0c-8cfb-a016d4f71355": {
+      "ProjectGuid": "4c26fbd3-4e5a-4f0c-8cfb-a016d4f71355",
+      "DisplayName": "HuceDocs.Services",
+      "ColorIndex": 4
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 5
+}

@@ -1,0 +1,15 @@
+E:\WorkSpace\HDTest\HDTest\HDTest.Services\obj\Debug\netcoreapp3.1\HDTest.Services.csproj.AssemblyReference.cache
+E:\WorkSpace\HDTest\HDTest\HDTest.Services\obj\Debug\netcoreapp3.1\HDTest.Services.GeneratedMSBuildEditorConfig.editorconfig
+E:\WorkSpace\HDTest\HDTest\HDTest.Services\obj\Debug\netcoreapp3.1\HDTest.Services.AssemblyInfoInputs.cache
+E:\WorkSpace\HDTest\HDTest\HDTest.Services\obj\Debug\netcoreapp3.1\HDTest.Services.AssemblyInfo.cs
+E:\WorkSpace\HDTest\HDTest\HDTest.Services\obj\Debug\netcoreapp3.1\HDTest.Services.csproj.CoreCompileInputs.cache
+E:\WorkSpace\HDTest\HDTest\HDTest.Services\bin\Debug\netcoreapp3.1\HDTest.Services.deps.json
+E:\WorkSpace\HDTest\HDTest\HDTest.Services\bin\Debug\netcoreapp3.1\HDTest.Services.dll
+E:\WorkSpace\HDTest\HDTest\HDTest.Services\bin\Debug\netcoreapp3.1\HDTest.Services.pdb
+E:\WorkSpace\HDTest\HDTest\HDTest.Services\bin\Debug\netcoreapp3.1\HDTest.Data.dll
+E:\WorkSpace\HDTest\HDTest\HDTest.Services\bin\Debug\netcoreapp3.1\HDTest.Notification.dll
+E:\WorkSpace\HDTest\HDTest\HDTest.Services\bin\Debug\netcoreapp3.1\HDTest.Data.pdb
+E:\WorkSpace\HDTest\HDTest\HDTest.Services\bin\Debug\netcoreapp3.1\HDTest.Notification.pdb
+E:\WorkSpace\HDTest\HDTest\HDTest.Services\obj\Debug\netcoreapp3.1\HDTest.Services.csproj.CopyComplete
+E:\WorkSpace\HDTest\HDTest\HDTest.Services\obj\Debug\netcoreapp3.1\HDTest.Services.dll
+E:\WorkSpace\HDTest\HDTest\HDTest.Services\obj\Debug\netcoreapp3.1\HDTest.Services.pdb

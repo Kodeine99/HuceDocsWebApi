@@ -1,0 +1,10 @@
+E:\WorkSpace\HDTest\HDTest\HDTest.Notification\bin\Debug\netcoreapp3.1\HDTest.Notification.deps.json
+E:\WorkSpace\HDTest\HDTest\HDTest.Notification\bin\Debug\netcoreapp3.1\HDTest.Notification.dll
+E:\WorkSpace\HDTest\HDTest\HDTest.Notification\bin\Debug\netcoreapp3.1\HDTest.Notification.pdb
+E:\WorkSpace\HDTest\HDTest\HDTest.Notification\obj\Debug\netcoreapp3.1\HDTest.Notification.csproj.AssemblyReference.cache
+E:\WorkSpace\HDTest\HDTest\HDTest.Notification\obj\Debug\netcoreapp3.1\HDTest.Notification.GeneratedMSBuildEditorConfig.editorconfig
+E:\WorkSpace\HDTest\HDTest\HDTest.Notification\obj\Debug\netcoreapp3.1\HDTest.Notification.AssemblyInfoInputs.cache
+E:\WorkSpace\HDTest\HDTest\HDTest.Notification\obj\Debug\netcoreapp3.1\HDTest.Notification.AssemblyInfo.cs
+E:\WorkSpace\HDTest\HDTest\HDTest.Notification\obj\Debug\netcoreapp3.1\HDTest.Notification.csproj.CoreCompileInputs.cache
+E:\WorkSpace\HDTest\HDTest\HDTest.Notification\obj\Debug\netcoreapp3.1\HDTest.Notification.dll
+E:\WorkSpace\HDTest\HDTest\HDTest.Notification\obj\Debug\netcoreapp3.1\HDTest.Notification.pdb
