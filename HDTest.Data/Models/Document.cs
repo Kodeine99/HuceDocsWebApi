@@ -27,7 +27,6 @@ namespace HuceDocs.Data.Models
         public string Description { get; set; } = String.Empty;
         public int TotalOfPages { get; set; }
         public int TotalOfFields { get; set; }
-        public double Amount { get; set; }
 
         public virtual User User { get; set; }
         public virtual DocumentType DocumentType { get; set; }

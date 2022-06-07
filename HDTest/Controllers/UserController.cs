@@ -162,8 +162,8 @@ namespace HuceDocsWebApi.Controllers
         //[CustomAuthorization(Policy = "admin")]
         public async Task<IActionResult> GetUserById(int id)
         {
-            //var userid = _utility.GetUserIdAsync(HttpContext);
-            //if (await userid <= 0) return Unauthorized();
+            var userid = _utility.GetUserIdAsync(HttpContext);
+            if (await userid <= 0) return Unauthorized();
 
             var user =  _userService.GetUserById(id);
             return Ok(user);

@@ -22,8 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Document\" />
-    <Folder Include="ViewModels\Document\" />
+    <None Update="ServiceReferences\fc12\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+    </None>
   </ItemGroup>
 
 </Project>

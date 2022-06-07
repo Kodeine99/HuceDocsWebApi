@@ -31,7 +31,6 @@ namespace HuceDocs.Data.Configurations
             builder.Property(x => x.Description).HasMaxLength(2000);
             builder.Property(x => x.TotalOfPages).HasDefaultValue(0);
             builder.Property(x => x.TotalOfFields).HasDefaultValue(0);
-            builder.Property(x => x.Amount).IsRequired();
 
             //builder.HasOne(x => x.User).WithMany(y => y.Services).HasForeignKey(f => f.UserId);
             builder.HasOne(x => x.DocumentType).WithMany(y => y.Services).HasForeignKey(f => f.DocumentTypeId);

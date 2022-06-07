@@ -9,7 +9,7 @@ namespace HuceDocs.Data.Models
         public int DocumentId { get; set; }
         public int OutputExtensionId { get; set; }
 
-        public Document? Document { get; set; }
+        public Document Document { get; set; }
         //public OutputExtension OutputExtension { get; set; }
     }
 }
