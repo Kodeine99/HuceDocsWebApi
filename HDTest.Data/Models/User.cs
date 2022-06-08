@@ -22,6 +22,9 @@ namespace HuceDocs.Data.Models
         //public ICollection<Cart> Carts { get; set; }
         //public virtual ICollection<Order> Orders { get; set; }
 
+        public ICollection<Notification> Notifications { get; set; }
+
+
     }
 
     public class Role : IdentityRole<int>, IEntity

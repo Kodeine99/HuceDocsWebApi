@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HuceDocs.Services.ViewModels.Category;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -43,6 +44,8 @@ namespace HuceDocs.Services.ViewModels.Document
         public string Description { get; set; }
         public int TotalOfPages { get; set; }
         public int TotalOfFields { get; set; }
+        public CategoryVM DocumentType { get; set; }
+
     }
 
     public class EmployeeDocumentModel : DocumentVM

@@ -1,7 +1,9 @@
 ﻿using HuceDocs.Services.ViewModels.OcrRequest;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
@@ -21,23 +23,44 @@ namespace HuceDocs.Services
         //private static string username = Helper.RSADecryption(System.Configuration.ConfigurationManager.AppSettings["FCUsername"]);
         //private static string password = Helper.RSADecryption(System.Configuration.ConfigurationManager.AppSettings["FCPassword"]);
 
-        private static string username = System.Configuration.ConfigurationManager.AppSettings["FCUsername"];
-        private static string password = System.Configuration.ConfigurationManager.AppSettings["FCPassword"];
+        private static string username = "ABCServer/administrator";
+        private static string password = "Abc123456a@";
 
         private static string projectName = System.Configuration.ConfigurationManager.AppSettings["FCprojectName"];
         private static string groupUser = System.Configuration.ConfigurationManager.AppSettings["FCgroupUser"];
         private static string batchTypesName = "HuceDocs"; // ddefault batch
 
+        private static string fileStorage = "E:\\WorkSpace\\HuceDocsOCR";
+
+        public bool state = false;
+
+
+        public FCHelper(ILogger<DocumentService> logger, HuceDocs.Data.Models.Document document)
+        {
+            
+            string source = fileStorage + "\\" + document.FilePath;
+            try
+            {
+                batchTypesName = document.DocumentType.FCCode;
+                byte[] myBinary = System.IO.File.ReadAllBytes(source);
+                UpdateToServer(myBinary);
+            }
+            catch (FileNotFoundException FileEx) 
+            {
+                logger.LogError("ExtrServiceError IdDoc=" + document.Id + ":" + FileEx.Message);Console.WriteLine(FileEx.Message);
+                throw;
+            }
+        }
+
 
         /// <summary>
         /// Create job on OCR request information
         /// </summary>
-        /// <param name="requestECM"></param>
+        /// <param name="file"></param>
         /// <param name="type"></param>
-        /// <param name="env"></param>
         /// <param name="batchName"></param>
         /// <returns></returns>
-        public static bool UpdateToServer(RequestToFcModel requestECM, string type = null, string env = null, string batchName = null)
+        public static bool UpdateToServer(byte[] file, string type = null, string batchName = null)
         {
             //Logger.LogMessage("Start upload file to OCR");
             batchTypesName = GetBatchTypeName(type);
@@ -89,28 +112,13 @@ namespace HuceDocs.Services
                         batch.BatchTypeId = batchTypeId;
 
                         // register custom properties, use  for export to HuecDocs
-                        batch.Properties = new Batch.PropertiesType();
-                        batch.Properties.Add(new RegistrationProperty { Name = "TiecketId", Value = requestECM.TicketID });
+                        //batch.Properties = new Batch.PropertiesType();
 
-                        batch.Properties.Add(new RegistrationProperty { Name = "Type", Value = type });
-                        batch.Properties.Add(new RegistrationProperty { Name = "SectionId", Value = sessionId.ToString() });
+                        //batch.Properties.Add(new RegistrationProperty { Name = "Type", Value = type });
+                        //batch.Properties.Add(new RegistrationProperty { Name = "SectionId", Value = sessionId.ToString() });
 
 
-                        // split userToken from Hucedoc.
-                        if (!string.IsNullOrWhiteSpace(requestECM.User))
-                        {
-                            var leng = requestECM.User.Length;
-                            var time = leng / 250 + 1;
-                            var arr = new string[time];
-                            for (int i = 1; i < time; i++)
-                            {
-                                batch.Properties.Add(new RegistrationProperty { Name = "User_Part" + i, Value = requestECM.User.Substring((i - 1) * 250, 250) });
-                            }
-                            if (leng % 250 > 0)
-                            {
-                                batch.Properties.Add(new RegistrationProperty { Name = "User_Part" + time.ToString(), Value = requestECM.User.Substring((time - 1) * 250) });
-                            }
-                        }
+                    
 
                         // idUserOwner. -1 if allow all user to access
                         var idUser = -1; // service.FindUser(groupUser);
@@ -124,14 +132,11 @@ namespace HuceDocs.Services
                         // add img (files) to batch
                         if (service.OpenBatch(sessionId, batchId))
                         {
-                            foreach (var ecm in requestECM.EcmID_List)
+                            service.AddNewImage(sessionId, batchId, new File()
                             {
-                                service.AddNewImage(sessionId, batchId, new File()
-                                {
-                                    Bytes = ecm.File,
-                                    Name = ecm.ECM_ID
-                                });
-                            }
+                                Bytes = file,
+                                Name = batch.Name
+                            });
                             service.CloseBatch(sessionId, batchId);
                             //execute batch
                             service.ProcessBatch(sessionId, batchId);
@@ -483,6 +488,18 @@ namespace HuceDocs.Services
 
             }
             #endregion
+        }
+
+        public File LoadFile(string fileName)
+        {
+            var file = new File();
+            using (var stream = System.IO.File.Open(fileName, System.IO.FileMode.Open))
+            {
+                file.Name = fileName;
+
+                file.Bytes = new byte[stream.Length];
+            }
+            return file;
         }
         public class Stage
         {
