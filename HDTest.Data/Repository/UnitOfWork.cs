@@ -18,6 +18,7 @@ namespace HuceDocs.Data.Repository
         private IRepository<OCR_Request> ocr_requestRepository;
         private IRepository<Verify> verifyRepository;
         private IRepository<Notification> notificationRepository;
+        private IRepository<OutputResults> outputResultsRepository;
 
         public HuceDocsContext DbContext => dbContext;
         public IRepository<Notification> NotificationRepository => notificationRepository ?? (notificationRepository = new Repository<Notification>(DbContext));
@@ -27,7 +28,8 @@ namespace HuceDocs.Data.Repository
         public IRepository<DocumentType> DocumentTypeRepository => documentTypeRepository ?? (documentTypeRepository = new Repository<DocumentType>(DbContext));
         public IRepository<OCR_Request> OCR_RequestRepository => ocr_requestRepository ?? (ocr_requestRepository = new Repository<OCR_Request>(DbContext));
         public IRepository<Verify> VerifyRepository => verifyRepository ?? (verifyRepository = new Repository<Verify>(DbContext));
-        
+        public IRepository<OutputResults> OutputResultsRepository => outputResultsRepository ?? (outputResultsRepository = new Repository<OutputResults>(DbContext));
+
 
         public UnitOfWork()
         {

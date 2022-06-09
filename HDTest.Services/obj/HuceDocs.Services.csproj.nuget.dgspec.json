@@ -221,6 +221,22 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Aspose.Imaging": {
+              "target": "Package",
+              "version": "[22.6.0, )"
+            },
+            "Aspose.PDF": {
+              "target": "Package",
+              "version": "[22.5.0, )"
+            },
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[11.0.1, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.0.0, )"
+            },
             "FluentFTP": {
               "target": "Package",
               "version": "[37.0.2, )"
@@ -228,6 +244,14 @@
             "FluentValidation.AspNetCore": {
               "target": "Package",
               "version": "[11.0.2, )"
+            },
+            "Flurl": {
+              "target": "Package",
+              "version": "[3.0.6, )"
+            },
+            "Hangfire.Core": {
+              "target": "Package",
+              "version": "[1.7.29, )"
             },
             "Microsoft.AspNetCore.Http": {
               "target": "Package",

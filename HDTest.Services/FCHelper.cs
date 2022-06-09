@@ -132,7 +132,7 @@ namespace HuceDocs.Services
                         // add img (files) to batch
                         if (service.OpenBatch(sessionId, batchId))
                         {
-                            service.AddNewImage(sessionId, batchId, new File()
+                            service.AddNewImage(sessionId, batchId, new WindowsFormsApplication1.fc12.File()
                             {
                                 Bytes = file,
                                 Name = batch.Name
@@ -490,9 +490,9 @@ namespace HuceDocs.Services
             #endregion
         }
 
-        public File LoadFile(string fileName)
+        public WindowsFormsApplication1.fc12.File LoadFile(string fileName)
         {
-            var file = new File();
+            var file = new WindowsFormsApplication1.fc12.File();
             using (var stream = System.IO.File.Open(fileName, System.IO.FileMode.Open))
             {
                 file.Name = fileName;

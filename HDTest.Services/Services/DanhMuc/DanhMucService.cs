@@ -77,6 +77,5 @@ namespace HuceDocs.Services.Services.DanhMuc
             return new ApiSuccess<int>() { Result = id};
         }
 
-
     }
 }

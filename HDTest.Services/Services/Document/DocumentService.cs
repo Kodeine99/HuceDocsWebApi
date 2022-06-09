@@ -1,10 +1,13 @@
-﻿using HuceDocs.Data.Models;
+﻿using Hangfire;
+using HuceDocs.Data.Models;
 using HuceDocs.Data.Repository;
 using HuceDocs.Notification.Client;
+using HuceDocs.Services.Common;
 using HuceDocs.Services.EnumDefine;
 using HuceDocs.Services.ModelFilter;
 using HuceDocs.Services.Service_References;
 using HuceDocs.Services.Services;
+using HuceDocs.Services.Services.DanhMuc;
 using HuceDocs.Services.ViewModel;
 using HuceDocs.Services.ViewModels.Category;
 using HuceDocs.Services.ViewModels.Common;
@@ -13,11 +16,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Z.EntityFramework.Plus;
 
 namespace HuceDocs.Services
@@ -30,7 +37,8 @@ namespace HuceDocs.Services
         private readonly IDanhMucService _danhMucService;
         private readonly IConfiguration _config;
         private readonly INotifyService _notifyService;
-        
+        private readonly IFileManagerService _fileManagerService;
+
 
         private readonly ExtrConfigModel _extrConfigModel;
         private readonly FCHelper _fchelper;
@@ -116,6 +124,39 @@ namespace HuceDocs.Services
             return new ApiSuccess<List<Document>> { Result = data };
         }
 
+        public async Task<ApiResult<DocumentResultModel>> CreateExtraction(ExtractionRequest request)
+        {
+            if (request.File == null)
+            {
+                return new ApiError<DocumentResultModel>("Không nhận được file");
+            }
+
+            
+            var document = await ExtractionMappingAsync(request);
+
+            document.Status = (int)eDocumentStatus.Prepare;
+            document.CreateDate = DateTime.Now;
+            document.IsDelete = false;
+            try
+            {
+                var id = work.DocumentRepository.Create(document);
+                //Estimate(id, request.UserId);
+                var jobId = BackgroundJob.Enqueue(() => EstimateAsync(id, request.UserId));
+                _logger.LogInformation("BackgroundJob_Estimate_IdDoc = " + id + ":id background job = " + jobId);
+                return new ApiError<DocumentResultModel>
+                {
+                    Result = new DocumentResultModel { Id = id, IsSuccessed = true, FileName = document.FileName }
+                };
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("CreateDocument FAIL:" + document.FileName + e.Message);
+                return new ApiError<DocumentResultModel>
+                {
+                    Result = new DocumentResultModel { Id = 0, IsSuccessed = false, FileName = document.FileName }
+                };
+            }
+        }
 
         // Rework
         public async Task<ApiResult<bool>> ReworkAsync(int id, int userId)
@@ -125,7 +166,7 @@ namespace HuceDocs.Services
                 var document = GetById(id, userId).Result;
                 if (
                     document.Status != (int)eDocumentStatus.ErrorRead &&
-                    document.Status != (int)eDocumentStatus.Failure 
+                    document.Status != (int)eDocumentStatus.Failure )
                 {
                     _logger.LogInformation("ReworkError_IdDoc=" + document.Id + ":Tài liệu đang ở trạng thái " + eGet.Status(document.Status));
                     return new ApiError<bool>("Tài liệu đang ở trạng thái " + eGet.Status(document.Status));
@@ -146,6 +187,65 @@ namespace HuceDocs.Services
             {
                 _logger.LogError("Rework:" + e.Message);
                 return new ApiError<bool>();
+            }
+        }
+
+        public ApiResult<FileVM> GetResultAsJson(string source, Document document)
+        {
+            if (document.Type != (int)eDocumentType.Extraction)
+                return new ApiErrorResult<FileViewModel>("Không thể lấy kết quả dạng Json Object");
+            if (document.Status != (int)eDocumentStatus.Complete)
+                return new ApiErrorResult<FileViewModel>("Tài liệu đang ở trạng thái " + eGet.Status(document.Status));
+            if (document.DocumentType.TypeOfResult == (int)eTypeOfResult.OnlyXlsx)
+                return new ApiErrorResult<FileViewModel>("Không thể lấy kết quả dạng Json Object");
+
+            var filePath = "";
+            var outputs = GetOutputs(document.Id, document.UserId).ResultObj;
+            if (outputs.Count > 0)
+            {
+                string jsonResult = null;
+                string extension = ".json";
+                var output = outputs?.FirstOrDefault(o => o.FileExtension.Contains("json", StringComparison.CurrentCulture));
+                // output có file json
+                if (output != null)
+                {
+                    filePath = source + output.FilePath;
+                    jsonResult = System.IO.File.ReadAllText(filePath).Replace("\\u2028", "\\n");
+                    return new ApiSuccessResult<FileViewModel>(new FileViewModel()
+                    {
+                        FileName = document.FileName,
+                        FileData = jsonResult,
+                        FileExtension = extension,
+                        isExtrResult = true
+                    });
+                }
+                // không có file json
+                else
+                {
+                    filePath = source + outputs.FirstOrDefault().FilePath;
+                    if (Path.GetExtension(filePath).Contains("xml", StringComparison.OrdinalIgnoreCase))
+                    {
+                        XmlDocument doc = new XmlDocument();
+                        doc.Load(filePath);
+                        extension = ".xml";
+                        jsonResult = JsonConvert.SerializeObject(doc).Replace("\\u2028", "\\n");
+                        return new ApiSuccessResult<FileViewModel>(new FileViewModel()
+                        {
+                            FileName = document.FileName,
+                            FileData = jsonResult,
+                            FileExtension = extension,
+                            isExtrResult = true
+                        });
+                    }
+                    else
+                    {
+                        return new ApiErrorResult<FileViewModel>("Định dạng không hỗ trợ hiển thị");
+                    }
+                }
+            }
+            else
+            {
+                return new ApiErrorResult<FileViewModel>("Không tìm thấy file kết quả");
             }
         }
 
@@ -253,6 +353,49 @@ namespace HuceDocs.Services
 
             }
         }
+        private async Task<List<Document>> MappingAsync(DocumentRequestVM request)
+        {
+            var results = new List<Document>();
+            foreach (var type in request.Types)
+            {
+                var document = new HuceDocs.Data.Models.Document();
+
+                document.UserId = request.UserId;
+                document.DocumentTypeId = request.DocumentTypeId;
+                document.FilePath = _fileManagerService.CreateRelativeFilePath(request.UserId, type, (int)eFolder.input, Path.GetExtension(request.File.FileName));
+                await _fileManagerService.CreateFile(document.FilePath, request.File);
+                document.FileName = Path.GetFileNameWithoutExtension(request.File.FileName);
+                document.FileLength = request.File.Length;
+                document.FileExtension = Path.GetExtension(request.File.FileName);
+                results.Add(document);
+            }
+
+            return results;
+        }
+
+        private async Task<Document> ExtractionMappingAsync(ExtractionRequest request)
+        {
+            if (work.UserRepository.NoTrackingEntities.FirstOrDefault(o => o.Id == request.UserId) == null)
+            {
+                throw new Exception("Không tìm thấy Id User");
+            }
+            var languages = new List<CategoryVM>();
+            
+            var document = new HuceDocs.Data.Models.Document();
+
+            document.UserId = request.UserId;
+            
+            document.DocumentTypeId = request.DocumentTypeId;
+
+            document.FilePath = _fileManagerService.CreateRelativeFilePath(request.UserId, (int)eDocumentType.Extraction, (int)eFolder.input, Path.GetExtension(request.File.FileName));
+            await _fileManagerService.CreateFile(document.FilePath, request.File);
+            document.FileName = Path.GetFileNameWithoutExtension(request.File.FileName);
+            document.FileLength = request.File.Length;
+            document.FileExtension = Path.GetExtension(request.File.FileName);
+
+            return document;
+        }
+
 
         public ApiResult<DocumentVM> GetViewModelById(int id, int userid)
         {
@@ -288,22 +431,22 @@ namespace HuceDocs.Services
                 // Save file
                 try
                 {
-                    var saved = false;
+                    //var saved = false;
                     var saved2 = false;
 
                     string source = _config.GetValue<string>("FileManager:FileStorage") + "\\";
 
                     
-                    else // save file Extr
+                    //else // save file Extr
                     {
-                        
-                            saved = await ExtrSaveExcel(source, document, files);
-                        
-                            saved2 = ExtrSaveFileOutput(source, document, files);
-                        
+
+                        //saved = await ExtrSaveExcel(source, document, files);
+
+                        saved2 = ExtrSaveFileOutput(source, document, files);
+
                     }
 
-                    if (saved)
+                    if (saved2)
                     {
                         work.DocumentRepository.Entities
                         .Where(o => o.Id == id)
@@ -320,36 +463,35 @@ namespace HuceDocs.Services
                     // notify
                     var user = work.UserRepository.NoTrackingEntities.FirstOrDefault(o => o.Id == document.UserId);
                     var noti = _userService.GetUserById(user.Id);
-                    if (noti?.EmailNotification != false)
-                    {
-                        var result = "Tài liệu <strong>" + document.FileName + "</strong> đã " + eGet.TypeOfDocument(document.Type) + " thành công.";
-                        BackgroundJob.Enqueue(() => _emailService.SendEmailCompleted(user.Email, result));
-                    }
-                    if (noti?.AppNotification != false)
-                    {
-                        await _notifyService.CreateAsync(new Data.Models.Notification
-                        {
-                            UserId = document.UserId,
-                            FileName = document.FileName,
-                            DocumentType = document.Type == (int)eDocumentType.Digitization ? "recognize" : document?.DocumentType.Code,
-                            CreateDate = DateTime.Now,
-                            Type = document.Type,
-                            Status = (int)eNotifyStatus.success
-                        });
-                    }
-                    // Cập nhập đã soát lỗi
-                    if (document.CheckType == (int)eDocumentCheckType.manual)
-                    {
-                        work.VerifyRepository.Entities
-                            .Where(o => o.DocumentId == id)
-                            .Update(u => new Verify { Active = false });
-                    }
+                    //if (noti?.EmailNotification != false)
+                    //{
+                    //    var result = "Tài liệu <strong>" + document.FileName + "</strong> đã " + eGet.TypeOfDocument(document.Type) + " thành công.";
+                    //    BackgroundJob.Enqueue(() => _emailService.SendEmailCompleted(user.Email, result));
+                    //}
+                    //if (noti?.AppNotification != false)
+                    //{
+                    //    await _notifyService.CreateAsync(new Data.Models.Notification
+                    //    {
+                    //        UserId = document.UserId,
+                    //        FileName = document.FileName,
+                    //        DocumentType = document?.DocumentType.Code,
+                    //        CreateDate = DateTime.Now,
+                    //        Status = (int)eNotifyStatus.success
+                    //    });
+                    //}
+                    //// Cập nhập đã soát lỗi
+                    //if (document.CheckType == (int)eDocumentCheckType.manual)
+                    //{
+                    //    work.VerifyRepository.Entities
+                    //        .Where(o => o.DocumentId == id)
+                    //        .Update(u => new Verify { Active = false });
+                    //}
                 }
                 catch (Exception e)
                 {
                     _logger.LogError(e, "Completed_IdDoc=" + document.Id + ":Lưu file kết quả không thành công:");
                 }
-                return new ApiErrorResult<bool>();
+                return new ApiError<bool>();
             }
             else
             {
@@ -367,16 +509,134 @@ namespace HuceDocs.Services
                 {
                     UserId = document.UserId,
                     FileName = document.FileName,
-                    DocumentType = document.Type == (int)eDocumentType.Digitization ? "recognize" : document?.DocumentType.Code,
+                    DocumentType =  document?.DocumentType.Code,
                     CreateDate = DateTime.Now,
-                    Type = document.Type,
                     Status = (int)eNotifyStatus.failure
                 });
             }
-            return new ApiSuccessResult<bool>();
+            return new ApiSuccess<bool>();
         }
 
+        private bool ExtrSaveFileOutput(string source, Document document, IFormFileCollection files)
+        {
+            try
+            {
+                //string relativeFilePath = document.UserId + "\\" + document.Type + "\\" + "output";
+                string relativeFilePath = document.UserId + "\\" + "" + "\\" + "output";
+                if (!Directory.Exists(source + relativeFilePath))
+                    Directory.CreateDirectory(source + relativeFilePath);
+                var allJsonContent = new List<string>();
+                int index = 1;
+                foreach (var file in files)
+                {
+                    // read file FC Xml
+                    dynamic xmlContent = new ExpandoObject();
+                    var fileSteam = file.OpenReadStream();
+                    var xmlDocument = XDocument.Load(fileSteam);
+                    XmlHelper.FCXmlToDynamicObj(xmlContent, xmlDocument.Root);
+                    var jsonContent = files.Count > 1 ? ("\"" + index + "\":" + JsonConvert.SerializeObject(xmlContent)) : JsonConvert.SerializeObject(xmlContent);
+                    allJsonContent.Add(jsonContent);
 
+                    index++;
+                }
+
+                var json = allJsonContent.Count > 1 ? ("{" + String.Join(',', allJsonContent) + "}") : allJsonContent.FirstOrDefault();
+                //if (document.OutputExtensions != null && document.OutputExtensions.Count > 0)
+                //{
+                //    foreach (var outputextension in document.OutputExtensions.Select(k => k.OutputExtension?.Extension))
+                //    {
+                //        //if (string.Equals(outputextension, "xml", StringComparison.CurrentCulture))
+                //        //{
+                //        //    var fileName = Guid.NewGuid() + ".xml";
+                //        //    var xmlContentOutput = JsonConvert.DeserializeXNode(json, "Document");
+
+                //        //    XmlWriterSettings settings = new XmlWriterSettings();
+                //        //    settings.OmitXmlDeclaration = true;
+                //        //    using XmlWriter xw = XmlWriter.Create(Path.Combine(source, relativeFilePath + "\\" + fileName), settings);
+                //        //    xmlContentOutput.Save(xw);
+
+                //        //    work.OutputResultsRepository.Create(new OutputResults
+                //        //    {
+                //        //        FileName = document.FileName,
+                //        //        FileExtension = ".xml",
+                //        //        FilePath = relativeFilePath + "\\" + fileName,
+                //        //        DocumentId = document.Id,
+                //        //        CreateDate = DateTime.Now
+                //        //    });
+                //        //}
+                //        //else
+                //        //{
+                //            var fileName = Guid.NewGuid() + ".json";
+
+                //            File.WriteAllText(Path.Combine(source, relativeFilePath + "\\" + fileName), json);
+
+                //            work.OutputResultsRepository.Create(new OutputResults
+                //            {
+                //                FileName = document.FileName,
+                //                FileExtension = ".json",
+                //                FilePath = relativeFilePath + "\\" + fileName,
+                //                DocumentId = document.Id,
+                //                CreateDate = DateTime.Now
+                //            });
+                //        //}
+                //    }
+                //}
+                //else // k chọn định dạng đầu ra thì mặc định lưu .json
+                {
+                    var fileName = Guid.NewGuid() + ".json";
+                    File.WriteAllText(Path.Combine(source, relativeFilePath + "\\" + fileName), json);
+
+                    work.OutputResultsRepository.Create(new OutputResults
+                    {
+                        FileName = document.FileName,
+                        FileExtension = ".json",
+                        FilePath = relativeFilePath + "\\" + fileName,
+                        DocumentId = document.Id,
+                        CreateDate = DateTime.Now
+                    });
+                }
+
+                return true;
+            }
+            catch { return false; }
+        }
+
+        private int ReadFilePdf(string filePath)
+        {
+            try
+            {
+                using (var file = new FileStream(filePath, FileMode.Open))
+                {
+                    using (var stream = new MemoryStream())
+                    {
+                        file.CopyTo(stream);
+                        var pdf = new Aspose.Pdf.Document(stream);
+                        return pdf.Pages.Count;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation("estimate: " + e.Message);
+                return -1;
+            }
+        }
+
+        private static bool IsFileReady(string filePath)
+        {
+            // If the file can be opened for exclusive access it means that the file
+            // is no longer locked by another process.
+            try
+            {
+                using (FileStream inputStream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
+                    return inputStream.Length > 0;
+            }
+            catch (Exception)
+            {
+                System.Threading.Thread.Sleep(1000);
+                return false;
+            }
+        }
 
     }
 }
