@@ -5,6 +5,7 @@ using HuceDocs.Data.Models;
 using HuceDocs.Notification.Email;
 using HuceDocs.Security.Common;
 using HuceDocs.Security.Extension;
+using HuceDocs.Services;
 using HuceDocs.Services.Services;
 using HuceDocs.Services.ViewModel;
 using HuceDocsWebApi.Attributes;
@@ -66,6 +67,7 @@ namespace HuceDocs
             services.AddTransient<IEmailProvider, EmailProvider>();
 
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IOCR_RequestService, OCR_RequestService>();
 
 
             services.AddTransient<IEmailService, EmailService>();

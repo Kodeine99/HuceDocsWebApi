@@ -22,6 +22,7 @@ namespace HuceDocs.Data.Models
         //public ICollection<Cart> Carts { get; set; }
         //public virtual ICollection<Order> Orders { get; set; }
 
+        public ICollection<OCR_Request> OCR_Requests { get; set; }
         public ICollection<Notification> Notifications { get; set; }
 
 

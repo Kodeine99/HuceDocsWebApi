@@ -18,7 +18,7 @@ namespace HuceDocs.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        ApiResult<int> Create(Document model);
+        //ApiResult<int> Create(Document model);
 
         /// <summary>
         /// Tạo mới bóc tách từ request
@@ -32,16 +32,16 @@ namespace HuceDocs.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<ApiResult<DocumentResultModel>> CreateRecognition(RecognitionRequest request);
+       //Task<ApiResult<DocumentResultModel>> CreateRecognition(RecognitionRequest request);
 
         /// <summary>Update với Document Model </summary>
-        ApiResult<bool> Update(Document model);
+        //ApiResult<bool> Update(Document model);
         /// <summary>
         /// Xóa file gốc tải lên
         /// </summary>
         /// <param name="selectedIds">danh sánh id của các document cần xóa</param>
         /// <returns></returns>
-        ApiResult<string> Delete(int userid, List<int> id);
+        //ApiResult<string> Delete(int userid, List<int> id);
         /// <summary>
         /// thực thi số hóa/bóc tách
         /// </summary>
@@ -59,11 +59,11 @@ namespace HuceDocs.Services
         /// <param name="id">document id</param>
         /// <param name="userid">user id</param>
         /// <returns></returns>
-        ApiResult<List<OutputResults>> GetOutputs(int id, int userid);
+        //ApiResult<List<OutputResults>> GetOutputs(int id, int userid);
         /// <summary>Update trang thái </summary>
-        ApiResult<bool> UpdateStatus(int id, int status);
+        //ApiResult<bool> UpdateStatus(int id, int status);
         /// <summary>Check trang thái </summary>
-        ApiResult<int> CheckStatus(int id, int userid);
+        //ApiResult<int> CheckStatus(int id, int userid);
         /// <summary>
         /// Tìm kiếm tài liệu
         /// </summary>
@@ -112,6 +112,6 @@ namespace HuceDocs.Services
         /// <param name="id">Document id</param>
         /// <param name="userid">User id</param>
         /// <returns></returns>
-        ApiResult<FileVM> GetResultAsJson(string source, Document document);
+        //ApiResult<FileVM> GetResultAsJson(string source, Document document);
     }
 }

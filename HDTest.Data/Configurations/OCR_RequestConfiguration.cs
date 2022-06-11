@@ -18,14 +18,14 @@ namespace HuceDocs.Data.Configurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();
 
-            builder.Property(x => x.Name).IsRequired();
+            builder.Property(x => x.Ticket_Id).IsRequired();
             builder.Property(x => x.JsonData).IsRequired();
             builder.Property(x => x.UserId).IsRequired();
-            builder.Property(x => x.Name).IsRequired();
+            builder.Property(x => x.CreateTime).IsRequired();
 
             builder.Property(x => x.CreateTime).HasDefaultValue(DateTime.Now);
             builder.Property(x => x.Token);
-            builder.Property(x => x.OCR_Status).HasDefaultValue(0).IsRequired();
+            builder.Property(x => x.OCR_Status_Code).HasDefaultValue(0).IsRequired();
         }
     }
 }

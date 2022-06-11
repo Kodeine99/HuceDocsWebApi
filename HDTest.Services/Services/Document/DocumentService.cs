@@ -141,8 +141,8 @@ namespace HuceDocs.Services
             {
                 var id = work.DocumentRepository.Create(document);
                 //Estimate(id, request.UserId);
-                var jobId = BackgroundJob.Enqueue(() => EstimateAsync(id, request.UserId));
-                _logger.LogInformation("BackgroundJob_Estimate_IdDoc = " + id + ":id background job = " + jobId);
+                //var jobId = BackgroundJob.Enqueue(() => EstimateAsync(id, request.UserId));
+                //_logger.LogInformation("BackgroundJob_Estimate_IdDoc = " + id + ":id background job = " + jobId);
                 return new ApiError<DocumentResultModel>
                 {
                     Result = new DocumentResultModel { Id = id, IsSuccessed = true, FileName = document.FileName }
@@ -189,65 +189,94 @@ namespace HuceDocs.Services
                 return new ApiError<bool>();
             }
         }
-
-        public ApiResult<FileVM> GetResultAsJson(string source, Document document)
+        public async Task<ApiResult<bool>> UpdateVerifyAsync(int id, string url)
         {
-            if (document.Type != (int)eDocumentType.Extraction)
-                return new ApiErrorResult<FileViewModel>("Không thể lấy kết quả dạng Json Object");
-            if (document.Status != (int)eDocumentStatus.Complete)
-                return new ApiErrorResult<FileViewModel>("Tài liệu đang ở trạng thái " + eGet.Status(document.Status));
-            if (document.DocumentType.TypeOfResult == (int)eTypeOfResult.OnlyXlsx)
-                return new ApiErrorResult<FileViewModel>("Không thể lấy kết quả dạng Json Object");
+            try
+            {
+                var document = GetById(id).Result;
+                work.DocumentRepository.Entities
+                    .Where(o => o.Id == id)
+                    .Update(u => new Document { Status = (int)eDocumentStatus.Verify });
+                // send message to client
+                await _messageHub.SendUpdateDocumentStatus(document.UserId, document.Id, (int)eDocumentStatus.Verify);
+                // send notify to admin
+                var emails = _config.GetSection("EmailReceiveNotify").GetChildren().ToList();
+                var emailSelected = emails.GetRange(new Random().Next(0, emails.Count), 1).FirstOrDefault();
 
-            var filePath = "";
-            var outputs = GetOutputs(document.Id, document.UserId).ResultObj;
-            if (outputs.Count > 0)
-            {
-                string jsonResult = null;
-                string extension = ".json";
-                var output = outputs?.FirstOrDefault(o => o.FileExtension.Contains("json", StringComparison.CurrentCulture));
-                // output có file json
-                if (output != null)
+                //var result = "Tài liệu <a href='" + url + "'>" + document.FileName + "</a> đang chờ soát lỗi.";
+                //BackgroundJob.Enqueue(() => _emailService.SendEmailNotify(emailSelected.Value, result));
+
+                work.VerifyRepository.Create(new Verify
                 {
-                    filePath = source + output.FilePath;
-                    jsonResult = System.IO.File.ReadAllText(filePath).Replace("\\u2028", "\\n");
-                    return new ApiSuccessResult<FileViewModel>(new FileViewModel()
-                    {
-                        FileName = document.FileName,
-                        FileData = jsonResult,
-                        FileExtension = extension,
-                        isExtrResult = true
-                    });
-                }
-                // không có file json
-                else
-                {
-                    filePath = source + outputs.FirstOrDefault().FilePath;
-                    if (Path.GetExtension(filePath).Contains("xml", StringComparison.OrdinalIgnoreCase))
-                    {
-                        XmlDocument doc = new XmlDocument();
-                        doc.Load(filePath);
-                        extension = ".xml";
-                        jsonResult = JsonConvert.SerializeObject(doc).Replace("\\u2028", "\\n");
-                        return new ApiSuccessResult<FileViewModel>(new FileViewModel()
-                        {
-                            FileName = document.FileName,
-                            FileData = jsonResult,
-                            FileExtension = extension,
-                            isExtrResult = true
-                        });
-                    }
-                    else
-                    {
-                        return new ApiErrorResult<FileViewModel>("Định dạng không hỗ trợ hiển thị");
-                    }
-                }
+                    DocumentId = id,
+                    Url = url,
+                    CreateTime = DateTime.Now,
+                    Active = true
+                });
+                return new ApiSuccess<bool>();
             }
-            else
-            {
-                return new ApiErrorResult<FileViewModel>("Không tìm thấy file kết quả");
-            }
+            catch { return new ApiError<bool>(); }
         }
+
+
+        //public ApiResult<FileVM> GetResultAsJson(string source, Document document)
+        //{
+        //    //if (document.Type != (int)eDocumentType.Extraction)
+        //    //    return new ApiError<FileVM>("Không thể lấy kết quả dạng Json Object");
+        //    if (document.Status != (int)eDocumentStatus.Complete)
+        //        return new ApiError<FileVM>("Tài liệu đang ở trạng thái " + eGet.Status(document.Status));
+        //    //if (document.DocumentType.TypeOfResult == (int)eTypeOfResult.OnlyXlsx)
+        //    //    return new ApiErrorResult<FileViewModel>("Không thể lấy kết quả dạng Json Object");
+
+        //    var filePath = "";
+        //    var outputs = GetOutputs(document.Id, document.UserId).Result;
+        //    if (outputs.Count > 0)
+        //    {
+        //        string jsonResult = null;
+        //        string extension = ".json";
+        //        var output = outputs?.FirstOrDefault(o => o.FileExtension.Contains("json", StringComparison.CurrentCulture));
+        //        // output có file json
+        //        if (output != null)
+        //        {
+        //            filePath = source + output.FilePath;
+        //            jsonResult = System.IO.File.ReadAllText(filePath).Replace("\\u2028", "\\n");
+        //            return new ApiSuccess<FileVM>(new FileVM()
+        //            {
+        //                FileName = document.FileName,
+        //                FileData = jsonResult,
+        //                FileExtension = extension,
+        //                isExtrResult = true
+        //            });
+        //        }
+        //        // không có file json
+        //        else
+        //        {
+        //            filePath = source + outputs.FirstOrDefault().FilePath;
+        //            if (Path.GetExtension(filePath).Contains("xml", StringComparison.OrdinalIgnoreCase))
+        //            {
+        //                XmlDocument doc = new XmlDocument();
+        //                doc.Load(filePath);
+        //                extension = ".xml";
+        //                jsonResult = JsonConvert.SerializeObject(doc).Replace("\\u2028", "\\n");
+        //                return new ApiSuccessResult<FileViewModel>(new FileViewModel()
+        //                {
+        //                    FileName = document.FileName,
+        //                    FileData = jsonResult,
+        //                    FileExtension = extension,
+        //                    isExtrResult = true
+        //                });
+        //            }
+        //            else
+        //            {
+        //                return new ApiErrorResult<FileViewModel>("Định dạng không hỗ trợ hiển thị");
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return new ApiErrorResult<FileViewModel>("Không tìm thấy file kết quả");
+        //    }
+        //}
 
         public ApiResult<Document> GetById(int id)
         {

@@ -9,12 +9,13 @@ namespace HuceDocs.Data.Models
     public class OCR_Request : IEntity
     {
         public int Id { get; set; }
-        public string Name { get; set; } = String.Empty;
+        public string Ticket_Id { get; set; } = String.Empty;
         public string JsonData { get; set; } = String.Empty;
         public int UserId { get; set; }
         public DateTime CreateTime { get; set; }
         public string Token { get; set; } = String.Empty;
-        public int OCR_Status { get; set; }
+        public int OCR_Status_Code { get; set; }
+        public virtual User User { get; set; }
 
     }
 }

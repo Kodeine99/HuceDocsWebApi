@@ -19,7 +19,7 @@ namespace HuceDocs.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
 
-            modelBuilder.Entity("HDTest.Data.Models.DocOutputExtensions", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.DocOutputExtensions", b =>
                 {
                     b.Property<int>("DocumentId")
                         .HasColumnType("int");
@@ -32,20 +32,17 @@ namespace HuceDocs.Data.Migrations
                     b.ToTable("DocOutputExtensions");
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.Document", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.Document", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
-
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 3, 3, 41, 59, 108, DateTimeKind.Local).AddTicks(5864));
+                        .HasDefaultValue(new DateTime(2022, 6, 11, 14, 15, 57, 711, DateTimeKind.Local).AddTicks(8559));
 
                     b.Property<string>("Description")
                         .HasMaxLength(2000)
@@ -101,7 +98,7 @@ namespace HuceDocs.Data.Migrations
                     b.ToTable("Document");
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.DocumentType", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.DocumentType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -137,7 +134,39 @@ namespace HuceDocs.Data.Migrations
                     b.ToTable("DocumentType");
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.OCR_Request", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DocumentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Seen")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notification");
+                });
+
+            modelBuilder.Entity("HuceDocs.Data.Models.OCR_Request", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -147,20 +176,20 @@ namespace HuceDocs.Data.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 3, 3, 41, 59, 126, DateTimeKind.Local).AddTicks(8811));
+                        .HasDefaultValue(new DateTime(2022, 6, 11, 14, 15, 57, 728, DateTimeKind.Local).AddTicks(221));
 
                     b.Property<string>("JsonData")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OCR_Status")
+                    b.Property<int>("OCR_Status_Code")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasDefaultValue(0);
+
+                    b.Property<string>("Ticket_Id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Token")
                         .HasColumnType("nvarchar(max)");
@@ -170,10 +199,12 @@ namespace HuceDocs.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("OCR_Request");
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.Role", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -206,7 +237,7 @@ namespace HuceDocs.Data.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.RoleClaim", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.RoleClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -229,7 +260,7 @@ namespace HuceDocs.Data.Migrations
                     b.ToTable("AspNetRoleClaims");
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.User", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -327,7 +358,7 @@ namespace HuceDocs.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.UserClaim", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.UserClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -350,7 +381,7 @@ namespace HuceDocs.Data.Migrations
                     b.ToTable("AspNetUserClaims");
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.UserLogin", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.UserLogin", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasColumnType("nvarchar(450)");
@@ -371,7 +402,7 @@ namespace HuceDocs.Data.Migrations
                     b.ToTable("AspNetUserLogins");
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.UserRole", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.UserRole", b =>
                 {
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -386,7 +417,7 @@ namespace HuceDocs.Data.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.UserToken", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.UserToken", b =>
                 {
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -405,7 +436,7 @@ namespace HuceDocs.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.Verify", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.Verify", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -433,9 +464,9 @@ namespace HuceDocs.Data.Migrations
                     b.ToTable("Verify");
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.DocOutputExtensions", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.DocOutputExtensions", b =>
                 {
-                    b.HasOne("HDTest.Data.Models.Document", "Document")
+                    b.HasOne("HuceDocs.Data.Models.Document", "Document")
                         .WithMany("OutputExtensions")
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -444,13 +475,13 @@ namespace HuceDocs.Data.Migrations
                     b.Navigation("Document");
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.Document", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.Document", b =>
                 {
-                    b.HasOne("HDTest.Data.Models.DocumentType", "DocumentType")
+                    b.HasOne("HuceDocs.Data.Models.DocumentType", "DocumentType")
                         .WithMany("Services")
                         .HasForeignKey("DocumentTypeId");
 
-                    b.HasOne("HDTest.Data.Models.User", "User")
+                    b.HasOne("HuceDocs.Data.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -461,76 +492,105 @@ namespace HuceDocs.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.RoleClaim", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.Notification", b =>
                 {
-                    b.HasOne("HDTest.Data.Models.Role", null)
+                    b.HasOne("HuceDocs.Data.Models.User", "User")
+                        .WithMany("Notifications")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("HuceDocs.Data.Models.OCR_Request", b =>
+                {
+                    b.HasOne("HuceDocs.Data.Models.User", "User")
+                        .WithMany("OCR_Requests")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("HuceDocs.Data.Models.RoleClaim", b =>
+                {
+                    b.HasOne("HuceDocs.Data.Models.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.UserClaim", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.UserClaim", b =>
                 {
-                    b.HasOne("HDTest.Data.Models.User", null)
+                    b.HasOne("HuceDocs.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.UserLogin", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.UserLogin", b =>
                 {
-                    b.HasOne("HDTest.Data.Models.User", null)
+                    b.HasOne("HuceDocs.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.UserRole", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.UserRole", b =>
                 {
-                    b.HasOne("HDTest.Data.Models.Role", null)
+                    b.HasOne("HuceDocs.Data.Models.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HDTest.Data.Models.User", null)
+                    b.HasOne("HuceDocs.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.UserToken", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.UserToken", b =>
                 {
-                    b.HasOne("HDTest.Data.Models.User", null)
+                    b.HasOne("HuceDocs.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.Verify", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.Verify", b =>
                 {
-                    b.HasOne("HDTest.Data.Models.Document", "Document")
+                    b.HasOne("HuceDocs.Data.Models.Document", "Document")
                         .WithOne("Verify")
-                        .HasForeignKey("HDTest.Data.Models.Verify", "DocumentId");
+                        .HasForeignKey("HuceDocs.Data.Models.Verify", "DocumentId");
 
                     b.Navigation("Document");
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.Document", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.Document", b =>
                 {
                     b.Navigation("OutputExtensions");
 
                     b.Navigation("Verify");
                 });
 
-            modelBuilder.Entity("HDTest.Data.Models.DocumentType", b =>
+            modelBuilder.Entity("HuceDocs.Data.Models.DocumentType", b =>
                 {
                     b.Navigation("Services");
+                });
+
+            modelBuilder.Entity("HuceDocs.Data.Models.User", b =>
+                {
+                    b.Navigation("Notifications");
+
+                    b.Navigation("OCR_Requests");
                 });
 #pragma warning restore 612, 618
         }
