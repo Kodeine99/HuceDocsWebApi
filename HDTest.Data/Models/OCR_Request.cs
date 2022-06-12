@@ -17,5 +17,8 @@ namespace HuceDocs.Data.Models
         public int OCR_Status_Code { get; set; }
         public virtual User User { get; set; }
 
+
+        public ICollection<GIAY_XAC_NHAN_TOEIC> GIAY_XAC_NHAN_TOEICs { get; set; }
+
     }
 }

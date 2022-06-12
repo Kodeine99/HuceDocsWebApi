@@ -24,6 +24,7 @@ namespace HuceDocs.Data.DbContext
             builder.ApplyConfiguration(new DocOutputExtensionsConfiguration());
             builder.ApplyConfiguration(new OCR_RequestConfiguration());
             builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new GIAY_XAC_NHAN_TOEICConfiguration());
             
             // add identity
             builder.Entity<UserRole>().ToTable("UserRole");
