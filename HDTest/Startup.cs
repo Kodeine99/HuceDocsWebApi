@@ -32,6 +32,10 @@ namespace HuceDocs
     {
         public Startup(IConfiguration configuration)
         {
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables();
+            configuration = builder.Build();
             Configuration = configuration;
         }
 
@@ -121,8 +125,7 @@ namespace HuceDocs
             app.UseCors(options =>
                 options.WithOrigins(
                     "http://localhost:3000",
-                    "http://localhost:3001",
-                    "http://10.10.10.59:1999"
+                    "http://localhost:3001"
                 )
                     .AllowAnyHeader()
                     .AllowAnyMethod()

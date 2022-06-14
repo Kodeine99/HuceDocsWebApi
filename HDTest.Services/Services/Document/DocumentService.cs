@@ -140,10 +140,8 @@ namespace HuceDocs.Services
             try
             {
                 var id = work.DocumentRepository.Create(document);
-                //Estimate(id, request.UserId);
-                //var jobId = BackgroundJob.Enqueue(() => EstimateAsync(id, request.UserId));
-                //_logger.LogInformation("BackgroundJob_Estimate_IdDoc = " + id + ":id background job = " + jobId);
-                return new ApiError<DocumentResultModel>
+                
+                return new ApiSuccess<DocumentResultModel>
                 {
                     Result = new DocumentResultModel { Id = id, IsSuccessed = true, FileName = document.FileName }
                 };
@@ -408,7 +406,6 @@ namespace HuceDocs.Services
             {
                 throw new Exception("Không tìm thấy Id User");
             }
-            var languages = new List<CategoryVM>();
             
             var document = new HuceDocs.Data.Models.Document();
 
@@ -666,6 +663,10 @@ namespace HuceDocs.Services
                 return false;
             }
         }
+
+
+        // Test
+
 
     }
 }

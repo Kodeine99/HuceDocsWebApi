@@ -15,7 +15,7 @@ namespace HuceDocs.Data.Configurations
         {
             builder.ToTable("OCR_Request");
 
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.Ticket_Id);
             builder.Property(x => x.Id).UseIdentityColumn();
 
             builder.Property(x => x.Ticket_Id).IsRequired();

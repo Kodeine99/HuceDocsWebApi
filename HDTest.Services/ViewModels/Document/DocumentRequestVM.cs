@@ -23,18 +23,13 @@ namespace HuceDocs.Services.ViewModels.Document
     public class DocumentBaseRequest
     {
         public int UserId { get; set; }
-        public List<int> LanguageIds { get; set; }
 
         [Required(ErrorMessage = "Không nhận được file tải lên")]
-        public IFormFile File { get; set; }
-        public List<int> OutputExtensions { get; set; }
-        public int? FromPage { get; set; } = 1;
-        public int? ToPage { get; set; } = 0;
+        public IFormFile File { get; set; }    
     }
     public class ExtractionRequest : DocumentBaseRequest
     {
         public int? DocumentTypeId { get; set; } = null;
-        public int? CheckType { get; set; } = 0;
     }
     public class RecognitionRequest : DocumentBaseRequest
     {

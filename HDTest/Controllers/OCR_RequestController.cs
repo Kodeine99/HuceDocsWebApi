@@ -32,5 +32,12 @@ namespace HuceDocsWebApi.Controllers
             }
             return Ok(ocr_RqVM);
         }
+
+        [HttpGet("abc")]
+        public IActionResult GetAbc()
+        {
+            return Ok("abc");
+        }
     }
+    
 }

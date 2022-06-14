@@ -35,7 +35,7 @@ namespace HuceDocs.Services
                 OCR_Status_Code = request.OCR_Status_Code,
             };
 
-            var result = work.OCR_RequestRepository.Create(newOcr_RqModel);
+            var result =  work.OCR_RequestRepository.Create(newOcr_RqModel);
             if (result > 0)
             {
                 return new ApiSuccess<bool>("Tạo OCR request thành công") { IsOk = true};

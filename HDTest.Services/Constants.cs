@@ -19,12 +19,20 @@ namespace HuceDocs.Services
         public const string TheSinhVien = "THE_SINH_VIEN";
         public const string BangDiemTiengAnh = "BANG_DIEM_TIENG_ANH";
         public const string GiayCamKetTraNo = "GIAY_CAM_KET_TRA_NO";
+        public const string BangDiem = "BANG_DIEM";
+        public const string GiayXacNhanToeic = "GIAY_XAC_NHAN_TOEIC";
+
 
     }
 
     public static class BatchType
     {
         public const string HuceDocs = "HuceDocs";
+        public const string TheSinhVien = "TheSinhVien";
+        public const string GiayXacNhanToeic = "GiayXacNhanToeic";
+        public const string GiayCamKetTraNo = "GiayCamKetTraNo";
+        public const string BangDiemTiengAnh = "BangDiemTiengAnh";
+        public const string BangDiem = "BangDiem";
     }
 
     public static class StageType
