@@ -21,5 +21,8 @@ namespace HuceDocs.Services
         string GetFullFilePath(string relativeFilePath);
         Task CreateFile(int userId, int typeId, int inOutPut, string extension, IFormFile file);
         Task CreateFile(string relativeFilePath, IFormFile file);
+
+        Task<string> UploadFilesToStorageFolder( IList<IFormFile> files); 
+
     }
 }

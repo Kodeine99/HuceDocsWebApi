@@ -14,6 +14,7 @@ namespace HuceDocs.Data.Repository
         private IRepository<User> userRepository;
         private IRepository<Role> roleRepository;
         private IRepository<Document> documentRepository;
+        private IRepository<HFile> hFileRepository;
         private IRepository<DocumentType> documentTypeRepository;
         private IRepository<OCR_Request> ocr_requestRepository;
         private IRepository<Verify> verifyRepository;
@@ -27,6 +28,8 @@ namespace HuceDocs.Data.Repository
         public IRepository<Role> RoleRepository => roleRepository ?? (roleRepository = new Repository<Role>(DbContext));
         public IRepository<Document> DocumentRepository => documentRepository ?? (documentRepository = new Repository<Document>(DbContext));
         public IRepository<DocumentType> DocumentTypeRepository => documentTypeRepository ?? (documentTypeRepository = new Repository<DocumentType>(DbContext));
+        public IRepository<HFile> HFileRepository => hFileRepository ?? (hFileRepository = new Repository<HFile>(DbContext));
+
         public IRepository<OCR_Request> OCR_RequestRepository => ocr_requestRepository ?? (ocr_requestRepository = new Repository<OCR_Request>(DbContext));
         public IRepository<Verify> VerifyRepository => verifyRepository ?? (verifyRepository = new Repository<Verify>(DbContext));
         public IRepository<OutputResults> OutputResultsRepository => outputResultsRepository ?? (outputResultsRepository = new Repository<OutputResults>(DbContext));

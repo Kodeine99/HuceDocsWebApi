@@ -24,4 +24,5 @@ namespace HuceDocs.Services.ViewModels.Document
             public string FileId { get; set; }
             public int DocId { get; set; }
         }
+    
     }

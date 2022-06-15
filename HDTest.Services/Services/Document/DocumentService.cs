@@ -5,10 +5,10 @@ using HuceDocs.Notification.Client;
 using HuceDocs.Services.Common;
 using HuceDocs.Services.EnumDefine;
 using HuceDocs.Services.ModelFilter;
-using HuceDocs.Services.Service_References;
 using HuceDocs.Services.Services;
 using HuceDocs.Services.Services.DanhMuc;
 using HuceDocs.Services.ViewModel;
+using HuceDocs.Services.ViewModels;
 using HuceDocs.Services.ViewModels.Category;
 using HuceDocs.Services.ViewModels.Common;
 using HuceDocs.Services.ViewModels.Document;
@@ -38,6 +38,7 @@ namespace HuceDocs.Services
         private readonly IConfiguration _config;
         private readonly INotifyService _notifyService;
         private readonly IFileManagerService _fileManagerService;
+        private readonly IHFileService _hFileService;
 
 
         private readonly ExtrConfigModel _extrConfigModel;
@@ -51,7 +52,9 @@ namespace HuceDocs.Services
             ILogger<DocumentService> logger,
             IDanhMucService danhMucService,
             IConfiguration config,
-            IUserService userService)
+            IUserService userService
+,
+            IHFileService hFileService)
         {
             _logger = logger;
             work = UnitOfWork.GetDefaultInstance();
@@ -61,6 +64,7 @@ namespace HuceDocs.Services
             _extrConfigModel = new ExtrConfigModel()
             {
             };
+            _hFileService = hFileService;
         }
 
 
@@ -68,13 +72,8 @@ namespace HuceDocs.Services
         public ApiResult<PagedResult<DocumentVM>> GetDocuments(DocumentFilter filter)
         {
             var query = work.DocumentRepository.Entities
-                .Include(o => o.DocumentType)
                 .Where(o => o.UserId == filter.UserId)
                 .Where(o => o.IsDelete == false);
-            if (filter.DocumentTypeId > 0)
-                query = query.Where(o => o.DocumentTypeId == filter.DocumentTypeId);
-            if (filter.FileName != null)
-                query = query.Where(o => o.FileName.Contains(filter.FileName));
             if (filter.Status != null)
                 query = query.Where(o => o.Status == filter.Status);
             if (filter.FromDate != null)
@@ -93,18 +92,10 @@ namespace HuceDocs.Services
                 Id = o.Id,
                 CreateDate = o.CreateDate,
                 Description = o.Description,
-                DocumentTypeId = o.DocumentTypeId,
-                FileExtension = o.FileExtension,
-                FileLength = o.FileLength,
-                FileName = o.FileName,
-                FilePath = o.FilePath,
                 IsDelete = o.IsDelete,
                 Status = o.Status,
-                TotalOfFields = o.TotalOfFields,
-                TotalOfPages = o.TotalOfPages,
                 UserId = o.UserId,
                
-                DocumentType = o.DocumentType != null ? new CategoryVM(o.DocumentType) : null
             }).ToList();
             var pagedResult = new PagedResult<DocumentVM>()
             {
@@ -126,7 +117,7 @@ namespace HuceDocs.Services
 
         public async Task<ApiResult<DocumentResultModel>> CreateExtraction(ExtractionRequest request)
         {
-            if (request.File == null)
+            if (request.Files == null)
             {
                 return new ApiError<DocumentResultModel>("Không nhận được file");
             }
@@ -141,17 +132,18 @@ namespace HuceDocs.Services
             {
                 var id = work.DocumentRepository.Create(document);
                 
+                // Run ExcuteAsync -> ExtractExcuteAsync
                 return new ApiSuccess<DocumentResultModel>
                 {
-                    Result = new DocumentResultModel { Id = id, IsSuccessed = true, FileName = document.FileName }
+                    Result = new DocumentResultModel { Id = id, IsSuccessed = true}
                 };
             }
             catch (Exception e)
             {
-                _logger.LogError("CreateDocument FAIL:" + document.FileName + e.Message);
+                _logger.LogError("CreateDocument FAIL:" + document.Id + e.Message);
                 return new ApiError<DocumentResultModel>
                 {
-                    Result = new DocumentResultModel { Id = 0, IsSuccessed = false, FileName = document.FileName }
+                    Result = new DocumentResultModel { Id = 0, IsSuccessed = false}
                 };
             }
         }
@@ -280,7 +272,6 @@ namespace HuceDocs.Services
         {
             var result = work.DocumentRepository.Entities
 
-                .Include(k => k.DocumentType)
                 .FirstOrDefault(o => o.Id == id);
             return new ApiSuccess<Document> { Result = result };
         }
@@ -288,7 +279,6 @@ namespace HuceDocs.Services
         public ApiResult<Document> GetById(int id, int userid)
         {
             var result = work.DocumentRepository.Entities
-                .Include(k => k.DocumentType)
                 .FirstOrDefault(o => o.Id == id && o.UserId == userid);
             if (result == null) return new ApiError<Document>("Không tìm thấy tài liệu");
             return new ApiSuccess<Document> { Result = result };
@@ -299,7 +289,6 @@ namespace HuceDocs.Services
             try
             {
                 var document = work.DocumentRepository.Entities
-                .Include(k => k.DocumentType)
                 .FirstOrDefault(o => o.Id == id && o.UserId == userId);
 
                 _logger.LogInformation("Document status = " + document.Status + " ID = " + document.Id);
@@ -319,9 +308,10 @@ namespace HuceDocs.Services
 
         private async Task ExtrExcuteAsync(Document document)
         {
+            var hFiles = _hFileService.GetListFileByDocId(document.Id);
             try
             {
-                var extr = new FCHelper(_logger, document);
+                var extr = new FCHelper(_logger, hFiles, document.Id);
                 if (extr.state)
                 {
                     work.DocumentRepository.Entities
@@ -347,8 +337,7 @@ namespace HuceDocs.Services
                     await _notifyService.CreateAsync(new Data.Models.Notification
                     {
                         UserId = document.UserId,
-                        FileName = document.FileName,
-                        DocumentType = document?.DocumentType.Code,
+                        //FileName = document.FileName,
                         CreateDate = DateTime.Now,
                         Status = (int)eNotifyStatus.failure
                     });
@@ -371,8 +360,7 @@ namespace HuceDocs.Services
                 await _notifyService.CreateAsync(new Data.Models.Notification
                 {
                     UserId = document.UserId,
-                    FileName = document.FileName,
-                    DocumentType = document?.DocumentType.Code,
+                    //FileName = document.FileName,
                     CreateDate = DateTime.Now,
                     Status = (int)eNotifyStatus.failure
                 });
@@ -388,12 +376,11 @@ namespace HuceDocs.Services
                 var document = new HuceDocs.Data.Models.Document();
 
                 document.UserId = request.UserId;
-                document.DocumentTypeId = request.DocumentTypeId;
-                document.FilePath = _fileManagerService.CreateRelativeFilePath(request.UserId, type, (int)eFolder.input, Path.GetExtension(request.File.FileName));
-                await _fileManagerService.CreateFile(document.FilePath, request.File);
-                document.FileName = Path.GetFileNameWithoutExtension(request.File.FileName);
-                document.FileLength = request.File.Length;
-                document.FileExtension = Path.GetExtension(request.File.FileName);
+                //document.FilePath = _fileManagerService.CreateRelativeFilePath(request.UserId, type, (int)eFolder.input, Path.GetExtension(request.File.FileName));
+                //await _fileManagerService.CreateFile(document.FilePath, request.File);
+                //document.FileName = Path.GetFileNameWithoutExtension(request.File.FileName);
+                //document.FileLength = request.File.Length;
+                ///document.FileExtension = Path.GetExtension(request.File.FileName);
                 results.Add(document);
             }
 
@@ -410,14 +397,11 @@ namespace HuceDocs.Services
             var document = new HuceDocs.Data.Models.Document();
 
             document.UserId = request.UserId;
-            
-            document.DocumentTypeId = request.DocumentTypeId;
+            // lay file path
 
-            document.FilePath = _fileManagerService.CreateRelativeFilePath(request.UserId, (int)eDocumentType.Extraction, (int)eFolder.input, Path.GetExtension(request.File.FileName));
-            await _fileManagerService.CreateFile(document.FilePath, request.File);
-            document.FileName = Path.GetFileNameWithoutExtension(request.File.FileName);
-            document.FileLength = request.File.Length;
-            document.FileExtension = Path.GetExtension(request.File.FileName);
+            // Save file Vao FileStorage
+            await _fileManagerService.UploadFilesToStorageFolder(request.Files);
+
 
             return document;
         }
@@ -426,22 +410,14 @@ namespace HuceDocs.Services
         public ApiResult<DocumentVM> GetViewModelById(int id, int userid)
         {
             var data = work.DocumentRepository.Entities
-                .Include(k => k.DocumentType)
                 .Where(o => o.Id == id && o.UserId == userid);
             var result = data.Select(o => new DocumentVM
             {
                 Id = o.Id,
                 CreateDate = o.CreateDate,
                 Description = o.Description,
-                DocumentTypeId = o.DocumentTypeId,
-                FileExtension = o.FileExtension,
-                FileLength = o.FileLength,
-                FileName = o.FileName,
-                FilePath = o.FilePath,
                 IsDelete = o.IsDelete,
                 Status = o.Status,
-                TotalOfFields = o.TotalOfFields,
-                TotalOfPages = o.TotalOfPages,
                 UserId = o.UserId,
             }).FirstOrDefault();
             if (result == null) return new ApiError<DocumentVM>("Không tìm thấy tài liệu");
@@ -480,8 +456,6 @@ namespace HuceDocs.Services
                         {
                             Status = (int)eDocumentStatus.Complete,
                             Description = null,
-                            TotalOfPages = pageCount,
-                            TotalOfFields = fieldCount ?? 0,
                         });
                         // send message to client
                         await _messageHub.SendUpdateDocumentStatus(document.UserId, document.Id, (int)eDocumentStatus.Complete);
@@ -534,8 +508,6 @@ namespace HuceDocs.Services
                 await _notifyService.CreateAsync(new Data.Models.Notification
                 {
                     UserId = document.UserId,
-                    FileName = document.FileName,
-                    DocumentType =  document?.DocumentType.Code,
                     CreateDate = DateTime.Now,
                     Status = (int)eNotifyStatus.failure
                 });
@@ -614,7 +586,7 @@ namespace HuceDocs.Services
 
                     work.OutputResultsRepository.Create(new OutputResults
                     {
-                        FileName = document.FileName,
+                        //FileName = document.FileName,
                         FileExtension = ".json",
                         FilePath = relativeFilePath + "\\" + fileName,
                         DocumentId = document.Id,

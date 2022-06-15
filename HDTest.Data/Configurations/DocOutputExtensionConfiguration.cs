@@ -13,7 +13,6 @@ namespace HuceDocs.Data.Configurations
         {
             builder.HasKey(x => new { x.DocumentId, x.OutputExtensionId });
 
-            builder.HasOne(x => x.Document).WithMany(y => y.OutputExtensions).HasForeignKey(x => x.DocumentId);
             //builder.HasOne(x => x.OutputExtension).WithMany(y => y.Documents).HasForeignKey(x => x.OutputExtensionId);
         }
     }

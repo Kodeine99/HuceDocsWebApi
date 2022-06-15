@@ -21,6 +21,7 @@ namespace HuceDocs.Data.DbContext
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new DocumentConfiguration());
             builder.ApplyConfiguration(new DocumentTypeConfiguration());
+            builder.ApplyConfiguration(new HFileConfiguration());
             builder.ApplyConfiguration(new DocOutputExtensionsConfiguration());
             builder.ApplyConfiguration(new OCR_RequestConfiguration());
             builder.ApplyConfiguration(new RoleConfiguration());

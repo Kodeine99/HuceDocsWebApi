@@ -25,11 +25,11 @@ namespace HuceDocs.Services.ViewModels.Document
         public int UserId { get; set; }
 
         [Required(ErrorMessage = "Không nhận được file tải lên")]
-        public IFormFile File { get; set; }    
+        public IList<IFormFile> Files { get; set; }    
     }
     public class ExtractionRequest : DocumentBaseRequest
     {
-        public int? DocumentTypeId { get; set; } = null;
+        public string ExtractType { get; set; } = null;
     }
     public class RecognitionRequest : DocumentBaseRequest
     {
@@ -86,7 +86,7 @@ namespace HuceDocs.Services.ViewModels.Document
     {
         public int Id { get; set; }
         public bool IsSuccessed { get; set; }
-        public string FileName { get; set; }
+        public List<string> FileNames { get; set; }
     }
 
     public class DocumentRequestModel

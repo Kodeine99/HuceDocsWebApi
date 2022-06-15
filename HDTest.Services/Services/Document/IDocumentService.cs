@@ -42,6 +42,7 @@ namespace HuceDocs.Services
         /// <param name="selectedIds">danh sánh id của các document cần xóa</param>
         /// <returns></returns>
         //ApiResult<string> Delete(int userid, List<int> id);
+
         /// <summary>
         /// thực thi số hóa/bóc tách
         /// </summary>

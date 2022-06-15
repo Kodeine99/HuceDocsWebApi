@@ -1,4 +1,5 @@
-﻿using HuceDocs.Services.ViewModels.OcrRequest;
+﻿using HuceDocs.Services.ViewModels;
+using HuceDocs.Services.ViewModels.OcrRequest;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using System;
@@ -23,33 +24,39 @@ namespace HuceDocs.Services
         //private static string username = Helper.RSADecryption(System.Configuration.ConfigurationManager.AppSettings["FCUsername"]);
         //private static string password = Helper.RSADecryption(System.Configuration.ConfigurationManager.AppSettings["FCPassword"]);
 
-        private static string username = "ABCServer/administrator";
-        private static string password = "Abc123456a@";
+        private static string username = "administrator";
+        private static string password = "abc123456a@";
 
         private static string projectName = System.Configuration.ConfigurationManager.AppSettings["FCprojectName"];
         private static string groupUser = System.Configuration.ConfigurationManager.AppSettings["FCgroupUser"];
         private static string batchTypesName = "HuceDocs"; // ddefault batch
 
-        private static string fileStorage = "E:\\WorkSpace\\HuceDocsOCR";
+        //private static string fileStorage = "E:\\WorkSpace\\HuceDocsOCR";
 
         public bool state = false;
 
 
-        public FCHelper(ILogger<DocumentService> logger, HuceDocs.Data.Models.Document document)
+        public FCHelper(ILogger<DocumentService> logger, List<HFileVM> hFiles, int documentId)
         {
-            
-            string source = fileStorage + "\\" + document.FilePath;
-            try
+            //st<string> filePaths = 
+            //string source = fileStorage + "\\" + document.FilePath;
+
+            foreach (HFileVM hFileVM in hFiles)
             {
-                batchTypesName = document.DocumentType.FCCode;
-                byte[] myBinary = System.IO.File.ReadAllBytes(source);
-                UpdateToServer(myBinary);
+                try
+                {
+                    batchTypesName = hFileVM.FileName;
+
+                    byte[] myBinary = System.IO.File.ReadAllBytes(hFileVM.FilePath);
+                    UpdateToServer(myBinary);
+                }
+                catch (FileNotFoundException FileEx)
+                {
+                    logger.LogError("ExtrServiceError IdDoc=" + documentId+ ":" + FileEx.Message); Console.WriteLine(FileEx.Message);
+                    throw;
+                }
             }
-            catch (FileNotFoundException FileEx) 
-            {
-                logger.LogError("ExtrServiceError IdDoc=" + document.Id + ":" + FileEx.Message);Console.WriteLine(FileEx.Message);
-                throw;
-            }
+   
         }
 
 
@@ -114,7 +121,7 @@ namespace HuceDocs.Services
                         // register custom properties, use  for export to HuecDocs
                         //batch.Properties = new Batch.PropertiesType();
 
-                        //batch.Properties.Add(new RegistrationProperty { Name = "Type", Value = type });
+                        batch.Properties.Add(new RegistrationProperty { Name = "Type", Value = type });
                         //batch.Properties.Add(new RegistrationProperty { Name = "SectionId", Value = sessionId.ToString() });
 
 

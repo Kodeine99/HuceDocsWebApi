@@ -15,19 +15,12 @@ namespace HuceDocs.Services.ViewModels.Document
         {
             Id = entity.Id;
             UserId = entity.UserId;
-            DocumentTypeId = entity.DocumentTypeId;
             IsDelete = entity.IsDelete;
 
-            FileName = entity.FileName;
-            FilePath = entity.FilePath;
-            FileLength = entity.FileLength;
-            FileExtension = entity.FileExtension;
 
             CreateDate = entity.CreateDate;
             Status = entity.Status;
             Description = entity.Description;
-            TotalOfPages = entity.TotalOfPages;
-            TotalOfFields = entity.TotalOfFields;
         }
         public int Id { get; set; }
         public int UserId { get; set; }

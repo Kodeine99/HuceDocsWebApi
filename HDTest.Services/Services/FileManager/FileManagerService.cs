@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using HuceDocs.Data.Repository;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -16,6 +17,7 @@ namespace HuceDocs.Services
         private readonly ILogger<FileManagerService> _logger;
         private readonly IConfiguration _config;
         private readonly IFileManagerIO fileManagerIo;
+        private IWebHostEnvironment _hostingEnvironment;
 
         #region property
         // root folder chứa file
@@ -30,10 +32,15 @@ namespace HuceDocs.Services
         public string TemplateFolder { get; }
         #endregion
 
-        public FileManagerService(ILogger<FileManagerService> logger, IConfiguration config)
+        public FileManagerService(ILogger<FileManagerService> logger,
+            IConfiguration config,
+            IWebHostEnvironment environment)
         {
             _logger = logger;
             _config = config;
+            _hostingEnvironment = environment;
+
+            // Old config
             var isInternetApp = _config.GetValue<string>("FileManager:IsInternetApp") == "true";
             if (isInternetApp)
                 fileManagerIo = new FileManagerIOFTPClient(_config.GetValue<string>("FileManager:FileStorageFTP"));
@@ -119,5 +126,28 @@ namespace HuceDocs.Services
             await using var stream = new FileStream(newPath, FileMode.Create);
             await file.CopyToAsync(stream);
         }
+
+
+        // New FileManager
+        // Upload file to Storage Folder
+        public async Task<string> UploadFilesToStorageFolder(IList<IFormFile> files)
+        {
+            string fileStorage = Path.Combine(_hostingEnvironment.ContentRootPath, "fileStorage");
+            Directory.CreateDirectory(fileStorage);
+            foreach (IFormFile file in files)
+            {
+                if (file.Length > 0)
+                {
+                    string filePath = Path.Combine(fileStorage, file.Name);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+                }
+            }
+            return fileStorage;
+        }
+
+        
     }
 }
