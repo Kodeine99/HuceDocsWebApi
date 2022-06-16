@@ -6,7 +6,6 @@ using HuceDocs.Services.Common;
 using HuceDocs.Services.EnumDefine;
 using HuceDocs.Services.ModelFilter;
 using HuceDocs.Services.Services;
-using HuceDocs.Services.Services.DanhMuc;
 using HuceDocs.Services.ViewModel;
 using HuceDocs.Services.ViewModels;
 using HuceDocs.Services.ViewModels.Category;
@@ -36,15 +35,15 @@ namespace HuceDocs.Services
         private readonly IUserService _userService;
         private readonly IDanhMucService _danhMucService;
         private readonly IConfiguration _config;
-        private readonly INotifyService _notifyService;
-        private readonly IFileManagerService _fileManagerService;
+        //private readonly INotifyService _notifyService;
+        //private readonly IFileManagerService _fileManagerService;
         private readonly IHFileService _hFileService;
 
 
         private readonly ExtrConfigModel _extrConfigModel;
         private readonly FCHelper _fchelper;
 
-        private readonly IMessageHub _messageHub;
+        //private readonly IMessageHub _messageHub;
 
 
 
@@ -52,19 +51,32 @@ namespace HuceDocs.Services
             ILogger<DocumentService> logger,
             IDanhMucService danhMucService,
             IConfiguration config,
-            IUserService userService
-,
-            IHFileService hFileService)
+            IUserService userService,
+            //IMessageHub messageHub,
+            IHFileService hFileService
+            //INotifyService notifyService
+            )
+            //IFileManagerService fileManagerService)
         {
             _logger = logger;
             work = UnitOfWork.GetDefaultInstance();
             _danhMucService = danhMucService;
             _userService = userService;
             _config = config;
+            _hFileService = hFileService;
+            //_notifyService = notifyService;
+            //_fileManagerService = fileMana
             _extrConfigModel = new ExtrConfigModel()
             {
+                //FileStorage = _config.GetValue<string>("FileManager:FileStorage"),
+                ServerUrl = _config.GetValue<string>("ExtrServer:FCServerUrl"),
+                ServerUri = _config.GetValue<string>("ExtrServer:FCServerUri"),
+                Username = _config.GetValue<string>("ExtrServer:FCUsername"),
+                Password = _config.GetValue<string>("ExtrServer:FCPassword"),
+                ProjectName = _config.GetValue<string>("ExtrServer:FCProjectName"),
+                //GroupUser = _config.GetValue<string>("ExtrServer:FCGroupUser"),
+                //ProjectName_SoatLoi = _config.GetValue<string>("ExtrServer:ProjectName_SoatLoi")
             };
-            _hFileService = hFileService;
         }
 
 
@@ -122,20 +134,53 @@ namespace HuceDocs.Services
                 return new ApiError<DocumentResultModel>("Không nhận được file");
             }
 
-            
-            var document = await ExtractionMappingAsync(request);
+            if (work.UserRepository.NoTrackingEntities.FirstOrDefault(o => o.Id == request.UserId) == null)
+            {
+                throw new Exception("Không tìm thấy Id User");
+            }
+
+            var document = new HuceDocs.Data.Models.Document();
+
+            document.UserId = request.UserId;
+            // lay file path
+
+            // Save file Vao FileStorage
+            var fileStorage = await _hFileService.UploadFilesToStorageFolder(request.Files);
+
+            //var document = await ExtractionMappingAsync(request);
 
             document.Status = (int)eDocumentStatus.Prepare;
             document.CreateDate = DateTime.Now;
             document.IsDelete = false;
             try
             {
+                // Create new Document in DB
                 var id = work.DocumentRepository.Create(document);
-                
+
+                // Create new File in FileDB
+                foreach (var file in request.Files)
+                {
+                    string filePath = Path.Combine(fileStorage, file.FileName);
+                    var newFile = new HFileVM()
+                    {
+                        DocumentId = id,
+                        FilePath = filePath,
+                        FileName = file.FileName,
+                        FileExtension = Path.GetExtension(file.FileName)
+                    };
+                    _hFileService.CreateAsync(newFile);
+                }
+
+
+
                 // Run ExcuteAsync -> ExtractExcuteAsync
+                //var jobId = BackgroundJob.Enqueue(() => ExecuteAsync(id, document.UserId));
+                await ExecuteAsync(id, document.UserId, request.ExtractType);
+                var fileNames = _hFileService.GetListFileByDocId(id).Select(o => o.FileName).ToList();
+                    
                 return new ApiSuccess<DocumentResultModel>
                 {
-                    Result = new DocumentResultModel { Id = id, IsSuccessed = true}
+                    Result = new DocumentResultModel { Id = id, IsSuccessed = true, FileNames = fileNames}
                 };
             }
             catch (Exception e)
@@ -169,7 +214,7 @@ namespace HuceDocs.Services
                         Description = null
                     });
                 // send message to client
-                await _messageHub.SendUpdateDocumentStatus(document.UserId, document.Id, (int)eDocumentStatus.Prepare);
+                //await _messageHub.SendUpdateDocumentStatus(document.UserId, document.Id, (int)eDocumentStatus.Prepare);
                 
                 return new ApiSuccess<bool>();
             }
@@ -188,7 +233,7 @@ namespace HuceDocs.Services
                     .Where(o => o.Id == id)
                     .Update(u => new Document { Status = (int)eDocumentStatus.Verify });
                 // send message to client
-                await _messageHub.SendUpdateDocumentStatus(document.UserId, document.Id, (int)eDocumentStatus.Verify);
+               // await _messageHub.SendUpdateDocumentStatus(document.UserId, document.Id, (int)eDocumentStatus.Verify);
                 // send notify to admin
                 var emails = _config.GetSection("EmailReceiveNotify").GetChildren().ToList();
                 var emailSelected = emails.GetRange(new Random().Next(0, emails.Count), 1).FirstOrDefault();
@@ -284,7 +329,7 @@ namespace HuceDocs.Services
             return new ApiSuccess<Document> { Result = result };
         }
 
-        public async Task<ApiResult<bool>> ExecuteAsync(int id, int userId)
+        public async Task<ApiResult<bool>> ExecuteAsync(int id, int userId, string ExtractType)
         {
             try
             {
@@ -295,7 +340,7 @@ namespace HuceDocs.Services
                 _logger.LogInformation("Doc status = " + document.Status + " ID = " + document.Id);
 
                 // Execute
-                await ExtrExcuteAsync(document);
+                await ExtrExcuteAsync(document, ExtractType);
                 return new ApiSuccess<bool>("Tài liệu đang được xử lý");
             }
             catch (Exception)
@@ -306,12 +351,12 @@ namespace HuceDocs.Services
 
         }
 
-        private async Task ExtrExcuteAsync(Document document)
+        private async Task ExtrExcuteAsync(Document document, string ExtractType)
         {
             var hFiles = _hFileService.GetListFileByDocId(document.Id);
             try
             {
-                var extr = new FCHelper(_logger, hFiles, document.Id);
+                var extr = new FCHelper(_logger, hFiles, document.Id, ExtractType);
                 if (extr.state)
                 {
                     work.DocumentRepository.Entities
@@ -322,6 +367,7 @@ namespace HuceDocs.Services
                             Description = null
                         });
                     // send message to client here
+                    //await _messageHub.SendUpdateDocumentStatus(document.UserId, document.Id, (int)eDocumentStatus.Processing);
                 }
                 else
                 {
@@ -334,15 +380,16 @@ namespace HuceDocs.Services
                             Description = "Có lỗi xảy ra"
                         });
                     // create notify to client here
-                    await _notifyService.CreateAsync(new Data.Models.Notification
-                    {
-                        UserId = document.UserId,
-                        //FileName = document.FileName,
-                        CreateDate = DateTime.Now,
-                        Status = (int)eNotifyStatus.failure
-                    });
+                    //await _notifyService.CreateAsync(new Data.Models.Notification
+                    //{
+                    //    UserId = document.UserId,
+                    //    //FileName = document.FileName,
+                    //    CreateDate = DateTime.Now,
+                    //    Status = (int)eNotifyStatus.failure
+                    //});
 
                     // send message to client here
+                    //await _messageHub.SendUpdateDocumentStatus(document.UserId, document.Id, (int)eDocumentStatus.ErrorRead);
                 }
             }
             catch (Exception e)
@@ -357,35 +404,36 @@ namespace HuceDocs.Services
                         });
                 // create notify
 
-                await _notifyService.CreateAsync(new Data.Models.Notification
-                {
-                    UserId = document.UserId,
-                    //FileName = document.FileName,
-                    CreateDate = DateTime.Now,
-                    Status = (int)eNotifyStatus.failure
-                });
+                //await _notifyService.CreateAsync(new Data.Models.Notification
+                //{
+                //    UserId = document.UserId,
+                //    //FileName = document.FileName,
+                //    CreateDate = DateTime.Now,
+                //    Status = (int)eNotifyStatus.failure
+                //});
                 // send message to client
+                //await _messageHub.SendUpdateDocumentStatus(document.UserId, document.Id, (int)eDocumentStatus.ErrorRead);
 
             }
         }
-        private async Task<List<Document>> MappingAsync(DocumentRequestVM request)
-        {
-            var results = new List<Document>();
-            foreach (var type in request.Types)
-            {
-                var document = new HuceDocs.Data.Models.Document();
+        //private async Task<List<Document>> MappingAsync(DocumentRequestVM request)
+        //{
+        //    //var results = new List<Document>();
+        //    //foreach (var type in request.Types)
+        //    //{
+        //    //    var document = new HuceDocs.Data.Models.Document();
 
-                document.UserId = request.UserId;
-                //document.FilePath = _fileManagerService.CreateRelativeFilePath(request.UserId, type, (int)eFolder.input, Path.GetExtension(request.File.FileName));
-                //await _fileManagerService.CreateFile(document.FilePath, request.File);
-                //document.FileName = Path.GetFileNameWithoutExtension(request.File.FileName);
-                //document.FileLength = request.File.Length;
-                ///document.FileExtension = Path.GetExtension(request.File.FileName);
-                results.Add(document);
-            }
+        //    //    document.UserId = request.UserId;
+        //    //    //document.FilePath = _fileManagerService.CreateRelativeFilePath(request.UserId, type, (int)eFolder.input, Path.GetExtension(request.File.FileName));
+        //    //    //await _fileManagerService.CreateFile(document.FilePath, request.File);
+        //    //    //document.FileName = Path.GetFileNameWithoutExtension(request.File.FileName);
+        //    //    //document.FileLength = request.File.Length;
+        //    //    ///document.FileExtension = Path.GetExtension(request.File.FileName);
+        //    //    results.Add(document);
+        //    //}
 
-            return results;
-        }
+        //    //return results;
+        //}
 
         private async Task<Document> ExtractionMappingAsync(ExtractionRequest request)
         {
@@ -400,7 +448,7 @@ namespace HuceDocs.Services
             // lay file path
 
             // Save file Vao FileStorage
-            await _fileManagerService.UploadFilesToStorageFolder(request.Files);
+            var fileStorage = await _hFileService.UploadFilesToStorageFolder(request.Files);
 
 
             return document;
@@ -458,7 +506,7 @@ namespace HuceDocs.Services
                             Description = null,
                         });
                         // send message to client
-                        await _messageHub.SendUpdateDocumentStatus(document.UserId, document.Id, (int)eDocumentStatus.Complete);
+                       // await _messageHub.SendUpdateDocumentStatus(document.UserId, document.Id, (int)eDocumentStatus.Complete);
                     }
                     // notify
                     var user = work.UserRepository.NoTrackingEntities.FirstOrDefault(o => o.Id == document.UserId);
@@ -503,14 +551,14 @@ namespace HuceDocs.Services
                         Description = description
                     });
                 // send message to client
-                await _messageHub.SendUpdateDocumentStatus(document.UserId, document.Id, (int)eDocumentStatus.Failure);
+               // await _messageHub.SendUpdateDocumentStatus(document.UserId, document.Id, (int)eDocumentStatus.Failure);
                 // send to notify
-                await _notifyService.CreateAsync(new Data.Models.Notification
-                {
-                    UserId = document.UserId,
-                    CreateDate = DateTime.Now,
-                    Status = (int)eNotifyStatus.failure
-                });
+                //await _notifyService.CreateAsync(new Data.Models.Notification
+                //{
+                //    UserId = document.UserId,
+                //    CreateDate = DateTime.Now,
+                //    Status = (int)eNotifyStatus.failure
+                //});
             }
             return new ApiSuccess<bool>();
         }

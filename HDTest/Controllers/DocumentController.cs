@@ -32,7 +32,7 @@ namespace HuceDocsWebApi.Controllers
 
 
         [HttpPost("create/extraction")]
-        public async Task<IActionResult> Extraction([FromBody] ExtractionRequest request)
+        public async Task<IActionResult> Extraction([FromForm] ExtractionRequest request)
         {
             //request.UserId = await _securityUtility.GetUserIdAsync(HttpContext);
             //if (request.UserId <= 0) return Unauthorized();

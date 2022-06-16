@@ -2,6 +2,7 @@ using AspNet.Security.OAuth.Validation;
 using FluentValidation.AspNetCore;
 using HuceDocs.Data.DbContext;
 using HuceDocs.Data.Models;
+using HuceDocs.Notification.Client;
 using HuceDocs.Notification.Email;
 using HuceDocs.Security.Common;
 using HuceDocs.Security.Extension;
@@ -16,6 +17,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -66,15 +68,28 @@ namespace HuceDocs
             services.AddSingleton<IAuthorizationRequirement, CustomAuthoRequire>();
             //services.AddSingleton<IConfiguration>(Configuration);
 
+            services.AddSingleton<IMessageHub, MessageHub>();
+            //services.AddSingleton<IHubContext, Hub> ();
+
+
             services.AddTransient<SignInManager<User>, SignInManager<User>>();
             services.AddTransient<RoleManager<Role>, RoleManager<Role>>();
             services.AddTransient<IEmailProvider, EmailProvider>();
+            services.AddTransient<INotifyService, NotifyService>();
+
 
             services.AddTransient<IUserService, UserService>();
+
+            //services.AddTransient<IFileManagerService, FileManagerService>();
+            services.AddTransient<IFileManagerIO, FileManagerIOFileSystem>();
+            services.AddTransient<IHFileService, HFileService>();
+            services.AddTransient<IDocumentService, DocumentService>();
+            services.AddTransient<IDanhMucService, DanhMucService>();
             services.AddTransient<IOCR_RequestService, OCR_RequestService>();
 
 
             services.AddTransient<IEmailService, EmailService>();
+
 
 
             var userRoleTypes = Enum.GetValues(typeof(UserTypeEnum)).Cast<UserTypeEnum>().ToList();

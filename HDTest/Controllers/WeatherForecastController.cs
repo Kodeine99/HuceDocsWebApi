@@ -18,6 +18,7 @@ namespace HuceDocsWebApi.Controllers
     {
         private readonly IUserService _userService;
         private readonly IAuthozirationUtility _utility;
+        private readonly IHFileService _hFileService;
 
         private IWebHostEnvironment _hostingEnvironment;
 
@@ -32,12 +33,16 @@ namespace HuceDocsWebApi.Controllers
             IUserService userService,
             IAuthozirationUtility utility,
             IWebHostEnvironment environment
+,
+
+            IHFileService hFileService
             )
         {
             _logger = logger;
             _userService = userService;
             _utility = utility;
             _hostingEnvironment = environment;
+            _hFileService = hFileService;
         }
 
         [HttpGet("test")]
@@ -53,24 +58,28 @@ namespace HuceDocsWebApi.Controllers
         }
 
         [HttpPost("uploads")]
-        public async Task<IActionResult> Upload(IList<IFormFile> files)
+        public async Task<IActionResult> Upload([FromForm]IList<IFormFile> files)
         {
-            var x = _hostingEnvironment;
-            string y = x.WebRootPath;
-            string uploads = Path.Combine(_hostingEnvironment.ContentRootPath, "uploads");
-            Directory.CreateDirectory(uploads);
-            foreach (IFormFile file in files)
-            {
-                if (file.Length > 0)
-                {
-                    string filePath = Path.Combine(uploads, file.FileName);
-                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(fileStream);
-                    }
-                }
-            }
-            return Ok(uploads);
+            //var x = _hostingEnvironment;
+            //string y = x.WebRootPath;
+            //string uploads = Path.Combine(_hostingEnvironment.ContentRootPath, "uploads");
+            //Directory.CreateDirectory(uploads);
+            //foreach (IFormFile file in files)
+            //{
+            //    if (file.Length > 0)
+            //    {
+            //        string filePath = Path.Combine(uploads, file.FileName);
+            //        using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+            //        {
+            //            await file.CopyToAsync(fileStream);
+            //        }
+            //    }
+            //}
+            //return Ok(uploads);
+            string fileStorage = await _hFileService.UploadFilesToStorageFolder(files);
+
+            return Ok(fileStorage);
+
         }
     }
 }

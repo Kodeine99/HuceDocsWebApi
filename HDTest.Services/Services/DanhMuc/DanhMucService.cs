@@ -10,9 +10,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HuceDocs.Services.Services.DanhMuc
+namespace HuceDocs.Services.Services
 {
-    public class DanhMucService
+    public class DanhMucService : IDanhMucService
     {
         private UnitOfWork work;
 

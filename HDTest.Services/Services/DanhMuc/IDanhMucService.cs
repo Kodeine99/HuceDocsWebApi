@@ -17,6 +17,6 @@ namespace HuceDocs.Services
         //ApiResult<List<OutputExtension>> GetOutputExtensions(int type);
         ApiResult<PagedResult<DocumentType>> GetDocumentTypes(CategoryFilter filter);
         ApiResult<int> DocumentTypeCreate(int adminid, DocumentType model);
-        ApiResult<int> DocumentTypeUpdate(int adminid, DocumentType model);
+        //ApiResult<int> DocumentTypeUpdate(int adminid, DocumentType model);
     }
 }

@@ -9,14 +9,9 @@ namespace HuceDocs.Services.ViewModels.Document
     public class DocumentRequestVM
     {
         public int UserId { get; set; }
-        [Required(ErrorMessage = "Loại dịch vụ không được bỏ trống")]
-        public List<int> Types { get; set; }
-        public List<int> LanguageIds { get; set; }
-        public int? DocumentTypeId { get; set; } = null;
-        public int? CheckType { get; set; } = 0;
 
         [Required(ErrorMessage = "Không nhận được file tải lên")]
-        public IFormFile File { get; set; }
+        public IList<IFormFile> Files { get; set; }
         public List<int> DigiOutputExtensions { get; set; }
         public List<int> ExtrOutputExtensions { get; set; }
     }

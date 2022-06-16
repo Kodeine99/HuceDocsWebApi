@@ -132,6 +132,8 @@ E:\WorkSpace\HDTest\HDTest\HDTest\obj\Debug\netcoreapp3.1\HuceDocsWebApi.pdb
 E:\WorkSpace\HDTest\HDTest\HDTest\obj\Debug\netcoreapp3.1\HuceDocsWebApi.genruntimeconfig.cache
 E:\WorkSpace\HuceDocs\HuceDocsWebApi\HDTest\bin\Debug\netcoreapp3.1\appsettings.Development.json
 E:\WorkSpace\HuceDocs\HuceDocsWebApi\HDTest\bin\Debug\netcoreapp3.1\appsettings.json
+E:\WorkSpace\HuceDocs\HuceDocsWebApi\HDTest\bin\Debug\netcoreapp3.1\appsettings.Production.json
+E:\WorkSpace\HuceDocs\HuceDocsWebApi\HDTest\bin\Debug\netcoreapp3.1\appsettings.Staging.json
 E:\WorkSpace\HuceDocs\HuceDocsWebApi\HDTest\bin\Debug\netcoreapp3.1\HuceDocsWebApi.exe
 E:\WorkSpace\HuceDocs\HuceDocsWebApi\HDTest\bin\Debug\netcoreapp3.1\HuceDocsWebApi.deps.json
 E:\WorkSpace\HuceDocs\HuceDocsWebApi\HDTest\bin\Debug\netcoreapp3.1\HuceDocsWebApi.runtimeconfig.json

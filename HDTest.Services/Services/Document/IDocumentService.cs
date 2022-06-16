@@ -48,7 +48,7 @@ namespace HuceDocs.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<ApiResult<bool>> ExecuteAsync(int id, int userid);
+        Task<ApiResult<bool>> ExecuteAsync(int id, int userid, string ExtractType);
         /// <summary>
         /// Thực hiện lại
         /// </summary>
