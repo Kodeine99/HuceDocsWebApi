@@ -21,6 +21,8 @@ namespace HuceDocs.Data.Repository
         private IRepository<Notification> notificationRepository;
         private IRepository<OutputResults> outputResultsRepository;
         private IRepository<GIAY_XAC_NHAN_TOEIC> GIAY_XAC_NHAN_TOEICRepository;
+        private IRepository<GIAY_CAM_KET_TRA_NO> GIAY_CAM_KET_TRA_NORepository;
+        private IRepository<BANG_DIEM_TIENG_ANH> BANG_DIEM_TIENG_ANHRepository;
 
         public HuceDocsContext DbContext => dbContext;
         public IRepository<Notification> NotificationRepository => notificationRepository ?? (notificationRepository = new Repository<Notification>(DbContext));
@@ -34,6 +36,8 @@ namespace HuceDocs.Data.Repository
         public IRepository<Verify> VerifyRepository => verifyRepository ?? (verifyRepository = new Repository<Verify>(DbContext));
         public IRepository<OutputResults> OutputResultsRepository => outputResultsRepository ?? (outputResultsRepository = new Repository<OutputResults>(DbContext));
         public IRepository<GIAY_XAC_NHAN_TOEIC> GGIAY_XAC_NHAN_TOEICRepository => GIAY_XAC_NHAN_TOEICRepository ?? (GIAY_XAC_NHAN_TOEICRepository = new Repository<GIAY_XAC_NHAN_TOEIC>(DbContext));
+        public IRepository<GIAY_CAM_KET_TRA_NO> GGIAY_CAM_KET_TRA_NORepository => GIAY_CAM_KET_TRA_NORepository ?? (GIAY_CAM_KET_TRA_NORepository = new Repository<GIAY_CAM_KET_TRA_NO>(DbContext));
+        public IRepository<BANG_DIEM_TIENG_ANH> BBANG_DIEM_TIENG_ANHRepository => BANG_DIEM_TIENG_ANHRepository ?? (BANG_DIEM_TIENG_ANHRepository = new Repository<BANG_DIEM_TIENG_ANH>(DbContext));
 
 
         public UnitOfWork()

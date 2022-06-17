@@ -4,14 +4,16 @@ using HuceDocs.Data.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace HuceDocs.Data.Migrations
+namespace HDTest.Data.Migrations
 {
     [DbContext(typeof(HuceDocsContext))]
-    partial class HDTestContextModelSnapshot : ModelSnapshot
+    [Migration("20220617075202_AddSomeDocumentsModalToDB")]
+    partial class AddSomeDocumentsModalToDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +35,7 @@ namespace HuceDocs.Data.Migrations
                     b.Property<DateTime>("CREATE_DATE")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 17, 15, 55, 30, 960, DateTimeKind.Local).AddTicks(2078));
+                        .HasDefaultValue(new DateTime(2022, 6, 17, 14, 52, 2, 35, DateTimeKind.Local).AddTicks(2525));
 
                     b.Property<DateTime>("DOB")
                         .HasColumnType("datetime2");
@@ -120,7 +122,7 @@ namespace HuceDocs.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 17, 15, 55, 30, 910, DateTimeKind.Local).AddTicks(8370));
+                        .HasDefaultValue(new DateTime(2022, 6, 17, 14, 52, 1, 981, DateTimeKind.Local).AddTicks(4758));
 
                     b.Property<string>("Description")
                         .HasMaxLength(2000)
@@ -201,7 +203,7 @@ namespace HuceDocs.Data.Migrations
                     b.Property<DateTime>("CREATE_DATE")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 17, 15, 55, 30, 954, DateTimeKind.Local).AddTicks(597));
+                        .HasDefaultValue(new DateTime(2022, 6, 17, 14, 52, 2, 26, DateTimeKind.Local).AddTicks(4071));
 
                     b.Property<string>("DIA_CHI_NGUOI_DUNG_TEN")
                         .HasMaxLength(255)
@@ -314,7 +316,7 @@ namespace HuceDocs.Data.Migrations
                     b.Property<DateTime>("CREATE_DATE")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 17, 15, 55, 30, 948, DateTimeKind.Local).AddTicks(4226));
+                        .HasDefaultValue(new DateTime(2022, 6, 17, 14, 52, 2, 18, DateTimeKind.Local).AddTicks(7908));
 
                     b.Property<string>("DIEM_THI")
                         .HasMaxLength(255)
@@ -460,10 +462,7 @@ namespace HuceDocs.Data.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 17, 15, 55, 30, 943, DateTimeKind.Local).AddTicks(1882));
-
-                    b.Property<int>("DocumentId")
-                        .HasColumnType("int");
+                        .HasDefaultValue(new DateTime(2022, 6, 17, 14, 52, 2, 15, DateTimeKind.Local).AddTicks(3148));
 
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

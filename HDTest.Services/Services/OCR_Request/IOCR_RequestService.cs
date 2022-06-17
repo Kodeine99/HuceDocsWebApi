@@ -10,6 +10,10 @@ namespace HuceDocs.Services
     public interface IOCR_RequestService 
     {
        Task<ApiResult<bool>> CreateAsync(UpdateOCR_RequestVM request);
+
+        //Task<ApiResult<bool>> UpdateAsync(UpdateOCR_RequestVM request);
+
+        Task<ApiResult<bool>> GetAll(UpdateOCR_RequestVM request);
         
     }
 }

@@ -53,7 +53,7 @@ namespace HuceDocs.Services
         public bool state = false;
 
        
-        public FCHelper(ILogger<DocumentService> logger, List<HFileVM> hFiles, int documentId, string ExtractType)
+        public FCHelper(ILogger<DocumentService> logger, List<HFileVM> hFiles, int documentId, string ExtractType, int userId)
         {
             //_config = config;
             //_logger = logger;
@@ -75,10 +75,10 @@ namespace HuceDocs.Services
             
             try
             {
-                batchTypesName = ExtractType;
+                //batchTypesName = ExtractType;
 
                 //byte[] myBinary = System.IO.File.ReadAllBytes(hFileVM.FilePath);
-                UpdateToServer(files, ExtractType, documentId.ToString());
+                UpdateToServer(files, ExtractType, documentId.ToString(), userId);
             }
             catch (FileNotFoundException FileEx)
             {
@@ -97,7 +97,7 @@ namespace HuceDocs.Services
         /// <param name="type"></param>
         /// <param name="batchName"></param>
         /// <returns></returns>
-        public  bool UpdateToServer(List<byte[]> files, string type , string batchName)
+        public  bool UpdateToServer(List<byte[]> files, string type , string documentId, int userId)
         {
             //Logger.LogMessage("Start upload file to OCR");
             batchTypesName = GetBatchTypeName(type);
@@ -145,7 +145,7 @@ namespace HuceDocs.Services
 
                         // create batch
                         var batch = new Batch();
-                        batch.Name = batchName;
+                        batch.Name = batchTypesName +"_"+ documentId;
                         batch.BatchTypeId = batchTypeId;
 
                         // register custom properties, use  for export to HuceDocs
@@ -153,7 +153,8 @@ namespace HuceDocs.Services
                         batch.Properties = new Batch.PropertiesType();
 
                         batch.Properties.Add(new RegistrationProperty { Name = "Type", Value = type });
-                        //batch.Properties.Add(new RegistrationProperty { Name = "SectionId", Value = sessionId.ToString() });
+                        batch.Properties.Add(new RegistrationProperty { Name = "HDUserId", Value = userId.ToString()});
+                        batch.Properties.Add(new RegistrationProperty { Name = "HDDocumentId", Value = documentId});
 
 
                     
@@ -416,7 +417,7 @@ namespace HuceDocs.Services
                 case EcmType.TheSinhVien: return BatchType.TheSinhVien;
                 case EcmType.GiayCamKetTraNo: return BatchType.GiayCamKetTraNo;
                 case EcmType.BangDiemTiengAnh: return BatchType.BangDiemTiengAnh;
-                case EcmType.GiayXacNhanToeic: return BatchType.BangDiemTiengAnh;
+                case EcmType.GiayXacNhanToeic: return BatchType.GiayXacNhanToeic;
                 case EcmType.BangDiem: return BatchType.BangDiem;
 
                 default:

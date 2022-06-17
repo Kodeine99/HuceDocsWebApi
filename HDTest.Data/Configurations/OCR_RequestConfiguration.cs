@@ -19,8 +19,9 @@ namespace HuceDocs.Data.Configurations
             builder.Property(x => x.Id).UseIdentityColumn();
 
             builder.Property(x => x.Ticket_Id).IsRequired();
-            builder.Property(x => x.JsonData).IsRequired();
+            builder.Property(x => x.JsonData);
             builder.Property(x => x.UserId).IsRequired();
+            builder.Property(x => x.DocumentId).IsRequired();
             builder.Property(x => x.CreateTime).IsRequired();
 
             builder.Property(x => x.CreateTime).HasDefaultValue(DateTime.Now);

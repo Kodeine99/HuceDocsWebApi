@@ -340,7 +340,7 @@ namespace HuceDocs.Services
                 _logger.LogInformation("Doc status = " + document.Status + " ID = " + document.Id);
 
                 // Execute
-                await ExtrExcuteAsync(document, ExtractType);
+                await ExtrExcuteAsync(document, ExtractType, userId);
                 return new ApiSuccess<bool>("Tài liệu đang được xử lý");
             }
             catch (Exception)
@@ -351,12 +351,12 @@ namespace HuceDocs.Services
 
         }
 
-        private async Task ExtrExcuteAsync(Document document, string ExtractType)
+        private async Task ExtrExcuteAsync(Document document, string ExtractType, int userId)
         {
             var hFiles = _hFileService.GetListFileByDocId(document.Id);
             try
             {
-                var extr = new FCHelper(_logger, hFiles, document.Id, ExtractType);
+                var extr = new FCHelper(_logger, hFiles, document.Id, ExtractType, userId);
                 if (extr.state)
                 {
                     work.DocumentRepository.Entities

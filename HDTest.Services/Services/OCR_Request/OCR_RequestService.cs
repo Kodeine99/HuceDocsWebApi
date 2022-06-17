@@ -42,5 +42,7 @@ namespace HuceDocs.Services
             }
             return new ApiError<bool>("Failed") { IsOk = false};
         }
+
+        public async Task<ApiResult<OCR_RequestVM>>
     }
 }
