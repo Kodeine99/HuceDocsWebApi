@@ -16,6 +16,7 @@ namespace HuceDocs.Data.Models
         public DateTime CreateTime { get; set; }
         public string Token { get; set; } = String.Empty;
         public int OCR_Status_Code { get; set; }
+        public string VerifyLink { get; set; } 
         public virtual User User { get; set; }
 
 

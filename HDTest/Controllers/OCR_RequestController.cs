@@ -26,6 +26,7 @@ namespace HuceDocsWebApi.Controllers
 
             var ocr_RqVM = await _ocrRequestService.CreateAsync(request);
 
+
             if (ocr_RqVM.IsOk == false)
             {
                 return BadRequest(ocr_RqVM);
@@ -38,6 +39,18 @@ namespace HuceDocsWebApi.Controllers
         {
             return Ok("abc");
         }
+
+        [HttpPost("update")]
+        public  IActionResult Update([FromBody] UpdateOCR_RequestVM request)
+        {
+            var updateSuccess =  _ocrRequestService.Update(request);
+
+            if (updateSuccess.IsOk == false)
+            {
+                return BadRequest(updateSuccess);
+            }
+            return Ok(updateSuccess);
+        } 
     }
     
 }
