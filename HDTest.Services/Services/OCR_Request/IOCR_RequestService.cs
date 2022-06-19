@@ -13,7 +13,7 @@ namespace HuceDocs.Services
 
        ApiResult<bool> Update(UpdateOCR_RequestVM request);
 
-        //Task<ApiResult<bool>> GetAll(UpdateOCR_RequestVM request);
+       ApiResult<List<OCR_RequestVM>> GetAll(OCR_RequestFilter filter);
         
     }
 }

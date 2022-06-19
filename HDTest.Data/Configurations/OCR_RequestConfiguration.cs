@@ -28,6 +28,9 @@ namespace HuceDocs.Data.Configurations
             builder.Property(x => x.Token);
             builder.Property(x => x.VerifyLink);
             builder.Property(x => x.OCR_Status_Code).HasDefaultValue(0).IsRequired();
+
+
+
         }
     }
 }

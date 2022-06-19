@@ -3,6 +3,7 @@ using HuceDocs.Data.Repository;
 using HuceDocs.Services.ViewModel;
 using HuceDocs.Services.ViewModels.OcrRequest;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,7 +48,7 @@ namespace HuceDocs.Services
             return new ApiError<bool>("Failed") { IsOk = false};
         }
 
-        public  ApiResult<bool> Update(UpdateOCR_RequestVM request)
+        public ApiResult<bool> Update(UpdateOCR_RequestVM request)
         {
             try
             {
@@ -74,6 +75,26 @@ namespace HuceDocs.Services
 
                 return new ApiError<bool>("Update kết quả soát lỗi thất bại") { IsOk = false };
             }
+        }
+
+        public ApiResult<List<OCR_RequestVM>> GetAll(OCR_RequestFilter filter)
+        {
+
+            var result = work.OCR_RequestRepository.Entities
+                .Where(o => filter.Id == null || o.Id == filter.Id)
+                .Where(o => filter.Ticket_Id == null || o.Ticket_Id == filter.Ticket_Id)
+                .Where(o => filter.UserId == null || o.UserId == filter.UserId)
+                .Where(o => filter.FromDate == null || o.CreateTime > filter.FromDate)
+                .Where(o => filter.ToDate == null || o.CreateTime < filter.ToDate)
+                .Where(o => filter.OCR_Status_Code == null || o.OCR_Status_Code == filter.OCR_Status_Code)
+                .Select(model => new OCR_RequestVM(model)
+                {
+                    
+                })
+                .ToList();
+
+            return new ApiSuccess<List<OCR_RequestVM>> { Result = result };
+                
         }
     }
 }

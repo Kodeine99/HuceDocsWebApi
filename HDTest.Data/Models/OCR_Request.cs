@@ -19,6 +19,7 @@ namespace HuceDocs.Data.Models
         public string VerifyLink { get; set; } 
         public virtual User User { get; set; }
 
+        public virtual Document Document { get; set; }
 
         public ICollection<GIAY_XAC_NHAN_TOEIC> GIAY_XAC_NHAN_TOEICs { get; set; }
         public ICollection<GIAY_CAM_KET_TRA_NO> GIAY_CAM_KET_TRA_NOs { get; set; }

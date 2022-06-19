@@ -38,6 +38,8 @@ namespace HuceDocs.Data.Configurations
             //builder.HasOne(x => x.DocumentType).WithMany(y => y.Services).HasForeignKey(f => f.DocumentTypeId);
             
             builder.HasOne(x => x.Verify).WithOne(y => y.Document).HasForeignKey<Verify>(f => f.DocumentId);
+            builder.HasOne(x => x.OCR_Request).WithOne(y => y.Document).HasForeignKey<OCR_Request>(f => f.DocumentId);
+
         }
     }
 }

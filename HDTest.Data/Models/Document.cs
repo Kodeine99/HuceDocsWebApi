@@ -35,5 +35,6 @@ namespace HuceDocs.Data.Models
 
         public virtual ICollection<HFile> HFiles { get; set; }
         public virtual Verify Verify { get; set; }
+        public virtual OCR_Request OCR_Request { get; set; }
     }
 }

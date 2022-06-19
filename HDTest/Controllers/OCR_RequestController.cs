@@ -50,7 +50,15 @@ namespace HuceDocsWebApi.Controllers
                 return BadRequest(updateSuccess);
             }
             return Ok(updateSuccess);
-        } 
+        }
+
+        [HttpPost("getall")]
+        public IActionResult GetAll([FromBody]OCR_RequestFilter filter)
+        {
+            var result = _ocrRequestService.GetAll(filter);
+
+            return Ok(result);
+        }
     }
     
 }
