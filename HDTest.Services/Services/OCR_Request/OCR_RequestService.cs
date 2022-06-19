@@ -1,6 +1,7 @@
 ﻿using HuceDocs.Data.Models;
 using HuceDocs.Data.Repository;
 using HuceDocs.Services.ViewModel;
+using HuceDocs.Services.ViewModels;
 using HuceDocs.Services.ViewModels.OcrRequest;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -81,6 +82,8 @@ namespace HuceDocs.Services
         {
 
             var result = work.OCR_RequestRepository.Entities
+                .Include(o => o.User)
+                .Include(o => o.Document)
                 .Where(o => filter.Id == null || o.Id == filter.Id)
                 .Where(o => filter.Ticket_Id == null || o.Ticket_Id == filter.Ticket_Id)
                 .Where(o => filter.UserId == null || o.UserId == filter.UserId)

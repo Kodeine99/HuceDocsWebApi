@@ -24,7 +24,7 @@ namespace HuceDocs.Services.ViewModels.OcrRequest
         public string Ticket_Id { get; set; } = String.Empty;
         public string JsonData { get; set; } = String.Empty;
         public int UserId { get; set; }
-        public int DocumentId { get; set; }
+        public int? DocumentId { get; set; }
         public DateTime CreateTime { get; set; }
         public string Token { get; set; } = String.Empty;
         public string VerifyLink { get; set; } = String.Empty;

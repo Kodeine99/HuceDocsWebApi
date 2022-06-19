@@ -4,14 +4,16 @@ using HuceDocs.Data.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace HuceDocs.Data.Migrations
+namespace HDTest.Data.Migrations
 {
     [DbContext(typeof(HuceDocsContext))]
-    partial class HDTestContextModelSnapshot : ModelSnapshot
+    [Migration("20220619161734_AddRelationshipToDocTable_OCRTable")]
+    partial class AddRelationshipToDocTable_OCRTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
