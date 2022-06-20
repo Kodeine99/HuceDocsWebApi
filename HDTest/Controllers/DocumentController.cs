@@ -44,5 +44,6 @@ namespace HuceDocsWebApi.Controllers
             var result = await _documentService.CreateExtraction(request);
             return Ok(result);
         }
+
     }
 }

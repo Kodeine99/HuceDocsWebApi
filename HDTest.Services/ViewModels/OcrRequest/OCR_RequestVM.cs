@@ -22,7 +22,7 @@ namespace HuceDocs.Services.ViewModels.OcrRequest
             OCR_Status_Code = model.OCR_Status_Code;
             VerifyLink = model.VerifyLink;
             Username = model.User?.UserName;
-            HFiles = model.Document?.HFiles.ToList();
+            HFiles = model.Document?.HFiles.Select(o => new HFileVM(o)).ToList();
 
             
         }
@@ -36,7 +36,7 @@ namespace HuceDocs.Services.ViewModels.OcrRequest
         public int OCR_Status_Code { get; set; }
         public string VerifyLink { get; set; }
         public string Username { get; set; }
-        public List<HFile> HFiles { get; set; }
+        public List<HFileVM> HFiles { get; set; }
     }
 
     public class OCR_RequestFilter

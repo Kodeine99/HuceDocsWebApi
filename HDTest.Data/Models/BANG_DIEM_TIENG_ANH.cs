@@ -13,16 +13,18 @@ namespace HuceDocs.Data.Models
         public DateTime CREATE_DATE { get; set; }
         public DateTime UPDATE_DATE { get; set; }
         public int STATUS { get; set; }
-        public int FULL_NAME { get; set; }
+        public string FULL_NAME { get; set; }
         public DateTime DOB { get; set; }
-        public int MAJOR { get; set; }
-        public int STUDENT_ID { get; set; }
-        public int S_CLASS { get; set; }
-        public int TRAINING_FORM { get; set; }
-        public int GPA_10SCALE { get; set; }
-        public int GPA_4SCALE { get; set; }
-        public int TOTAL_CREDITS { get; set; }
-        public int CLASSIFICATION { get; set; }
+        public string MAJOR { get; set; }
+        public string STUDENT_ID { get; set; }
+        public string S_CLASS { get; set; }
+        public string TRAINING_FORM { get; set; }
+        public string GPA_10SCALE { get; set; }
+        public string GPA_4SCALE { get; set; }
+        public string TOTAL_CREDITS { get; set; }
+        public string CLASSIFICATION { get; set; }
         public string MARK_TABLE { get; set; }
+
+        public virtual OCR_Request OCR_Request { get; set; }
     }
 }

@@ -26,36 +26,36 @@ namespace HuceDocs.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("CLASSIFICATION")
+                    b.Property<string>("CLASSIFICATION")
                         .HasMaxLength(255)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime>("CREATE_DATE")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 19, 23, 17, 34, 368, DateTimeKind.Local).AddTicks(8527));
+                        .HasDefaultValue(new DateTime(2022, 6, 20, 15, 38, 23, 770, DateTimeKind.Local).AddTicks(3956));
 
                     b.Property<DateTime>("DOB")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("FULL_NAME")
+                    b.Property<string>("FULL_NAME")
                         .HasMaxLength(255)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("GPA_10SCALE")
+                    b.Property<string>("GPA_10SCALE")
                         .HasMaxLength(255)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("GPA_4SCALE")
+                    b.Property<string>("GPA_4SCALE")
                         .HasMaxLength(255)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("HUCEDOCS_TYPE")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MAJOR")
+                    b.Property<string>("MAJOR")
                         .HasMaxLength(255)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("MARK_TABLE")
                         .HasColumnType("nvarchar(max)");
@@ -65,25 +65,25 @@ namespace HuceDocs.Data.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(1);
 
-                    b.Property<int>("STUDENT_ID")
+                    b.Property<string>("STUDENT_ID")
                         .HasMaxLength(255)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("S_CLASS")
+                    b.Property<string>("S_CLASS")
                         .HasMaxLength(255)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("TICKET_ID")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("TOTAL_CREDITS")
+                    b.Property<string>("TOTAL_CREDITS")
                         .HasMaxLength(255)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("TRAINING_FORM")
+                    b.Property<string>("TRAINING_FORM")
                         .HasMaxLength(255)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime>("UPDATE_DATE")
                         .HasColumnType("datetime2");
@@ -93,6 +93,8 @@ namespace HuceDocs.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TICKET_ID");
 
                     b.ToTable("BANG_DIEM_TIENG_ANH");
                 });
@@ -120,7 +122,7 @@ namespace HuceDocs.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 19, 23, 17, 34, 317, DateTimeKind.Local).AddTicks(9382));
+                        .HasDefaultValue(new DateTime(2022, 6, 20, 15, 38, 23, 733, DateTimeKind.Local).AddTicks(970));
 
                     b.Property<string>("Description")
                         .HasMaxLength(2000)
@@ -201,7 +203,7 @@ namespace HuceDocs.Data.Migrations
                     b.Property<DateTime>("CREATE_DATE")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 19, 23, 17, 34, 362, DateTimeKind.Local).AddTicks(4723));
+                        .HasDefaultValue(new DateTime(2022, 6, 20, 15, 38, 23, 767, DateTimeKind.Local).AddTicks(3785));
 
                     b.Property<string>("DIA_CHI_NGUOI_DUNG_TEN")
                         .HasMaxLength(255)
@@ -314,7 +316,7 @@ namespace HuceDocs.Data.Migrations
                     b.Property<DateTime>("CREATE_DATE")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 19, 23, 17, 34, 357, DateTimeKind.Local).AddTicks(2467));
+                        .HasDefaultValue(new DateTime(2022, 6, 20, 15, 38, 23, 763, DateTimeKind.Local).AddTicks(2924));
 
                     b.Property<string>("DIEM_THI")
                         .HasMaxLength(255)
@@ -460,7 +462,7 @@ namespace HuceDocs.Data.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 19, 23, 17, 34, 352, DateTimeKind.Local).AddTicks(528));
+                        .HasDefaultValue(new DateTime(2022, 6, 20, 15, 38, 23, 759, DateTimeKind.Local).AddTicks(4510));
 
                     b.Property<int?>("DocumentId")
                         .IsRequired()
@@ -747,6 +749,7 @@ namespace HuceDocs.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -756,6 +759,17 @@ namespace HuceDocs.Data.Migrations
                         .HasFilter("[DocumentId] IS NOT NULL");
 
                     b.ToTable("Verify");
+                });
+
+            modelBuilder.Entity("HuceDocs.Data.Models.BANG_DIEM_TIENG_ANH", b =>
+                {
+                    b.HasOne("HuceDocs.Data.Models.OCR_Request", "OCR_Request")
+                        .WithMany("BANG_DIEM_TIENG_ANHs")
+                        .HasForeignKey("TICKET_ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OCR_Request");
                 });
 
             modelBuilder.Entity("HuceDocs.Data.Models.DocOutputExtensions", b =>
@@ -923,6 +937,8 @@ namespace HuceDocs.Data.Migrations
 
             modelBuilder.Entity("HuceDocs.Data.Models.OCR_Request", b =>
                 {
+                    b.Navigation("BANG_DIEM_TIENG_ANHs");
+
                     b.Navigation("GIAY_CAM_KET_TRA_NOs");
 
                     b.Navigation("GIAY_XAC_NHAN_TOEICs");

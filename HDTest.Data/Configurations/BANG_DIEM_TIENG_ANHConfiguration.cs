@@ -36,6 +36,9 @@ namespace HuceDocs.Data.Configurations
 
             builder.Property(x => x.DOB);
 
+            builder.HasOne(x => x.OCR_Request).WithMany(y => y.BANG_DIEM_TIENG_ANHs)
+                .HasForeignKey(z => z.TICKET_ID);
+
         }
     }
 }

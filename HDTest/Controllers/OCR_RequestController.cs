@@ -58,7 +58,7 @@ namespace HuceDocsWebApi.Controllers
         }
 
         [HttpPost("getall")]
-        [CustomAuthorization(Policy = "admin,manager")]
+        //[CustomAuthorization(Policy = "admin,manager")]
         public IActionResult GetAll([FromBody]OCR_RequestFilter filter)
         {
             var result = _ocrRequestService.GetAll(filter);

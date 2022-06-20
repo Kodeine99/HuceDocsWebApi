@@ -23,6 +23,7 @@ namespace HuceDocs.Data.Models
 
         public ICollection<GIAY_XAC_NHAN_TOEIC> GIAY_XAC_NHAN_TOEICs { get; set; }
         public ICollection<GIAY_CAM_KET_TRA_NO> GIAY_CAM_KET_TRA_NOs { get; set; }
+        public ICollection<BANG_DIEM_TIENG_ANH> BANG_DIEM_TIENG_ANHs { get; set; }
 
     }
 }

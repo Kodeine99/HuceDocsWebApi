@@ -84,17 +84,19 @@ namespace HuceDocs.Services
             var result = work.OCR_RequestRepository.Entities
                 .Include(o => o.User)
                 .Include(o => o.Document)
+                .ThenInclude(o => o.HFiles)
                 .Where(o => filter.Id == null || o.Id == filter.Id)
                 .Where(o => filter.Ticket_Id == null || o.Ticket_Id == filter.Ticket_Id)
                 .Where(o => filter.UserId == null || o.UserId == filter.UserId)
                 .Where(o => filter.FromDate == null || o.CreateTime > filter.FromDate)
                 .Where(o => filter.ToDate == null || o.CreateTime < filter.ToDate)
                 .Where(o => filter.OCR_Status_Code == null || o.OCR_Status_Code == filter.OCR_Status_Code)
-                .Select(model => new OCR_RequestVM(model)
+                .Select(o => new OCR_RequestVM(o)
                 {
-                    
-                })
-                .ToList();
+                    HFiles = o.Document.HFiles
+                    .Select(x => new HFileVM(x))
+                .ToList()
+                }).ToList();
 
             return new ApiSuccess<List<OCR_RequestVM>> { Result = result };
                 
@@ -105,6 +107,7 @@ namespace HuceDocs.Services
             var result = work.OCR_RequestRepository.Entities
                 .Include(o => o.User)
                 .Include(o => o.Document)
+                .ThenInclude(o =>o.HFiles)
                 .Where(o => o.UserId == userId)
                 .Where(o => filter.Ticket_Id == null || o.Ticket_Id == filter.Ticket_Id)
                 .Where(o => filter.Id == null || o.Id == filter.Id)

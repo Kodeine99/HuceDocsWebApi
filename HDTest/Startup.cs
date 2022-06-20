@@ -8,6 +8,7 @@ using HuceDocs.Security.Common;
 using HuceDocs.Security.Extension;
 using HuceDocs.Services;
 using HuceDocs.Services.Services;
+using HuceDocs.Services.Services.ChungTu;
 using HuceDocs.Services.ViewModel;
 using HuceDocsWebApi.Attributes;
 using HuceDocsWebApi.JWT.Utility;
@@ -86,6 +87,10 @@ namespace HuceDocs
             services.AddTransient<IDocumentService, DocumentService>();
             services.AddTransient<IDanhMucService, DanhMucService>();
             services.AddTransient<IOCR_RequestService, OCR_RequestService>();
+            services.AddTransient<IBangDiemTiengAnhService, BangDiemTiengAnhServices>();
+            services.AddTransient<IGiayXacNhanToeicService, GiayXacNhanToeicServices>();
+            services.AddTransient<IGiayCamKetTraNoService, GiayCamKetTraNoServices>();
+
 
 
             services.AddTransient<IEmailService, EmailService>();
@@ -115,7 +120,7 @@ namespace HuceDocs
             services.AddAuthentication(OAuthValidationDefaults.AuthenticationScheme).AddOAuthValidation();
 
 
-            services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>()); ;
+            services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>());
 
             services.AddSwaggerGen(options =>
             {
