@@ -110,7 +110,7 @@ namespace HuceDocs.Services.Services
                 return new ApiError<RegisterResult>(result.Errors.FirstOrDefault().Description);
             }
             // phan quyen
-            await _userManager.AddToRoleAsync(userModel, "member");
+            await _userManager.AddToRoleAsync(userModel, "admin");
             //tao token confirm email
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(userModel);
             var tokenEncode = Convert.ToBase64String(Encoding.UTF8.GetBytes(token));
@@ -403,8 +403,12 @@ namespace HuceDocs.Services.Services
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString())
             };
 
-            string issuer = "http://localhost:5000";
+            string issuer = "http://10.10.10.122:5000";
             string secretSercurityKey = "473B2693-19T5-4822-8209-8FFB97729615";
+
+
+            //string issuer = _config.GetValue<string>("TokenAuthentication:Issuer");
+            //string secretSercurityKey = _config.GetValue<string>("TokenAuthentication:SecretSercurityKey");
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretSercurityKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 

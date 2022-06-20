@@ -99,5 +99,25 @@ namespace HuceDocs.Services
             return new ApiSuccess<List<OCR_RequestVM>> { Result = result };
                 
         }
+
+        public ApiResult<List<OCR_RequestVM>> UserGetAll(OCR_RequestFilter filter, int userId)
+        {
+            var result = work.OCR_RequestRepository.Entities
+                .Include(o => o.User)
+                .Include(o => o.Document)
+                .Where(o => o.UserId == userId)
+                .Where(o => filter.Ticket_Id == null || o.Ticket_Id == filter.Ticket_Id)
+                .Where(o => filter.Id == null || o.Id == filter.Id)
+                .Where(o => filter.FromDate == null || o.CreateTime > filter.FromDate)
+                .Where(o => filter.ToDate == null || o.CreateTime < filter.ToDate)
+                .Where(o => filter.OCR_Status_Code == null || o.OCR_Status_Code == filter.OCR_Status_Code)
+                .Select(model => new OCR_RequestVM(model)
+                {
+
+                })
+                .ToList();
+
+            return new ApiSuccess<List<OCR_RequestVM>> { Result = result };
+        }
     }
 }

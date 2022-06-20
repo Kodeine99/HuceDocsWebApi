@@ -28,6 +28,7 @@ namespace HuceDocs.Data.DbContext
             builder.ApplyConfiguration(new GIAY_XAC_NHAN_TOEICConfiguration());
             builder.ApplyConfiguration(new GIAY_CAM_KET_TRA_NOConfiguration());
             builder.ApplyConfiguration(new BANG_DIEM_TIENG_ANHConfiguration());
+            builder.ApplyConfiguration(new VerifyConfiguration());
             
             // add identity
             builder.Entity<UserRole>().ToTable("UserRole");

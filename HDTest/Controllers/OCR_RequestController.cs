@@ -1,5 +1,7 @@
 ﻿using HuceDocs.Services;
 using HuceDocs.Services.ViewModels.OcrRequest;
+using HuceDocsWebApi.Attributes;
+using HuceDocsWebApi.JWT.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -11,11 +13,14 @@ namespace HuceDocsWebApi.Controllers
     public class OCR_RequestController : ControllerBase
     {
         private readonly IOCR_RequestService _ocrRequestService;
+        private readonly IAuthozirationUtility _utility;
 
         public OCR_RequestController(
-            IOCR_RequestService ocrRequestService)
+            IOCR_RequestService ocrRequestService,
+            IAuthozirationUtility utility)
         {
             _ocrRequestService = ocrRequestService;
+            _utility = utility;
         }
 
         [HttpPost("create")]
@@ -53,12 +58,24 @@ namespace HuceDocsWebApi.Controllers
         }
 
         [HttpPost("getall")]
+        [CustomAuthorization(Policy = "admin,manager")]
         public IActionResult GetAll([FromBody]OCR_RequestFilter filter)
         {
             var result = _ocrRequestService.GetAll(filter);
 
             return Ok(result);
         }
+
+        [HttpPost("usergetall")]
+        public IActionResult UserGetAll([FromBody] OCR_RequestFilter filter)
+        {
+            var userId = _utility.GetUserId(HttpContext);
+            if (userId <= 0) 
+                return Unauthorized();
+
+            var result = _ocrRequestService.UserGetAll(filter, userId);
+            return Ok(result);
+        }
     }
-    
+
 }

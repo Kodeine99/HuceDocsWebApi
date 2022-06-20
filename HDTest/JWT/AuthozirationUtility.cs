@@ -30,7 +30,7 @@ namespace HuceDocsWebApi.JWT.Utility
 
         public string RenderAccessToken(current_user_access access_user)
         {
-            var audience = _configuration["TokenAuthenticationLsiteUrl"];
+            var audience = _configuration["TokenAuthentication:siteUrl"];
 
             var jwtToken = new JwtSecurityToken(
                 issuer: audience,
@@ -44,40 +44,41 @@ namespace HuceDocsWebApi.JWT.Utility
 
         public JwtSecurityToken GetRequestAccessToken(HttpContext context)
         {
-            //try
-            //{
-            //    var token = GetToken(context);
-            //    token = token.Replace("Bearer", "");
-            //    return new JwtSecurityTokenHandler().ReadJwtToken(token);
-            //}
-            //catch (Exception ex)
-            //{
-            //    _logger.LogError(ex, message: " Read JwtToken fail");
-            //    return null;
-
-            //}
-           
-                //var tokenTest = context.GetTokenAsync("Bearer", "access_token");
             try
             {
                 var token = GetToken(context);
                 token = token.Replace("Bearer ", "");
-                var tokenHandler = new JwtSecurityTokenHandler();
-                tokenHandler.ValidateToken(token, new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Constant.SecretSercurityKey)),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ClockSkew = TimeSpan.Zero
-                }, out SecurityToken validatedToken);
-                return (JwtSecurityToken)validatedToken;
+                return new JwtSecurityTokenHandler().ReadJwtToken(token);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, message: "ReadJwtToken false");
                 return null;
             }
+
+            //}
+
+            //var tokenTest = context.GetTokenAsync("Bearer", "access_token");
+            //try
+            //{
+            //    var token = GetToken(context);
+            //    token = token.Replace("Bearer ", "");
+            //    var tokenHandler = new JwtSecurityTokenHandler();
+            //    tokenHandler.ValidateToken(token, new TokenValidationParameters
+            //    {
+            //        ValidateIssuerSigningKey = true,
+            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Constant.SecretSercurityKey)),
+            //        ValidateIssuer = false,
+            //        ValidateAudience = false,
+            //        ClockSkew = TimeSpan.Zero
+            //    }, out SecurityToken validatedToken);
+            //    return (JwtSecurityToken)validatedToken;
+            //}
+            //catch (Exception ex)
+            //{
+            //    _logger.LogError(ex, message: "ReadJwtToken false");
+            //    return null;
+            //}
         }
         private string GetToken(HttpContext context)
         {
