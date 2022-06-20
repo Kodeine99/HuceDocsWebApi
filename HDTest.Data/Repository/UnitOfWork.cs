@@ -18,14 +18,14 @@ namespace HuceDocs.Data.Repository
         private IRepository<DocumentType> documentTypeRepository;
         private IRepository<OCR_Request> ocr_requestRepository;
         private IRepository<Verify> verifyRepository;
-        private IRepository<Notification> notificationRepository;
+        //private IRepository<Notification> notificationRepository;
         private IRepository<OutputResults> outputResultsRepository;
         private IRepository<GIAY_XAC_NHAN_TOEIC> GIAY_XAC_NHAN_TOEICRepository;
         private IRepository<GIAY_CAM_KET_TRA_NO> GIAY_CAM_KET_TRA_NORepository;
         private IRepository<BANG_DIEM_TIENG_ANH> BANG_DIEM_TIENG_ANHRepository;
 
         public HuceDocsContext DbContext => dbContext;
-        public IRepository<Notification> NotificationRepository => notificationRepository ?? (notificationRepository = new Repository<Notification>(DbContext));
+        //public IRepository<Notification> NotificationRepository => notificationRepository ?? (notificationRepository = new Repository<Notification>(DbContext));
         public IRepository<User> UserRepository => userRepository ?? (userRepository = new Repository<User>(DbContext));
         public IRepository<Role> RoleRepository => roleRepository ?? (roleRepository = new Repository<Role>(DbContext));
         public IRepository<Document> DocumentRepository => documentRepository ?? (documentRepository = new Repository<Document>(DbContext));

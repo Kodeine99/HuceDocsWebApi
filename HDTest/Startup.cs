@@ -76,7 +76,7 @@ namespace HuceDocs
             services.AddTransient<SignInManager<User>, SignInManager<User>>();
             services.AddTransient<RoleManager<Role>, RoleManager<Role>>();
             services.AddTransient<IEmailProvider, EmailProvider>();
-            services.AddTransient<INotifyService, NotifyService>();
+            //services.AddTransient<INotifyService, NotifyService>();
 
 
             services.AddTransient<IUserService, UserService>();

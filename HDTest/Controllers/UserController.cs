@@ -151,7 +151,8 @@ namespace HuceDocsWebApi.Controllers
         public async Task<IActionResult> GetUserByToken()
         {
             var userid = await _utility.GetUserIdAsync(HttpContext); // doc user id tu token
-            if ( userid <= 0) return Unauthorized();
+            if ( userid <= 0) 
+                return Unauthorized();
 
             var user = _userService.GetUserById(userid);
             return Ok(user);
