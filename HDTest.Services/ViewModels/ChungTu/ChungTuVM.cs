@@ -41,7 +41,7 @@ namespace HuceDocs.Services.ViewModels.ChungTu
         public DateTime UPDATE_DATE { get; set; }
         public int STATUS { get; set; }
         public string FULL_NAME { get; set; }
-        public DateTime DOB { get; set; }
+        public string DOB { get; set; }
         public string MAJOR { get; set; }
         public string STUDENT_ID { get; set; }
         public string S_CLASS { get; set; }
@@ -103,7 +103,7 @@ namespace HuceDocs.Services.ViewModels.ChungTu
         public DateTime UPDATE_DATE { get; set; }
         public int STATUS { get; set; }
         public string HO_TEN { get; set; }
-        public DateTime NGAY_SINH { get; set; }
+        public string NGAY_SINH { get; set; }
         public string MSSV { get; set; }
         public string LOP { get; set; }
         public string NGANH_HOC { get; set; }
@@ -112,7 +112,7 @@ namespace HuceDocs.Services.ViewModels.ChungTu
         public string NDXN { get; set; }
         public string DIEM_THI { get; set; }
         public string DOT_THI { get; set; }
-        public DateTime NGAY_XAC_NHAN { get; set; }
+        public string NGAY_XAC_NHAN { get; set; }
     } 
     
     public class GIAY_CAM_KET_TRA_NO_VM 
@@ -159,24 +159,24 @@ namespace HuceDocs.Services.ViewModels.ChungTu
 
         public string MAU_SO { get; set; }
         public string HO_TEN_SV { get; set; }
-        public DateTime NGAY_SINH { get; set; }
+        public string NGAY_SINH { get; set; }
         public string GIOI_TINH { get; set; }
         public string CMND { get; set; }
-        public DateTime NGAY_CAP_CMND { get; set; }
+        public string NGAY_CAP_CMND { get; set; }
         public string NOI_CAP { get; set; }
         public string LOP { get; set; }
         public string KHOA { get; set; }
         public string SO_THE_HSSV { get; set; }
         public string NIEN_KHOA { get; set; }
         public string LOAI_HINH_DAO_TAO { get; set; }
-        public DateTime NGAY_NHAP_HOC { get; set; }
-        public DateTime NGAY_RA_TRUONG { get; set; }
+        public string NGAY_NHAP_HOC { get; set; }
+        public string NGAY_RA_TRUONG { get; set; }
         public string MA_TRUONG { get; set; }
         public string NGUOI_DUNG_TEN { get; set; }
         public string DIA_CHI_NGUOI_DUNG_TEN { get; set; }
         public string NGAN_HANG_VAY_VON { get; set; }
         public string SO_TIEN_BANG_SO { get; set; }
         public string SO_TIEN_BANG_CHU { get; set; }
-        public DateTime NGAY_KY { get; set; }
+        public string NGAY_KY { get; set; }
     }
 }

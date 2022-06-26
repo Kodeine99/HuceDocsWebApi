@@ -28,6 +28,9 @@ namespace HuceDocs.Data.DbContext
             builder.ApplyConfiguration(new GIAY_XAC_NHAN_TOEICConfiguration());
             builder.ApplyConfiguration(new GIAY_CAM_KET_TRA_NOConfiguration());
             builder.ApplyConfiguration(new BANG_DIEM_TIENG_ANHConfiguration());
+            builder.ApplyConfiguration(new GIAY_XAC_NHAN_VAY_VONConfiguration());
+            builder.ApplyConfiguration(new BANG_DIEMConfiguration());
+            builder.ApplyConfiguration(new CCCDConfiguration());
             builder.ApplyConfiguration(new VerifyConfiguration());
             
             // add identity

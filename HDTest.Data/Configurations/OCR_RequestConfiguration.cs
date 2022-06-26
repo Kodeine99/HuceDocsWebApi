@@ -27,10 +27,9 @@ namespace HuceDocs.Data.Configurations
             builder.Property(x => x.CreateTime).HasDefaultValue(DateTime.Now);
             builder.Property(x => x.Token);
             builder.Property(x => x.VerifyLink);
+            builder.Property(x => x.IsSaved).IsRequired().HasDefaultValue(0);
+            builder.Property(x => x.IsDelete).IsRequired().HasDefaultValue(0);
             builder.Property(x => x.OCR_Status_Code).HasDefaultValue(0).IsRequired();
-
-
-
         }
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HuceDocsWebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class GiayCamKetTraNoController : ControllerBase
     {

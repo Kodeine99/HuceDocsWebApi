@@ -60,6 +60,10 @@ namespace HuceDocsWebApi.Controllers
         public async Task<IActionResult> Login([FromBody] Login model)
         {
             var userVM = await _userService.LoginAsync(model);
+            if (userVM == null)
+            {
+                return BadRequest("Người dùng không tồn tại!");
+            }
             if (userVM.IsOk == false)
             {
                 return BadRequest(userVM);
@@ -111,13 +115,25 @@ namespace HuceDocsWebApi.Controllers
         // Get all member
         [HttpPost("getall")]
         [CustomAuthorization(Policy = "admin")]
-        public async Task<IActionResult> GetAllUserAsync([FromBody] UserFilter filter)
+        public async Task<IActionResult> GetAllUserAsyncWithPagi([FromBody] UserFilter filter)
         {
             var userid = await _utility.GetUserIdAsync(HttpContext); // doc user id tu token
             if ( userid <= 0)
                 return Unauthorized();
 
             var users = await _userService.GetUsersAsync(filter);
+            return Ok(users);
+        }
+
+        [HttpPost("getallusers")]
+        //[CustomAuthorization(Policy = "admin")]
+        public async Task<IActionResult> GetAllUserAsync([FromBody] UserFilterWithoutPagi filter)
+        {
+            var userid = await _utility.GetUserIdAsync(HttpContext); // doc user id tu token
+            if (userid <= 0)
+                return Unauthorized();
+
+            var users = await _userService.GetAllUserAsync(filter);
             return Ok(users);
         }
 
@@ -180,32 +196,32 @@ namespace HuceDocsWebApi.Controllers
             if ( userid <= 0)
                 return Unauthorized();
 
-            var isOk =  _userService.UpdateUser(model, userid);
-            if (isOk == true)
+            var result =  _userService.UpdateUser(model, userid);
+            if (result.IsOk == true)
             {
-                return Ok("Update sucessfully!");
+                return Ok(result);
             }
             else
             {
-                return BadRequest("Update failed!");
+                return BadRequest(result);
             }
         }
 
         // Admin deactivate/activate member
         [HttpPut("adminactive/{memberId}")]
-        [CustomAuthorization(Policy = "admin")]
+        //[CustomAuthorization(Policy = "admin")]
         public async Task<IActionResult> UpdateMemberActive([FromBody] updateActiveReq request, int memberId)
         {
             var userId = await  _utility.GetUserIdAsync(HttpContext);
             if ( userId <= 0)
                 return Unauthorized();
 
-            var isSuccess = _userService.UpdateMemberActive(request, memberId);
-            if (isSuccess == true)
+            var result = _userService.UpdateMemberActive(request, memberId);
+            if (result.IsOk == true)
             {
-                return Ok("Thành công!");
+                return Ok(result);
             }
-            return BadRequest(" Thất bại!");
+            return BadRequest(result);
         }
 
         // Change password

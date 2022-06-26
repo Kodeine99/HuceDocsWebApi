@@ -16,5 +16,8 @@ namespace HuceDocs.Services
        ApiResult<List<OCR_RequestVM>> GetAll(OCR_RequestFilter filter);
         
        ApiResult<List<OCR_RequestVM>> UserGetAll(OCR_RequestFilter filter, int userId);
+
+        ApiResult<bool> UpdateSaveStatus(UpdateSaveStatusReq req);
+
     }
 }

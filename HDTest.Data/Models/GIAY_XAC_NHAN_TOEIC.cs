@@ -14,7 +14,7 @@ namespace HuceDocs.Data.Models
         public DateTime UPDATE_DATE { get; set; }
         public int STATUS { get; set; }
         public string HO_TEN { get; set; }
-        public DateTime NGAY_SINH { get; set; }
+        public string NGAY_SINH { get; set; }
         public string MSSV { get; set; }
         public string LOP { get; set; }
         public string NGANH_HOC { get; set; }
@@ -23,7 +23,7 @@ namespace HuceDocs.Data.Models
         public string NDXN { get; set; }
         public string DIEM_THI { get; set; }
         public string DOT_THI { get; set; }
-        public DateTime NGAY_XAC_NHAN { get; set; }
+        public string NGAY_XAC_NHAN { get; set; }
 
         public virtual OCR_Request OCR_Request { get; set; }
     }

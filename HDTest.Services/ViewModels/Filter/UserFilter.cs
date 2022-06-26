@@ -11,4 +11,12 @@ namespace HuceDocs.Services.ViewModel.Filter
         public string PhoneNumber { get; set; }
         public bool? Active { get; set; }
     }
+
+    public class UserFilterWithoutPagi 
+    {
+        public string FullName { get; set; }
+        public string Username { get; set; }
+        public string PhoneNumber { get; set; }
+        public bool? Active { get; set; }
+    }
 }

@@ -49,4 +49,10 @@ namespace HuceDocs.Services.ViewModels.OcrRequest
         public DateTime? ToDate { get; set; }
         public int? OCR_Status_Code { get; set; }
     }
+
+    public class UpdateSaveStatusReq
+    {
+        public string Ticket_Id { get; set; }
+        public int IsSaved { get; set; }
+    }
 }

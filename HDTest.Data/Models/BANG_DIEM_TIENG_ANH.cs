@@ -14,7 +14,7 @@ namespace HuceDocs.Data.Models
         public DateTime UPDATE_DATE { get; set; }
         public int STATUS { get; set; }
         public string FULL_NAME { get; set; }
-        public DateTime DOB { get; set; }
+        public string DOB { get; set; }
         public string MAJOR { get; set; }
         public string STUDENT_ID { get; set; }
         public string S_CLASS { get; set; }

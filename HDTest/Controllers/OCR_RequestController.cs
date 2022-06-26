@@ -70,10 +70,26 @@ namespace HuceDocsWebApi.Controllers
         public IActionResult UserGetAll([FromBody] OCR_RequestFilter filter)
         {
             var userId = _utility.GetUserId(HttpContext);
+            //var userId2 = _utility.GetUserId(HttpContext);
             if (userId <= 0) 
                 return Unauthorized();
 
             var result = _ocrRequestService.UserGetAll(filter, userId);
+            return Ok(result);
+        }
+
+        [HttpPost("changeSaveStatus")]
+        public IActionResult UpdateSaveStatus([FromBody] UpdateSaveStatusReq req)
+        {
+            var userId = _utility.GetUserId(HttpContext);
+            if (userId <= 0)
+                return Unauthorized();
+
+            var result = _ocrRequestService.UpdateSaveStatus(req);
+            if (result.IsOk == false)
+            {
+                return BadRequest(result);
+            }
             return Ok(result);
         }
     }

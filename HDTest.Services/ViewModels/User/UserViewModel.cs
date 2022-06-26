@@ -57,6 +57,22 @@ namespace HuceDocs.Services.ViewModel
 
     }
 
+    public class AddNewUserReq
+    {
+        public string FullName { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string Address { get; set; }
+        public string PhoneNumber { get; set; }
+    }
+
+    public class CreateUserResult
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+    }
+
     public class ListUsernames
     {
         public string Username { get; set; }

@@ -91,6 +91,8 @@ namespace HuceDocs.Services
                 .Where(o => filter.FromDate == null || o.CreateTime > filter.FromDate)
                 .Where(o => filter.ToDate == null || o.CreateTime < filter.ToDate)
                 .Where(o => filter.OCR_Status_Code == null || o.OCR_Status_Code == filter.OCR_Status_Code)
+                .Where(o => o.IsDelete == 0)
+                .OrderByDescending(o => o.CreateTime)
                 .Select(o => new OCR_RequestVM(o)
                 {
                     HFiles = o.Document.HFiles
@@ -114,6 +116,8 @@ namespace HuceDocs.Services
                 .Where(o => filter.FromDate == null || o.CreateTime > filter.FromDate)
                 .Where(o => filter.ToDate == null || o.CreateTime < filter.ToDate)
                 .Where(o => filter.OCR_Status_Code == null || o.OCR_Status_Code == filter.OCR_Status_Code)
+                .Where(o => o.IsDelete == 0)
+                .OrderByDescending(o => o.CreateTime)
                 .Select(model => new OCR_RequestVM(model)
                 {
 
@@ -121,6 +125,26 @@ namespace HuceDocs.Services
                 .ToList();
 
             return new ApiSuccess<List<OCR_RequestVM>> { Result = result };
+        }
+
+        public ApiResult<bool> UpdateSaveStatus(UpdateSaveStatusReq req)
+        {
+            try
+            {
+                var result = work.OCR_RequestRepository.Entities
+                .Where(o => o.Ticket_Id == req.Ticket_Id)
+                .Update(o => new OCR_Request
+                {
+                    IsSaved = req.IsSaved
+                });
+
+                return new ApiSuccess<bool>("Update trạng thái lưu thành công!");            
+            }
+            catch (Exception)
+            {
+
+                return new ApiError<bool>("Update trạng thái lưu thất bại!");
+            }
         }
     }
 }

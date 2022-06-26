@@ -20,13 +20,15 @@ namespace HuceDocs.Services.Services
         Task<ApiResult<UserTokenResult>> ForgetPasswordAsync(ForgotPaswordViewModel model, string passwordResetLink);
         Task<ApiResult<bool>> ResetPasswordAsync(ResetPasswordViewModel model);
         Task<ApiResult<Pagination<UserViewModel>>> GetUsersAsync(UserFilter filter);
+        Task<ApiResult<List<UserViewModel>>> GetAllUserAsync(UserFilterWithoutPagi filter);
         Task<List<ListUsernames>> GetListUsernames();
-        bool UpdateUser(UserViewModel model, int id);
-        bool UpdateMemberActive(updateActiveReq request, int memberId);
+        ApiResult<bool> UpdateUser(UserViewModel model, int id);
+        ApiResult<bool> UpdateMemberActive(updateActiveReq request, int memberId);
         UserViewModel GetUserById(int id);
         ApiResult<Pagination<UserViewModel>> FilterUser(UserFilter filter);
         bool ValidateEmailFormat(string email);
         Task<ApiResult<bool>> CheckPassword(CheckPasswordVM model);
         Task<ApiResult<bool>> ChangePassword(ChangePasswordVM model, string userId);
+        Task<ApiResult<CreateUserResult>> AddNewUser(AddNewUserReq req);
     }
 }

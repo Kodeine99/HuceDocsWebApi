@@ -70,7 +70,7 @@ namespace HuceDocs.Services.Services
                 return new ApiError<RegisterResult>(result.Errors.FirstOrDefault().Description);
             }
             // phan quyen
-            await _userManager.AddToRoleAsync(userModel, "member");
+            await _userManager.AddToRoleAsync(userModel, "user");
             //tao token confirm email
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(userModel);
             var tokenEncode = Convert.ToBase64String(Encoding.UTF8.GetBytes(token));
@@ -110,7 +110,7 @@ namespace HuceDocs.Services.Services
                 return new ApiError<RegisterResult>(result.Errors.FirstOrDefault().Description);
             }
             // phan quyen
-            await _userManager.AddToRoleAsync(userModel, "admin");
+            await _userManager.AddToRoleAsync(userModel, "user");
             //tao token confirm email
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(userModel);
             var tokenEncode = Convert.ToBase64String(Encoding.UTF8.GetBytes(token));
@@ -120,6 +120,37 @@ namespace HuceDocs.Services.Services
             //return new ApiSuccess<UserTokenResult> { Result = new UserTokenResult { Token = tokenEncode, UserName = userModel.UserName } };
             return new ApiSuccess<RegisterResult>("Register Successfully!") { Result = new RegisterResult { Token = tokenEncode, Username = userModel.UserName } };
         }
+
+        // ADmin create new user
+        public async Task<ApiResult<CreateUserResult>> AddNewUser(AddNewUserReq req)
+        {
+            var user = await  _userManager.FindByNameAsync(req.UserName);
+            if (user != null)
+                return new ApiError<CreateUserResult>("User already exist!");
+            var email =  _userManager.FindByEmailAsync(req.Email);
+            if (email != null)
+                return new ApiError<CreateUserResult>("Email already used !");
+            var userModel = new User
+            {
+                UserName = req.UserName,
+                Email = req.Email,
+                FullName = req.FullName,
+                Address = req.Address,
+                PhoneNumber = req.PhoneNumber
+            };
+            var result = await  _userManager.CreateAsync(userModel, req.Password);
+            if (!result.Succeeded)
+            {
+
+                return new ApiError<CreateUserResult>(result.Errors.FirstOrDefault().Description);
+            }
+            // phan quyen
+            await _userManager.AddToRoleAsync(userModel, "user");
+            return new ApiSuccess<CreateUserResult>("Register Successfully!") { Result = new CreateUserResult {  Username = userModel.UserName, Password = req.Password } };
+
+
+        }
+
 
         // Admin Register
         public async Task<ApiResult<UserTokenResult>> AdminRegisterAsync(RegisterRequest request, string confirmationLink)
@@ -163,6 +194,10 @@ namespace HuceDocs.Services.Services
         {
 
             var user = await _userManager.FindByNameAsync(model.UserName);
+            if (user == null)
+            {
+                return new ApiError<UserTokenResult>("Người dùng không tồn tại");
+            }
             if (user.Active == false)
             {
                 return new ApiError<UserTokenResult>("Tài khoản đã bị khóa, Vui lòng liên hệ với cửa hàng để biết thêm thông tin.");
@@ -247,7 +282,7 @@ namespace HuceDocs.Services.Services
         // Get all users ("member" role)
         public async Task<ApiResult<Pagination<UserViewModel>>> GetUsersAsync(UserFilter filter)
         {
-            var userList = await _userManager.GetUsersInRoleAsync("member");
+            var userList = await _userManager.GetUsersInRoleAsync("user");
             var userListVMs = userList
                 .Where(o => string.IsNullOrWhiteSpace(filter.FullName) || o.FullName.ToLower().Contains(filter.FullName.ToLower()))
                 .Where(o => string.IsNullOrWhiteSpace(filter.Username) || o.UserName.ToLower().Contains(filter.Username.ToLower()))
@@ -282,7 +317,55 @@ namespace HuceDocs.Services.Services
             return new ApiSuccess<Pagination<UserViewModel>> { Result = pagination };
         }
 
-        // Get all users without pagination
+        // get all user without pagination
+        public async Task<ApiResult<List<UserViewModel>>> GetAllUserAsync(UserFilterWithoutPagi filter)
+        {
+            var userList = await _userManager.GetUsersInRoleAsync("user");
+            var userListVMs = userList
+                .Where(o => string.IsNullOrWhiteSpace(filter.FullName) || o.FullName.ToLower().Contains(filter.FullName.ToLower()))
+                .Where(o => string.IsNullOrWhiteSpace(filter.Username) || o.UserName.ToLower().Contains(filter.Username.ToLower()))
+                .Where(o => string.IsNullOrWhiteSpace(filter.PhoneNumber) || o.PhoneNumber == filter.PhoneNumber)
+                .Where(o => filter.Active == null || o.Active == filter.Active)
+                .Select(model => new UserViewModel()
+                {
+                    Id = model.Id,
+                    FullName = model.FullName,
+                    UserName = model.UserName,
+                    PhoneNumber = model.PhoneNumber,
+                    Age = model.Age,
+                    Address = model.Address,
+                    Email = model.Email,
+                    Active = model.Active
+
+                }).ToList();
+
+            //var pagination = new Pagination<UserViewModel>();
+
+            //pagination.TotalRecords = userListVMs.Count;
+            //pagination.PageIndex = filter.PageIndex;
+            //pagination.PageSize = filter.PageSize;
+            //pagination.Items = userListVMs
+            //    .Skip(filter.PageSize * (filter.PageIndex - 1))
+            //    .Take(filter.PageSize)
+            //    .Select(model => new UserViewModel()
+            //    {
+            //        Id = model.Id,
+            //        FullName = model.FullName,
+            //        UserName = model.UserName,
+            //        PhoneNumber = model.PhoneNumber,
+            //        Age = model.Age,
+            //        Address = model.Address,
+            //        Email = model.Email,
+            //        Active = model.Active
+
+            //    })
+
+            //    .ToList();
+
+            return new ApiSuccess<List<UserViewModel>> { Result = userListVMs };
+        }
+
+        // Get all users name 
         public async Task<List<ListUsernames>> GetListUsernames()
         {
             var usernameList = await _userManager.GetUsersInRoleAsync("member");
@@ -297,7 +380,7 @@ namespace HuceDocs.Services.Services
         }
 
         // Update thong tin user
-        public bool UpdateUser(UserViewModel model, int id)
+        public ApiResult<bool> UpdateUser(UserViewModel model, int id)
         {
             try
             {
@@ -311,21 +394,20 @@ namespace HuceDocs.Services.Services
                         //Age = model.Age,
                         Age = DateTime.Now.Year - model.Birthday.Year,
                         BirthDay = model.Birthday,
-                        Gender = model.Gender,
-                        Active = model.Active
+                        Gender = model.Gender
 
                     });
-                return true;
+                return new ApiSuccess<bool>("Cập nhật thông tin thành công");
             }
             catch (Exception)
             {
 
-                return false;
+                return new ApiError<bool>("Cập nhật thất bại");
             }
         }
 
         // Admin Activate/Unactivate member
-        public bool UpdateMemberActive(updateActiveReq request, int memberId)
+        public ApiResult<bool> UpdateMemberActive(updateActiveReq request, int memberId)
         {
             try
             {
@@ -335,12 +417,12 @@ namespace HuceDocs.Services.Services
                {
                    Active = request.isActive
                });
-                return true;
+                return new ApiSuccess<bool>("Cập nhật trạng thái thành công");
             }
             catch (Exception)
             {
 
-                return false;
+                return new ApiError<bool>("Cập nhật trạng thái thất bại");
             }
         }
 
@@ -456,8 +538,8 @@ namespace HuceDocs.Services.Services
                 return new ApiError<bool>("New password and current password must be different!");
             }
             var user = await _userManager.FindByIdAsync(userId);
-            if (user != null && await _userManager.IsEmailConfirmedAsync(user) && user.Active == true)
-            {
+            //if (user != null && await _userManager.IsEmailConfirmedAsync(user) && user.Active == true)
+            //{
                 var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
                 if (result.Succeeded)
                 {
@@ -468,9 +550,11 @@ namespace HuceDocs.Services.Services
                     return new ApiError<bool>(result.Errors.FirstOrDefault().Description) { IsOk = false };
                 }
                 return new ApiError<bool>("Change password Failed!") { IsOk = false };
-            }
-            return new ApiError<bool>("Something went wrong, please try agian later.") { IsOk = false };
+            //}
+            //return new ApiError<bool>("Something went wrong, please try agian later.") { IsOk = false };
 
         }
+
+        
     }
 }
