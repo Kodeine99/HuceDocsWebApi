@@ -22,6 +22,8 @@ namespace HuceDocs.Services.ViewModels.OcrRequest
             OCR_Status_Code = model.OCR_Status_Code;
             VerifyLink = model.VerifyLink;
             Username = model.User?.UserName;
+            IsSaved = model.IsSaved;
+            IsDelete = model.IsDelete;
             HFiles = model.Document?.HFiles.Select(o => new HFileVM(o)).ToList();
 
             
@@ -36,6 +38,8 @@ namespace HuceDocs.Services.ViewModels.OcrRequest
         public int OCR_Status_Code { get; set; }
         public string VerifyLink { get; set; }
         public string Username { get; set; }
+        public int IsSaved { get; set; }
+        public int IsDelete { get; set; }
         public List<HFileVM> HFiles { get; set; }
     }
 
@@ -53,6 +57,6 @@ namespace HuceDocs.Services.ViewModels.OcrRequest
     public class UpdateSaveStatusReq
     {
         public string Ticket_Id { get; set; }
-        public int IsSaved { get; set; }
+        //public int IsSaved { get; set; }
     }
 }

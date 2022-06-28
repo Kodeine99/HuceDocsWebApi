@@ -20,11 +20,14 @@ namespace HuceDocsWebApi.Controllers
     {
         private readonly IUserService _userService;
         private readonly IAuthozirationUtility _utility;
+        private readonly UserManager<User> _userManager;
 
-        public UserController(IUserService userService, IAuthozirationUtility utility)
+        public UserController(IUserService userService, IAuthozirationUtility utility, UserManager<User> userManager)
         {
             _userService = userService;
             _utility = utility;
+            _userManager = userManager;
+
         }
 
         [HttpPost("register")]
@@ -245,6 +248,24 @@ namespace HuceDocsWebApi.Controllers
         public async Task<IActionResult> GetAbc()
         {
             return Ok("Get ok");
+        }
+
+        [HttpPost("addnew")]
+        [CustomAuthorization(Policy = "admin")]
+        public async Task<IActionResult> AddNewUser([FromBody] AddNewUserReq req)
+        {
+            var user = await _utility.GetUserIdAsync(HttpContext);
+            //var x = _userManager.Get
+            if (user <= 0)
+            {
+                return Unauthorized();
+            }
+            var result = await _userService.AddNewUser(req);
+            if (result?.IsOk == true)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
 
     }

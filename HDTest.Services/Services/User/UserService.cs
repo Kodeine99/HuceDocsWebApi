@@ -127,7 +127,7 @@ namespace HuceDocs.Services.Services
             var user = await  _userManager.FindByNameAsync(req.UserName);
             if (user != null)
                 return new ApiError<CreateUserResult>("User already exist!");
-            var email =  _userManager.FindByEmailAsync(req.Email);
+            var email = await _userManager.FindByEmailAsync(req.Email);
             if (email != null)
                 return new ApiError<CreateUserResult>("Email already used !");
             var userModel = new User
@@ -146,7 +146,7 @@ namespace HuceDocs.Services.Services
             }
             // phan quyen
             await _userManager.AddToRoleAsync(userModel, "user");
-            return new ApiSuccess<CreateUserResult>("Register Successfully!") { Result = new CreateUserResult {  Username = userModel.UserName, Password = req.Password } };
+            return new ApiSuccess<CreateUserResult>("Tạo mới người dùng thành công") { Result = new CreateUserResult {  Username = userModel.UserName, Password = req.Password } };
 
 
         }

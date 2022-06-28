@@ -135,7 +135,7 @@ namespace HuceDocs.Services
                 .Where(o => o.Ticket_Id == req.Ticket_Id)
                 .Update(o => new OCR_Request
                 {
-                    IsSaved = req.IsSaved
+                    IsSaved = 1
                 });
 
                 return new ApiSuccess<bool>("Update trạng thái lưu thành công!");            

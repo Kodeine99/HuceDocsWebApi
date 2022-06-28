@@ -6,9 +6,8 @@ namespace HuceDocs.Security.Common
 {
     public enum UserTypeEnum
     {
-        admin = 1,
-        member = 2,
-        manager = 3,
+        Admin = 1,
+        User = 2
     }
 
 }

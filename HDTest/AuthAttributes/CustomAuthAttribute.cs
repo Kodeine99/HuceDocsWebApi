@@ -17,7 +17,7 @@ namespace HuceDocsWebApi.Attributes
 
         public CustomAuthoRequire(string policyName = "")
         {
-            this.AppceptUserTypes = new List<UserTypeEnum>() { UserTypeEnum.admin };
+            this.AppceptUserTypes = new List<UserTypeEnum>() { UserTypeEnum.Admin };
             AppceptUserTypes.AddRange(RoleHandle.GetRoles(policyName));
         }
     }

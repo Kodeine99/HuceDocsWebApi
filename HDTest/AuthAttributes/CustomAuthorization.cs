@@ -15,7 +15,7 @@ namespace HuceDocsWebApi.Attributes
         {
             if (Roles.Any(p => p.GetType().BaseType != typeof(Enum)))
             {
-                this.Policy = Enum.GetName(typeof(UserTypeEnum), UserTypeEnum.admin);
+                this.Policy = Enum.GetName(typeof(UserTypeEnum), UserTypeEnum.Admin);
             }
             else
             {
