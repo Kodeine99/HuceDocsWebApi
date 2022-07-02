@@ -16,14 +16,17 @@ namespace HuceDocs.Data.Models
         public int STATUS { get; set; }
 
 
-        public string HO_TEN { get; set; }
-        public string SO_THE { get; set; }
+        public string SO { get; set; }
+        public string HO_VA_TEN { get; set; }
         public string NGAY_SINH { get; set; }
         public string GIOI_TINH { get; set; }
         public string QUOC_TICH { get; set; }
         public string QUE_QUAN { get; set; }
-        public string DIA_CHI_THUONG_TRU { get; set; }
+        public string NOI_THUONG_TRU { get; set; }
+        public string CO_GIA_TRI_DEN { get; set; }
         public string NGAY_CAP { get; set; }
+        public string NGUOI_KY { get; set; }
+
 
         public virtual OCR_Request OCR_Request { get; set; }
 

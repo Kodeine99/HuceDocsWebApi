@@ -29,7 +29,7 @@ namespace HuceDocs.Data.Migrations
                     b.Property<DateTime>("CREATE_DATE")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 26, 23, 42, 25, 68, DateTimeKind.Local).AddTicks(9081));
+                        .HasDefaultValue(new DateTime(2022, 7, 2, 15, 53, 12, 295, DateTimeKind.Local).AddTicks(4204));
 
                     b.Property<string>("HE_DAO_TAO")
                         .HasMaxLength(255)
@@ -109,7 +109,7 @@ namespace HuceDocs.Data.Migrations
                     b.Property<DateTime>("CREATE_DATE")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 26, 23, 42, 25, 60, DateTimeKind.Local).AddTicks(6058));
+                        .HasDefaultValue(new DateTime(2022, 7, 2, 15, 53, 12, 288, DateTimeKind.Local).AddTicks(2314));
 
                     b.Property<string>("DOB")
                         .HasColumnType("nvarchar(max)");
@@ -182,20 +182,20 @@ namespace HuceDocs.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<string>("CO_GIA_TRI_DEN")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<DateTime>("CREATE_DATE")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 26, 23, 42, 25, 71, DateTimeKind.Local).AddTicks(7734));
-
-                    b.Property<string>("DIA_CHI_THUONG_TRU")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasDefaultValue(new DateTime(2022, 7, 2, 15, 53, 12, 301, DateTimeKind.Local).AddTicks(635));
 
                     b.Property<string>("GIOI_TINH")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("HO_TEN")
+                    b.Property<string>("HO_VA_TEN")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
@@ -209,6 +209,14 @@ namespace HuceDocs.Data.Migrations
                     b.Property<string>("NGAY_SINH")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NGUOI_KY")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("NOI_THUONG_TRU")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<string>("QUE_QUAN")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
@@ -217,7 +225,7 @@ namespace HuceDocs.Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("SO_THE")
+                    b.Property<string>("SO")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
@@ -267,7 +275,7 @@ namespace HuceDocs.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 26, 23, 42, 24, 999, DateTimeKind.Local).AddTicks(5428));
+                        .HasDefaultValue(new DateTime(2022, 7, 2, 15, 53, 12, 231, DateTimeKind.Local).AddTicks(1905));
 
                     b.Property<string>("Description")
                         .HasMaxLength(2000)
@@ -348,7 +356,7 @@ namespace HuceDocs.Data.Migrations
                     b.Property<DateTime>("CREATE_DATE")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 26, 23, 42, 25, 56, DateTimeKind.Local).AddTicks(1832));
+                        .HasDefaultValue(new DateTime(2022, 7, 2, 15, 53, 12, 284, DateTimeKind.Local).AddTicks(8817));
 
                     b.Property<string>("DIA_CHI_NGUOI_DUNG_TEN")
                         .HasMaxLength(255)
@@ -461,7 +469,7 @@ namespace HuceDocs.Data.Migrations
                     b.Property<DateTime>("CREATE_DATE")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 26, 23, 42, 25, 50, DateTimeKind.Local).AddTicks(5073));
+                        .HasDefaultValue(new DateTime(2022, 7, 2, 15, 53, 12, 278, DateTimeKind.Local).AddTicks(6536));
 
                     b.Property<string>("DIEM_THI")
                         .HasMaxLength(255)
@@ -551,7 +559,7 @@ namespace HuceDocs.Data.Migrations
                     b.Property<DateTime>("CREATE_DATE")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 26, 23, 42, 25, 64, DateTimeKind.Local).AddTicks(9740));
+                        .HasDefaultValue(new DateTime(2022, 7, 2, 15, 53, 12, 292, DateTimeKind.Local).AddTicks(1470));
 
                     b.Property<string>("GIOI_TINH")
                         .HasColumnType("nvarchar(max)");
@@ -692,7 +700,7 @@ namespace HuceDocs.Data.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 26, 23, 42, 25, 45, DateTimeKind.Local).AddTicks(4678));
+                        .HasDefaultValue(new DateTime(2022, 7, 2, 15, 53, 12, 274, DateTimeKind.Local).AddTicks(5190));
 
                     b.Property<int?>("DocumentId")
                         .IsRequired()
@@ -794,6 +802,76 @@ namespace HuceDocs.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("HuceDocs.Data.Models.THE_SINH_VIEN", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("CREATE_DATE")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2022, 7, 2, 15, 53, 12, 305, DateTimeKind.Local).AddTicks(6908));
+
+                    b.Property<string>("EMAIL")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("HKTT")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("HO_TEN")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("HUCEDOCS_TYPE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KHOA")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("KHOA_HOC")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("LOP")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("MSSV")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("NGAY_SINH")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<int>("STATUS")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
+
+                    b.Property<string>("TICKET_ID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("UPDATE_DATE")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("USER_CREATE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TICKET_ID");
+
+                    b.ToTable("THE_SINH_VIEN");
                 });
 
             modelBuilder.Entity("HuceDocs.Data.Models.User", b =>
@@ -1132,6 +1210,17 @@ namespace HuceDocs.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("HuceDocs.Data.Models.THE_SINH_VIEN", b =>
+                {
+                    b.HasOne("HuceDocs.Data.Models.OCR_Request", "OCR_Request")
+                        .WithMany("THE_SINH_VIENs")
+                        .HasForeignKey("TICKET_ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OCR_Request");
+                });
+
             modelBuilder.Entity("HuceDocs.Data.Models.UserClaim", b =>
                 {
                     b.HasOne("HuceDocs.Data.Models.User", null)
@@ -1210,6 +1299,8 @@ namespace HuceDocs.Data.Migrations
                     b.Navigation("GIAY_XAC_NHAN_TOEICs");
 
                     b.Navigation("GIAY_XAC_NHAN_VAY_VONs");
+
+                    b.Navigation("THE_SINH_VIENs");
                 });
 
             modelBuilder.Entity("HuceDocs.Data.Models.User", b =>

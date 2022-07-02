@@ -80,9 +80,9 @@ namespace HuceDocsWebApi.Controllers
             var result = _giayXacNhanToeicService.Update(model);
             if (result.IsOk == true)
             {
-                return Ok("Cập nhật thành công");
+                return Ok(result);
             }
-            return BadRequest("Cập nhật thất bại");
+            return BadRequest(result);
         }
     }
 }

@@ -29,6 +29,7 @@ namespace HuceDocs.Data.Models
         public ICollection<GIAY_XAC_NHAN_VAY_VON> GIAY_XAC_NHAN_VAY_VONs { get; set; }
         public ICollection<BANG_DIEM> BANG_DIEMs { get; set; }
         public ICollection<CCCD> CCCDs { get; set; }
+        public ICollection<THE_SINH_VIEN> THE_SINH_VIENs { get; set; }
 
     }
 }

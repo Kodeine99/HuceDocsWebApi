@@ -415,10 +415,12 @@ namespace HuceDocs.Services
             switch (ecmType)
             {
                 case EcmType.TheSinhVien: return BatchType.TheSinhVien;
+                case EcmType.CCCD: return BatchType.CCCD;
                 case EcmType.GiayCamKetTraNo: return BatchType.GiayCamKetTraNo;
                 case EcmType.BangDiemTiengAnh: return BatchType.BangDiemTiengAnh;
                 case EcmType.GiayXacNhanToeic: return BatchType.GiayXacNhanToeic;
                 case EcmType.BangDiem: return BatchType.BangDiem;
+                case EcmType.GiayXacNhanVayVon: return BatchType.GiayXacNhanVayVon;
 
                 default:
                     return "HuceDocs";

@@ -17,10 +17,12 @@ namespace HuceDocs.Services
     public static class EcmType
     {
         public const string TheSinhVien = "THE_SINH_VIEN";
+        public const string CCCD = "CCCD";
         public const string BangDiemTiengAnh = "BANG_DIEM_TIENG_ANH";
         public const string GiayCamKetTraNo = "GIAY_CAM_KET_TRA_NO";
         public const string BangDiem = "BANG_DIEM";
         public const string GiayXacNhanToeic = "GIAY_XAC_NHAN_TOEIC";
+        public const string GiayXacNhanVayVon = "GIAY_XAC_NHAN_VAY_VON";
 
 
     }
@@ -29,10 +31,13 @@ namespace HuceDocs.Services
     {
         public const string HuceDocs = "HuceDocs";
         public const string TheSinhVien = "TheSinhVien";
+        public const string CCCD = "CanCuocCongDan";
         public const string GiayXacNhanToeic = "GiayXacNhanToeic";
         public const string GiayCamKetTraNo = "GiayCamKetTraNo";
         public const string BangDiemTiengAnh = "BangDiemTiengAnh";
         public const string BangDiem = "BangDiem";
+        public const string GiayXacNhanVayVon = "GiayXacNhanVayVon";
+
     }
 
     public static class StageType

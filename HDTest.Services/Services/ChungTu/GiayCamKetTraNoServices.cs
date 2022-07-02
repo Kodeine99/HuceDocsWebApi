@@ -28,9 +28,10 @@ namespace HuceDocs.Services.Services.ChungTu
             var newGiayCamKetTraNo = new GIAY_CAM_KET_TRA_NO()
             {
                 TICKET_ID = model.TICKET_ID,
+                HUCEDOCS_TYPE = model.HUCEDOCS_TYPE,
                 USER_CREATE = model.USER_CREATE,
                 CREATE_DATE = model.CREATE_DATE,
-                UPDATE_DATE = model.UPDATE_DATE,
+                UPDATE_DATE = model.CREATE_DATE,
                 STATUS = model.STATUS,
 
                 MAU_SO = model.MAU_SO,
@@ -69,7 +70,7 @@ namespace HuceDocs.Services.Services.ChungTu
                     .Update(o => new GIAY_CAM_KET_TRA_NO
                     {
 
-                        UPDATE_DATE = model.UPDATE_DATE,
+                        UPDATE_DATE = DateTime.Now,
                         STATUS = model.STATUS,
 
                         MAU_SO = model.MAU_SO,
@@ -117,6 +118,7 @@ namespace HuceDocs.Services.Services.ChungTu
                 .Where(o => filter.TICKET_ID == null || o.TICKET_ID == filter.TICKET_ID)
                 .Where(o => filter.FROM_DATE == null || o.CREATE_DATE > filter.FROM_DATE)
                 .Where(o => filter.TO_DATE == null || o.CREATE_DATE < filter.TO_DATE)
+                .OrderByDescending(o => o.CREATE_DATE)
                 .Select(model => new GIAY_CAM_KET_TRA_NO_VM(model)
                 {
 
@@ -135,6 +137,7 @@ namespace HuceDocs.Services.Services.ChungTu
                 .Where(o => filter.TICKET_ID == null || o.TICKET_ID == filter.TICKET_ID)
                 .Where(o => filter.FROM_DATE == null || o.CREATE_DATE > filter.FROM_DATE)
                 .Where(o => filter.TO_DATE == null || o.CREATE_DATE < filter.TO_DATE)
+                .OrderByDescending(o => o.CREATE_DATE)
                 .Select(model => new GIAY_CAM_KET_TRA_NO_VM(model)
                 {
 

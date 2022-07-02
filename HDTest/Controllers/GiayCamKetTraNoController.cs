@@ -21,7 +21,7 @@ namespace HuceDocsWebApi.Controllers
         }
 
         // Normal user get all
-        [HttpGet("search")]
+        [HttpPost("search")]
         public IActionResult GetAll([FromBody] ChungTuBaseFilter filter)
         {
             var userId = _utility.GetUserId(HttpContext);
@@ -36,7 +36,7 @@ namespace HuceDocsWebApi.Controllers
         }
 
         // Admin get all
-        [HttpGet("search-admin")]
+        [HttpPost("search-admin")]
         public IActionResult AdminGetAll([FromBody] ChungTuBaseFilter filter)
         {
             var BangDiemTiengAnh = _giayCamKetTraNoService.AdminGetAll(filter);

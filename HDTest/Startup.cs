@@ -90,6 +90,9 @@ namespace HuceDocs
             services.AddTransient<IBangDiemTiengAnhService, BangDiemTiengAnhServices>();
             services.AddTransient<IGiayXacNhanToeicService, GiayXacNhanToeicServices>();
             services.AddTransient<IGiayCamKetTraNoService, GiayCamKetTraNoServices>();
+            services.AddTransient<ICCCDService, CCCDServices>();
+            services.AddTransient<ITheSinhVienService, TheSinhVienServices>();
+            services.AddTransient<IGiayXacNhanVayVonService, GiayXacNhanVayVonServices>();
 
 
 

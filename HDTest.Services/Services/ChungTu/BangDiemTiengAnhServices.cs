@@ -30,8 +30,9 @@ namespace HuceDocs.Services.Services.ChungTu
             var newBangDiemTiengAnh = new BANG_DIEM_TIENG_ANH()
             {
                 TICKET_ID = model.TICKET_ID,
+                HUCEDOCS_TYPE = model.HUCEDOCS_TYPE,
                 CREATE_DATE = model.CREATE_DATE,
-                UPDATE_DATE = model.UPDATE_DATE,
+                UPDATE_DATE = model.CREATE_DATE,
                 USER_CREATE = model.USER_CREATE,
                 STATUS = model.STATUS,
                 FULL_NAME = model.FULL_NAME,
@@ -61,7 +62,7 @@ namespace HuceDocs.Services.Services.ChungTu
                     .Where(o => o.Id == model.Id)
                     .Update(o => new BANG_DIEM_TIENG_ANH
                     {
-                        UPDATE_DATE = model.UPDATE_DATE,
+                        UPDATE_DATE = DateTime.Now,
                         STATUS = model.STATUS,
                         FULL_NAME = model.FULL_NAME,
                         DOB = model.DOB,
@@ -100,6 +101,7 @@ namespace HuceDocs.Services.Services.ChungTu
                 .Where(o => filter.TICKET_ID == null || o.TICKET_ID == filter.TICKET_ID)
                 .Where(o => filter.FROM_DATE == null || o.CREATE_DATE > filter.FROM_DATE)
                 .Where(o => filter.TO_DATE == null || o.CREATE_DATE < filter.TO_DATE)
+                .OrderByDescending(o => o.CREATE_DATE)
                 .Select(model => new BANG_DIEM_TIENG_ANH_VM(model)
                 {
 
@@ -118,6 +120,7 @@ namespace HuceDocs.Services.Services.ChungTu
                 .Where(o => filter.TICKET_ID == null || o.TICKET_ID == filter.TICKET_ID)
                 .Where(o => filter.FROM_DATE == null || o.CREATE_DATE > filter.FROM_DATE)
                 .Where(o => filter.TO_DATE == null || o.CREATE_DATE < filter.TO_DATE)
+                .OrderByDescending(o => o.CREATE_DATE)
                 .Select(model => new BANG_DIEM_TIENG_ANH_VM(model)
                 {
 

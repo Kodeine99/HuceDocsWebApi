@@ -21,7 +21,7 @@ namespace HuceDocsWebApi.Controllers
         }
 
         // Normal user get all
-        [HttpGet("search")]
+        [HttpPost("search")]
         public IActionResult GetAll([FromBody] BANG_DIEM_TIENG_ANH_Filter filter)
         {
             var userId = _utility.GetUserId(HttpContext);
@@ -36,7 +36,7 @@ namespace HuceDocsWebApi.Controllers
         }
 
         // Admin get all
-        [HttpGet("search-admin")]
+        [HttpPost("search-admin")]
         public IActionResult AdminGetAll([FromBody] BANG_DIEM_TIENG_ANH_Filter filter)
         {
             var BangDiemTiengAnh = _bangDiemTiengAnhService.AdminGetAll(filter);
@@ -79,9 +79,9 @@ namespace HuceDocsWebApi.Controllers
             var result = _bangDiemTiengAnhService.Update(model);
             if (result.IsOk == true)
             {
-                return Ok("Cập nhật thành công");
+                return Ok(result);
             }
-            return BadRequest("Cập nhật thất bại");
+            return BadRequest(result);
         }
 
     }

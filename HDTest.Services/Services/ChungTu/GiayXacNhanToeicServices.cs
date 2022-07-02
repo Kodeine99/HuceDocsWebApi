@@ -28,9 +28,10 @@ namespace HuceDocs.Services.Services.ChungTu
             var newGiayXacNhanToeic = new GIAY_XAC_NHAN_TOEIC()
             {
                 TICKET_ID = model.TICKET_ID,
+                HUCEDOCS_TYPE = model.HUCEDOCS_TYPE,
                 USER_CREATE = model.USER_CREATE,
                 CREATE_DATE = model.CREATE_DATE,
-                UPDATE_DATE = model.UPDATE_DATE,
+                UPDATE_DATE = model.CREATE_DATE,
                 STATUS = model.STATUS,
                 HO_TEN = model.HO_TEN,
                 NGAY_SINH = model.NGAY_SINH,
@@ -42,6 +43,7 @@ namespace HuceDocs.Services.Services.ChungTu
                 DIEM_THI = model.DIEM_THI,
                 DOT_THI = model.DOT_THI,
                 NGAY_XAC_NHAN = model.NGAY_XAC_NHAN,
+                NDXN = model.NDXN,
         };
 
             var id = work.GGIAY_XAC_NHAN_TOEICRepository.Create(newGiayXacNhanToeic);
@@ -58,8 +60,8 @@ namespace HuceDocs.Services.Services.ChungTu
                     .Where(o => o.Id == model.Id)
                     .Update(o => new GIAY_XAC_NHAN_TOEIC
                     {
-                  
-                        UPDATE_DATE = model.UPDATE_DATE,
+
+                        UPDATE_DATE = DateTime.Now,
                         STATUS = model.STATUS,
                         HO_TEN = model.HO_TEN,
                         NGAY_SINH = model.NGAY_SINH,
@@ -98,6 +100,7 @@ namespace HuceDocs.Services.Services.ChungTu
                 .Where(o => filter.TICKET_ID == null || o.TICKET_ID == filter.TICKET_ID)
                 .Where(o => filter.FROM_DATE == null || o.CREATE_DATE > filter.FROM_DATE)
                 .Where(o => filter.TO_DATE == null || o.CREATE_DATE < filter.TO_DATE)
+                .OrderByDescending(o => o.CREATE_DATE)
                 .Select(model => new GIAY_XAC_NHAN_TOEIC_VM(model)
                 {
 
@@ -116,6 +119,7 @@ namespace HuceDocs.Services.Services.ChungTu
                 .Where(o => filter.TICKET_ID == null || o.TICKET_ID == filter.TICKET_ID)
                 .Where(o => filter.FROM_DATE == null || o.CREATE_DATE > filter.FROM_DATE)
                 .Where(o => filter.TO_DATE == null || o.CREATE_DATE < filter.TO_DATE)
+                .OrderByDescending(o => o.CREATE_DATE)
                 .Select(model => new GIAY_XAC_NHAN_TOEIC_VM(model)
                 {
 

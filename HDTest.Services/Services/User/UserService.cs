@@ -200,7 +200,7 @@ namespace HuceDocs.Services.Services
             }
             if (user.Active == false)
             {
-                return new ApiError<UserTokenResult>("Tài khoản đã bị khóa, Vui lòng liên hệ với cửa hàng để biết thêm thông tin.");
+                return new ApiError<UserTokenResult>("Tài khoản đã bị khóa, Vui lòng liên hệ với Admin để biết thêm thông tin.");
             }
             var result = await _userManager.CheckPasswordAsync(user, model.Password);
             if (!result)
