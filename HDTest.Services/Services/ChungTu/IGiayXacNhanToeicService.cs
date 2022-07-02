@@ -18,6 +18,9 @@ namespace HuceDocs.Services.Services.ChungTu
         ApiResult<List<GIAY_XAC_NHAN_TOEIC_VM>> AdminGetAll(ChungTuBaseFilter filter);
 
         ApiResult<GIAY_XAC_NHAN_TOEIC_VM> GetById(int id);
+        ApiResult<bool> Delete(int docId);
+
+
 
     }
 }

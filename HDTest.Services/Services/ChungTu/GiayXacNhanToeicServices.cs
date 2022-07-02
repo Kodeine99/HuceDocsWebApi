@@ -144,5 +144,24 @@ namespace HuceDocs.Services.Services.ChungTu
 
             return new ApiSuccess<GIAY_XAC_NHAN_TOEIC_VM> { Result = GiayXacNhanToeic };
         }
+
+        public ApiResult<bool> Delete(int docId)
+        {
+            try
+            {
+                work.GGIAY_XAC_NHAN_TOEICRepository.Entities
+                    .Where(o => o.Id == docId)
+                    .Update(o => new GIAY_XAC_NHAN_TOEIC
+                    {
+                        STATUS = 0
+                    });
+                return new ApiSuccess<bool>("Xoá tài liệu thành công");
+            }
+            catch (Exception)
+            {
+
+                return new ApiError<bool>("Xoá tài liệu thất bại");
+            }
+        }
     }
 }

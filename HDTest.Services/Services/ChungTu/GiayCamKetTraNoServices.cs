@@ -162,5 +162,24 @@ namespace HuceDocs.Services.Services.ChungTu
 
             return new ApiSuccess<GIAY_CAM_KET_TRA_NO_VM> { Result = GiayXacNhanToeic };
         }
+
+        public ApiResult<bool> Delete(int docId)
+        {
+            try
+            {
+                work.GGIAY_CAM_KET_TRA_NORepository.Entities
+                    .Where(o => o.Id == docId)
+                    .Update(o => new GIAY_CAM_KET_TRA_NO
+                    {
+                        STATUS = 0
+                    });
+                return new ApiSuccess<bool>("Xoá tài liệu thành công");
+            }
+            catch (Exception)
+            {
+
+                return new ApiError<bool>("Xoá tài liệu thất bại");
+            }
+        }
     }
 }

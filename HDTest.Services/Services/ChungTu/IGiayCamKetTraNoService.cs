@@ -16,5 +16,7 @@ namespace HuceDocs.Services.Services.ChungTu
         ApiResult<List<GIAY_CAM_KET_TRA_NO_VM>> AdminGetAll(ChungTuBaseFilter filter);
 
         ApiResult<GIAY_CAM_KET_TRA_NO_VM> GetById(int id);
+        ApiResult<bool> Delete(int docId);
+
     }
 }

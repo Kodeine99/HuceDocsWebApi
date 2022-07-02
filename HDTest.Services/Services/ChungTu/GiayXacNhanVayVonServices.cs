@@ -166,5 +166,24 @@ namespace HuceDocs.Services.Services.ChungTu
 
             return new ApiSuccess<GIAY_XAC_NHAN_VAY_VON_VM> { Result = GiayXacNhanToeic };
         }
+        public ApiResult<bool> Delete(int docId)
+        {
+            try
+            {
+                work.GGIAY_XAC_NHAN_VAY_VONRepository.Entities
+                    .Where(o => o.Id == docId)
+                    .Update(o => new GIAY_XAC_NHAN_VAY_VON
+                    {
+                        STATUS = 0
+                    });
+                return new ApiSuccess<bool>("Xoá tài liệu thành công");
+            }
+            catch (Exception)
+            {
+
+                return new ApiError<bool>("Xoá tài liệu thất bại");
+            }
+        }
+
     }
 }

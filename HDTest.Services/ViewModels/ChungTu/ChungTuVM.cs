@@ -71,6 +71,11 @@ namespace HuceDocs.Services.ViewModels.ChungTu
         public DateTime? TO_DATE { get; set; }
     }
 
+    public class DeleteChungTuRequest
+    {
+         public string STATUS { get; set; }
+    }
+
     public class GIAY_XAC_NHAN_TOEIC_VM
     {
         public GIAY_XAC_NHAN_TOEIC_VM() { }
@@ -93,7 +98,7 @@ namespace HuceDocs.Services.ViewModels.ChungTu
             DIEM_THI = model.DIEM_THI;
             DOT_THI = model.DOT_THI;
             NGAY_XAC_NHAN = model.NGAY_XAC_NHAN;
-            //HUCEDOCS_TYPE = model.OCR_Request.JsonData
+            NDXN = model.NDXN;
 
         }
         public int Id { get; set; }

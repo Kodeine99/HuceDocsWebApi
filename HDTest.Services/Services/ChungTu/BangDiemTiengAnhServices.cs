@@ -145,5 +145,24 @@ namespace HuceDocs.Services.Services.ChungTu
 
             return new ApiSuccess<BANG_DIEM_TIENG_ANH_VM> { Result = BangDiemTiengAnh };
         }
+
+        public ApiResult<bool> Delete(int docId)
+        {
+            try
+            {
+                work.BBANG_DIEM_TIENG_ANHRepository.Entities
+                    .Where(o => o.Id == docId)
+                    .Update(o => new BANG_DIEM_TIENG_ANH
+                    {
+                        STATUS = 0
+                    });
+                return new ApiSuccess<bool>("Xoá tài liệu thành công");
+            }
+            catch (Exception)
+            {
+
+                return new ApiError<bool>("Xoá tài liệu thất bại");
+            }
+        }
     }
 }

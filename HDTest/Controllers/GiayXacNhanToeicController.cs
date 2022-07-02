@@ -84,5 +84,21 @@ namespace HuceDocsWebApi.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpPost("delete/{docId}")]
+        public IActionResult Delete(int docId)
+        {
+            var userId = _utility.GetUserId(HttpContext);
+            if (userId < 0)
+            {
+                return Unauthorized();
+            }
+            var result = _giayXacNhanToeicService.Delete(docId);
+            if (result.IsOk == true)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }

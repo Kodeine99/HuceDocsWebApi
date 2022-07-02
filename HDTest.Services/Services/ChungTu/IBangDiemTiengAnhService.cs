@@ -18,6 +18,8 @@ namespace HuceDocs.Services.Services.ChungTu
         ApiResult<List<BANG_DIEM_TIENG_ANH_VM>> AdminGetAll(BANG_DIEM_TIENG_ANH_Filter filter);
 
         ApiResult<BANG_DIEM_TIENG_ANH_VM> GetById (int id);
-        
+        ApiResult<bool> Delete(int docId);
+
+
     }
 }

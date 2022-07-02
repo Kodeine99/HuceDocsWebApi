@@ -16,5 +16,7 @@ namespace HuceDocs.Services.Services.ChungTu
         ApiResult<List<THE_SINH_VIEN_VM>> AdminGetAll(ChungTuBaseFilter filter);
 
         ApiResult<THE_SINH_VIEN_VM> GetById(int id);
+
+        ApiResult<bool> Delete(int docId);
     }
 }

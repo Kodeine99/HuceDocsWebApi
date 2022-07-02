@@ -141,5 +141,24 @@ namespace HuceDocs.Services.Services.ChungTu
 
             return new ApiSuccess<THE_SINH_VIEN_VM> { Result = TheSinhVien };
         }
+
+        public ApiResult<bool> Delete(int docId)
+        {
+            try
+            {
+                work.TTHE_SINH_VIENRepository.Entities
+                    .Where(o => o.Id == docId)
+                    .Update(o => new THE_SINH_VIEN
+                    {
+                        STATUS = 0
+                    });
+                return new ApiSuccess<bool>("Xoá tài liệu thành công");
+            }
+            catch (Exception)
+            {
+
+                return new ApiError<bool>("Xoá tài liệu thất bại");
+            }
+        }
     }
 }

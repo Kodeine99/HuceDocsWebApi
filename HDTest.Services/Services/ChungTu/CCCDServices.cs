@@ -143,5 +143,24 @@ namespace HuceDocs.Services.Services.ChungTu
 
             return new ApiSuccess<CCCD_VM> { Result = GiayXacNhanToeic };
         }
+
+        public ApiResult<bool> Delete(int docId)
+        {
+            try
+            {
+                work.CCCCDRepository.Entities
+                    .Where(o => o.Id == docId)
+                    .Update(o => new CCCD
+                    {
+                        STATUS = 0
+                    });
+                return new ApiSuccess<bool>("Xoá tài liệu thành công");
+            }
+            catch (Exception)
+            {
+
+                return new ApiError<bool>("Xoá tài liệu thất bại");
+            }
+        }
     }
 }

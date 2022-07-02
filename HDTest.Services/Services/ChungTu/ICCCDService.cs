@@ -17,5 +17,8 @@ namespace HuceDocs.Services.Services.ChungTu
 
         ApiResult<CCCD_VM> GetById(int id);
 
+        ApiResult<bool> Delete(int docId);
+
+
     }
 }

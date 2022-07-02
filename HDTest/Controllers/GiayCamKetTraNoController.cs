@@ -83,5 +83,21 @@ namespace HuceDocsWebApi.Controllers
             }
             return BadRequest("Cập nhật thất bại");
         }
+        [HttpPost("delete/{docId}")]
+        public IActionResult Delete(int docId)
+        {
+            var userId = _utility.GetUserId(HttpContext);
+            if (userId < 0)
+            {
+                return Unauthorized();
+            }
+            var result = _giayCamKetTraNoService.Delete(docId);
+            if (result.IsOk == true)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
     }
 }
