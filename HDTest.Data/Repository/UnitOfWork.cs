@@ -27,6 +27,7 @@ namespace HuceDocs.Data.Repository
         private IRepository<BANG_DIEM> BANG_DIEMRepository;
         private IRepository<CCCD> CCCDRepository;
         private IRepository<THE_SINH_VIEN> THE_SINH_VIENRepository;
+        private IRepository<DON_XIN_NHAP_HOC> DON_XIN_NHAP_HOCRepository;
 
 
         public HuceDocsContext DbContext => dbContext;
@@ -47,6 +48,7 @@ namespace HuceDocs.Data.Repository
         public IRepository<BANG_DIEM> BBANG_DIEMRepository => BANG_DIEMRepository ?? (BANG_DIEMRepository = new Repository<BANG_DIEM>(DbContext));
         public IRepository<CCCD> CCCCDRepository => CCCDRepository ?? (CCCDRepository = new Repository<CCCD>(DbContext));
         public IRepository<THE_SINH_VIEN> TTHE_SINH_VIENRepository => THE_SINH_VIENRepository ?? (THE_SINH_VIENRepository = new Repository<THE_SINH_VIEN>(DbContext));
+        public IRepository<DON_XIN_NHAP_HOC> DDON_XIN_NHAP_HOCRepository => DON_XIN_NHAP_HOCRepository ?? (DON_XIN_NHAP_HOCRepository = new Repository<DON_XIN_NHAP_HOC>(DbContext));
 
 
         public UnitOfWork()

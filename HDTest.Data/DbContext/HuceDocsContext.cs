@@ -32,6 +32,7 @@ namespace HuceDocs.Data.DbContext
             builder.ApplyConfiguration(new BANG_DIEMConfiguration());
             builder.ApplyConfiguration(new CCCDConfiguration());
             builder.ApplyConfiguration(new THE_SINH_VIENConfiguration());
+            builder.ApplyConfiguration(new DON_XIN_NHAP_HOCConfiguration());
             builder.ApplyConfiguration(new VerifyConfiguration());
             
             // add identity

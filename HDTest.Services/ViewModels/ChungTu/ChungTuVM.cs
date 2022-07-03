@@ -344,4 +344,48 @@ namespace HuceDocs.Services.ViewModels.ChungTu
         public string CM_THUOC_DIEN { get; set; }
         public string CM_THUOC_DOI_TUONG { get; set; }
     }
+
+    public class DON_XIN_NHAP_HOC_VM
+    {
+        public DON_XIN_NHAP_HOC_VM() { }
+
+        public DON_XIN_NHAP_HOC_VM(DON_XIN_NHAP_HOC model)
+        {
+            Id = model.Id;
+            TICKET_ID = model.TICKET_ID;
+            USER_CREATE = model.USER_CREATE;
+            CREATE_DATE = model.CREATE_DATE;
+            UPDATE_DATE = model.UPDATE_DATE;
+            STATUS = model.STATUS;
+            HUCEDOCS_TYPE = model.HUCEDOCS_TYPE;
+
+            NGUOI_LAP_DON = model.NGUOI_LAP_DON;
+            NGAY_SINH = model.NGAY_SINH;
+            MSSV = model.MSSV;
+            LOP = model.LOP;
+            KHOA = model.KHOA;
+            NHAP_HOC_TU_KY = model.NHAP_HOC_TU_KY;
+            SO_GIAY_PHEP = model.SO_GIAY_PHEP;
+            NGAY_NGHI_THEO_GIAY_PHEP = model.NGAY_NGHI_THEO_GIAY_PHEP;
+            NGAY_KY = model.NGAY_KY;
+        }
+
+        public int Id { get; set; }
+        public string TICKET_ID { get; set; }
+        public string HUCEDOCS_TYPE { get; set; }
+        public string USER_CREATE { get; set; }
+        public DateTime CREATE_DATE { get; set; }
+        public DateTime UPDATE_DATE { get; set; }
+        public int STATUS { get; set; }
+
+        public string NGUOI_LAP_DON { get; set; }
+        public string NGAY_SINH { get; set; }
+        public string MSSV { get; set; }
+        public string KHOA { get; set; }
+        public string LOP { get; set; }
+        public string NHAP_HOC_TU_KY { get; set; }
+        public string SO_GIAY_PHEP { get; set; }
+        public string NGAY_NGHI_THEO_GIAY_PHEP { get; set; }
+        public string NGAY_KY { get; set; }
+    }
 }

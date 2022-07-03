@@ -421,6 +421,7 @@ namespace HuceDocs.Services
                 case EcmType.GiayXacNhanToeic: return BatchType.GiayXacNhanToeic;
                 case EcmType.BangDiem: return BatchType.BangDiem;
                 case EcmType.GiayXacNhanVayVon: return BatchType.GiayXacNhanVayVon;
+                case EcmType.DonXinNhapHoc: return BatchType.DonXinNhapHoc;
 
                 default:
                     return "HuceDocs";

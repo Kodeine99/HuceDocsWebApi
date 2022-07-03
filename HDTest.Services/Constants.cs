@@ -23,6 +23,7 @@ namespace HuceDocs.Services
         public const string BangDiem = "BANG_DIEM";
         public const string GiayXacNhanToeic = "GIAY_XAC_NHAN_TOEIC";
         public const string GiayXacNhanVayVon = "GIAY_XAC_NHAN_VAY_VON";
+        public const string DonXinNhapHoc = "DON_XIN_NHAP_HOC";
 
 
     }
@@ -37,6 +38,7 @@ namespace HuceDocs.Services
         public const string BangDiemTiengAnh = "BangDiemTiengAnh";
         public const string BangDiem = "BangDiem";
         public const string GiayXacNhanVayVon = "GiayXacNhanVayVon";
+        public const string DonXinNhapHoc = "DonXinNhapHoc";
 
     }
 

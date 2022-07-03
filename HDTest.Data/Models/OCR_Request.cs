@@ -30,6 +30,7 @@ namespace HuceDocs.Data.Models
         public ICollection<BANG_DIEM> BANG_DIEMs { get; set; }
         public ICollection<CCCD> CCCDs { get; set; }
         public ICollection<THE_SINH_VIEN> THE_SINH_VIENs { get; set; }
+        public ICollection<DON_XIN_NHAP_HOC> DON_XIN_NHAP_HOCs { get; set; }
 
     }
 }

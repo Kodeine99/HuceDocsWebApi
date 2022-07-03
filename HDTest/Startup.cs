@@ -93,6 +93,7 @@ namespace HuceDocs
             services.AddTransient<ICCCDService, CCCDServices>();
             services.AddTransient<ITheSinhVienService, TheSinhVienServices>();
             services.AddTransient<IGiayXacNhanVayVonService, GiayXacNhanVayVonServices>();
+            services.AddTransient<IDonXinNhapHocService, DonXinNhapHocServices>();
 
 
 
